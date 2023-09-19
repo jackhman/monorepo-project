@@ -9,10 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "vant": "^4.6.8",
     "vue": "^3.3.4"
   },
   "devDependencies": {
+    "@vant/auto-import-resolver": "^1.0.1",
     "@vitejs/plugin-vue": "^4.2.3",
+    "postcss-px-to-viewport-8-plugin": "^1.2.2",
+    "unplugin-vue-components": "^0.25.2",
     "vite": "^4.4.5"
   }
 }
