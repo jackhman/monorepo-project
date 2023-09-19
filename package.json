@@ -16,6 +16,7 @@
     "@vant/auto-import-resolver": "^1.0.1",
     "@vitejs/plugin-vue": "^4.2.3",
     "postcss-px-to-viewport-8-plugin": "^1.2.2",
+    "sass": "^1.67.0",
     "unplugin-vue-components": "^0.25.2",
     "vite": "^4.4.5"
   }
