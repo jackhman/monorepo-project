@@ -25,6 +25,9 @@ devDependencies:
   chalk:
     specifier: ^5.3.0
     version: registry.npmmirror.com/chalk@5.3.0
+  child_process:
+    specifier: ^1.0.2
+    version: registry.npmmirror.com/child_process@1.0.2
   postcss-px-to-viewport-8-plugin:
     specifier: ^1.2.2
     version: registry.npmmirror.com/postcss-px-to-viewport-8-plugin@1.2.2
@@ -563,6 +566,12 @@ packages:
     name: chalk
     version: 5.3.0
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+    dev: true
+
+  registry.npmmirror.com/child_process@1.0.2:
+    resolution: {integrity: sha512-Wmza/JzL0SiWz7kl6MhIKT5ceIlnFPJX+lwUGj7Clhy5MMldsSoJR0+uvRzOS5Kv45Mq7t1PoE8TsOA9bzvb6g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/child_process/-/child_process-1.0.2.tgz}
+    name: child_process
+    version: 1.0.2
     dev: true
 
   registry.npmmirror.com/chokidar@3.5.3:
