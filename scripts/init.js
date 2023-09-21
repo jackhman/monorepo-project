@@ -16,6 +16,10 @@ for (let index = 0; index < leng; index++) {
     console.log(chalk.yellow("依赖安装完成!!!!"))
     break
   } catch (error) {
-    break
+    console.log(chalk.red(`${element}可能有问题, 开始使用其他包管理器`))
+    if (index === leng - 1) {
+      // 说明所有包管理器都有问题
+      console.log(chalk.red(`${moduleUitls.join(",")}可能都有问题`))
+    }
   }
 }
