@@ -12,6 +12,9 @@ export default defineConfig({
       "@": "src"
     }
   },
+  server: {
+    port: 2345
+  },
   plugins: [
     vue(),
     Components({
