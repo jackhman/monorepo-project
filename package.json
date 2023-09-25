@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "node scripts/init.js",
-    "dev": "node scripts/dev.js"
+    "dev:vite": "pnpm -C vite-web dev",
+    "dev:nest": "pnpm -C nest-server start:dev"
+  },
+  "dependencies": {
   },
   "devDependencies": {
-    "pm2": "^5.3.0"
   }
 }
