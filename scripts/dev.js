@@ -4,34 +4,26 @@ import path from "path"
 const moduleUitls = ["pnpm", "yarn", "npm"]
 const leng = moduleUitls.length
 
-// console.log(path.join("/","package.json"))
-
-try {
-  console.log("安装最外层的依赖。。。")
-  spawnSync(`pnpm`, ["install"], {
-    cwd: ".",
-    stdio: "inherit"
-  })
-  console.log("安装最外层的依赖完成。。。")
-} catch (error) {
-  console.log("安装最外层的依赖报错了：", error)
-}
-
 for (let index = 0; index < leng; index++) {
   const element = moduleUitls[index]
   try {
     const getOutPut = execSync(`${element} -v`)
     console.log(`${element} 的版本是: `, `${getOutPut}`)
-    console.log("开始安装依赖: ")
+    console.log("运行项目中.... ")
     const projects = fs
       .readdirSync(".")
       .filter(name => fs.existsSync(path.join(name, "package.json")))
     projects.forEach(project => {
-      spawnSync(`${element}`, ["install"], {
-        cwd: project,
-        stdio: 'inherit'
-      })
-      console.log(`${project} 依赖安装完成!!!!`)
+      if (fs.existsSync(`${project}/vite.config.js`)) {
+        // Vite 项目
+        spawnSync("pm2", ["dev"], {
+          cwd: project,
+          stdio: "inherit"
+        })
+      } else {
+        // Node.js 项目
+        spawnSync("pm2", ["start:dev"], { cwd: project, stdio: "inherit" })
+      }
     })
     break
   } catch (error) {
