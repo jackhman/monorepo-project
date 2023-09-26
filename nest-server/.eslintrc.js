@@ -7,10 +7,11 @@ module.exports = {
     parser: "@typescript-eslint/parser",
     ecmaVersion: 2020
   },
-  plugins: ["@typescript-eslint/eslint-plugin"],
-  extends: [
-    "plugin:@typescript-eslint/recommended"
+  plugins: [
+    "@babel/plugin-proposal-decorators",
+    "@typescript-eslint/eslint-plugin"
   ],
+  extends: ["plugin:@typescript-eslint/recommended"],
   root: true,
   env: {
     node: true,
