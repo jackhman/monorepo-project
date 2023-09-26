@@ -1,22 +1,10 @@
 module.exports = {
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    project: "tsconfig.json",
-    tsconfigRootDir: __dirname,
-    sourceType: "module",
-    parser: "@typescript-eslint/parser",
-    ecmaVersion: 2020
-  },
-  plugins: ["@typescript-eslint/eslint-plugin"],
-  extends: [
-    "plugin:@typescript-eslint/recommended"
-  ],
   root: true,
   env: {
-    node: true,
-    jest: true
+    node: true
   },
-  ignorePatterns: [".eslintrc.js"],
+  extends: ["plugin:vue/vue3-essential"],
+  plugins: ["vue", "@typescript-eslint"],
   rules: {
     "no-console": "off",
     "no-await-in-loop": "warn",
@@ -40,7 +28,24 @@ module.exports = {
     "spaced-comment": ["error", "always"],
     "space-in-parens": ["error", "never"],
     "no-trailing-spaces": "error",
+    "vue/html-end-tags": "error",
+    "vue/html-quotes": "error",
+    "vue/mustache-interpolation-spacing": "error",
+    "vue/name-property-casing": "error",
+    "vue/no-multi-spaces": "error",
+    "vue/no-spaces-around-equal-signs-in-attribute": "error",
+    "vue/no-template-shadow": "error",
+    "vue/prop-name-casing": "error",
+    "vue/require-prop-types": "error",
+    "vue/this-in-template": "error",
+    "vue/comma-dangle": "warn",
+    "vue/require-name-property": "error",
+    "vue/html-closing-bracket-spacing": "error",
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-explicit-any": "off"
+  },
+  parserOptions: {
+    parser: "@typescript-eslint/parser",
+    ecmaVersion: 2020
   }
 }
