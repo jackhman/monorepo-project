@@ -6,6 +6,8 @@
 
 
 <script setup lang="ts">
+import { ResultCodeEnum } from "../../typescript/shared/enum"
+console.log(ResultCodeEnum.SUCCESS)
 </script>
 
 <style scoped>

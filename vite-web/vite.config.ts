@@ -9,7 +9,8 @@ import { VantResolver } from "@vant/auto-import-resolver"
 export default defineConfig({
   resolve: {
     alias: {
-      "@": "src"
+      "@": "src",
+      "@ts": "../typescript/"
     }
   },
   server: {
