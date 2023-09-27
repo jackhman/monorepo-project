@@ -1,5 +1,6 @@
 const path = require("path")
 const webpack = require("webpack")
+const CopyPlugin = require("copy-webpack-plugin")
 module.exports = {
   entry: "./src/main.ts",
   watch: true,
@@ -7,7 +8,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.ts?$/,
         use: "ts-loader",
         exclude: /node_modules/
       }
@@ -17,9 +18,19 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"]
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "../shared"),
+          to: "shared"
+        }
+      ]
+    })
+  ],
   output: {
     path: path.join(__dirname, "dist"),
-    filename: "server.js"
+    filename: "main.js"
   }
 }
