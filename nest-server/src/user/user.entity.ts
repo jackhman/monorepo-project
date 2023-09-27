@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
-import { UserRolesEnum, UserRolesTextEnum } from "../../../shared/enum/user-enum/user-roles.enum"
+import { UserRolesEnum, UserRolesTextEnum } from "@shared/enum/user-enum/user-roles.enum"
 // export enum UserRolesEnum {
 //   /** 1 超级管理员 */
 //   superAdmin = "1",
