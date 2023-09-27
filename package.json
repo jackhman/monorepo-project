@@ -6,5 +6,8 @@
   "scripts": {
     "dev:vite": "pnpm -C vite-web dev",
     "dev:nest": "pnpm -C nest-server start:dev"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.10"
   }
 }
