@@ -6,7 +6,7 @@
 
 
 <script setup lang="ts">
-import { ResultCodeEnum } from "../../typescript/shared/enum"
+import { ResultCodeEnum } from "@shared/enum"
 console.log(ResultCodeEnum.SUCCESS)
 </script>
 
