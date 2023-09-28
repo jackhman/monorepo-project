@@ -9,6 +9,4 @@ export class CustomNamingStrategy extends DefaultNamingStrategy {
   columnName(propertyName: string): string {
     return propertyName.replace(/([A-Z])/g, "_$1").toLowerCase()
   }
-
-  // ...其他方法
 }

@@ -10,4 +10,9 @@ export class UserController {
   register(@Body() registerUserDto: RegisterUserDto): Promise<User> {
     return this.userService.register(registerUserDto)
   }
+
+  @Post("login")
+  login(@Body() registerUserDto: RegisterUserDto): Promise<User> {
+    return this.userService.register(registerUserDto)
+  }
 }

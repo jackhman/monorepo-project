@@ -5,7 +5,6 @@ const CopyPlugin = require("copy-webpack-plugin")
 const sharedDirPath = path.resolve(__dirname, "../shared")
 module.exports = {
   entry: "./src/main.ts",
-  watch: true,
   target: "node",
   module: {
     rules: [
@@ -16,12 +15,18 @@ module.exports = {
       }
     ]
   },
-  mode: "development",
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
     alias: {
       "@shared": sharedDirPath
     }
+  },
+  devServer: {
+    hotOnly: true
+  },
+  optimization: {
+    minimize: true,
+    concatenateModules: true
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
