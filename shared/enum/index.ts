@@ -5,7 +5,7 @@ export enum ResultCodeEnum {
   /** 成功 */
   SUCCESS = 0,
   /** token 不合法 */
-  invalidToken = 50001,
+  invalidToken = 50001
 }
 
 /** 2. 请求的方式 */

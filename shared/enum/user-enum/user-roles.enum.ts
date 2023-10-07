@@ -14,3 +14,16 @@ export enum UserRolesTextEnum {
   admin = "管理员",
   user = "普通用户"
 }
+
+
+/** 用户是否被删除 */
+export enum UserIsDeletedEnum {
+  noDelete = 0,
+  isDelete = 1
+}
+
+/** 用户是否被删除中文字段 */
+export enum UserIsDeletedTextEnum {
+  noDelete = "未删除",
+  isDelete = "删除"
+}

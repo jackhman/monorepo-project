@@ -1,6 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
-import { UserRolesEnum, UserRolesTextEnum } from "@shared/enum/user-enum/user-roles.enum"
-@Entity()
+import {
+  UserRolesEnum,
+  UserRolesTextEnum,
+  UserIsDeletedEnum
+} from "@shared/enum/user-enum/user-roles.enum"
+@Entity("User")
 export class User {
   @PrimaryGeneratedColumn("uuid")
   id: string
@@ -9,25 +13,28 @@ export class User {
   userName: string
 
   // 密码
-  @Column({
-    default: "88888"
-  })
-  password: string;
+  @Column()
+  password: string
 
   // 角色权限
-  @Column(
-    {
-      default: UserRolesEnum.user
-    }
-  )
-  roleId: UserRolesEnum;
+  @Column({
+    default: UserRolesEnum.user,
+    comment: "角色权限"
+  })
+  roleId: UserRolesEnum
 
   // 权限中文名
-  @Column(
-    {
-      default: UserRolesTextEnum.user
-    }
-  )
-  roleName: string;
+  @Column({
+    default: UserRolesTextEnum.user,
+    comment: "权限中文名"
+  })
+  roleName: string
 
+  // 是否删除
+  @Column({
+    default: UserIsDeletedEnum.noDelete,
+    select: false,
+    comment: "是否删除"
+  })
+  isDelete: UserIsDeletedEnum
 }
