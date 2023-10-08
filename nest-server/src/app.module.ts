@@ -4,14 +4,9 @@ import { CustomNamingStrategy } from "./utils"
 import { UserModule } from "./user/user.module"
 import { APP_FILTER } from "@nestjs/core"
 import { BizExceptionFilter } from "./utils/exceptionHandler/biz-exception.filter"
+import { AuthModule } from "./auth/auth.module"
 
 @Module({
-  providers: [
-    {
-      provide: APP_FILTER,
-      useClass: BizExceptionFilter,
-    }
-  ],
   imports: [
     TypeOrmModule.forRoot({
       type: "mysql",
@@ -23,9 +18,15 @@ import { BizExceptionFilter } from "./utils/exceptionHandler/biz-exception.filte
       database: "server-mysql",
       autoLoadEntities: true,
       synchronize: true,
-      namingStrategy: new CustomNamingStrategy(), // 启用驼峰命名
+      namingStrategy: new CustomNamingStrategy() // 启用驼峰命名
     }),
-    UserModule,
+    UserModule
+  ],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: BizExceptionFilter
+    }
   ]
 })
 export class AppModule {}

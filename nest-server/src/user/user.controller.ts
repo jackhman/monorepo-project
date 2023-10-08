@@ -19,16 +19,12 @@ export class UserController {
   @Post("register")
   register(@Body() registerUserDto: RegisterUserDto): R {
     this.userService.register(registerUserDto)
-    return R.success()
+    return R.success().setMsg(ResultMsg.REGISTER_SUCCESS)
   }
 
   @Post("login")
   async login(@Body() loginUserDto: LoginUserDto): Promise<R> {
-    const result = await this.userService.login(loginUserDto)
-    if (result.length === 0) {
-      throw new BizException(ResultCode.ERROR, ResultMsg.LOGIN_FAIL)
-    } else {
-      return R.success().setMsg("登录成功")
-    }
+    await this.userService.login(loginUserDto)
+    return R.success().setMsg(ResultMsg.LOGIN_SUCCESS)
   }
 }

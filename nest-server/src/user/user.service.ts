@@ -4,7 +4,9 @@ import { InjectRepository } from "@nestjs/typeorm"
 import { RegisterUserDto } from "./dto/register-user.dto"
 import { User } from "./user.entity"
 import { LoginUserDto } from "./dto/login-user.dto"
-
+import { BizException } from "../utils/exceptionHandler/biz-exception.filter"
+import { ResultCode, ResultMsg } from "@shared/enum/result-num"
+import { FindUserDto } from "./dto/find-user.dto"
 @Injectable()
 export class UserService {
   constructor(
@@ -20,13 +22,33 @@ export class UserService {
   }
 
   /** 登录 */
-  login(loginUserDto: LoginUserDto) {
-    const result = this.usersRepository.find({
+  async login(loginUserDto: LoginUserDto){
+    const userNameRes = await this.usersRepository.findOne({
+      where: {
+        userName: loginUserDto.userName
+      }
+    })
+    if (!userNameRes) {
+      throw new BizException(ResultCode.ERROR, ResultMsg.USERNAME_IS_NOT)
+    }
+
+    const userRes = await this.usersRepository.findOne({
       where: {
         userName: loginUserDto.userName,
         password: loginUserDto.password
       }
     })
-    return result
+    if (!userNameRes) {
+      throw new BizException(ResultCode.ERROR, ResultMsg.LOGIN_FAIL)
+    }
+  }
+
+  /** 查找指定用户 */
+  async findOne(findUserDto: FindUserDto): Promise<User> {
+    return this.usersRepository.findOne({
+      where: {
+        userName: findUserDto.userName
+      }
+    });
   }
 }
