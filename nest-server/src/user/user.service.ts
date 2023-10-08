@@ -14,15 +14,23 @@ export class UserService {
     private readonly usersRepository: Repository<User>
   ) {}
   /** 注册用户 */
-  register(registerUserDto: RegisterUserDto): Promise<User> {
+  async register(registerUserDto: RegisterUserDto) {
     const user = new User()
     user.userName = registerUserDto.userName
     user.password = registerUserDto.password
+    const userNameRes = await this.usersRepository.findOne({
+      where: {
+        userName: registerUserDto.userName
+      }
+    })
+    if (userNameRes) {
+      throw new BizException(ResultCode.ERROR, ResultMsg.USERNAME_IS)
+    }
     return this.usersRepository.save(user)
   }
 
   /** 登录 */
-  async login(loginUserDto: LoginUserDto){
+  async login(loginUserDto: LoginUserDto) {
     const userNameRes = await this.usersRepository.findOne({
       where: {
         userName: loginUserDto.userName
@@ -38,7 +46,7 @@ export class UserService {
         password: loginUserDto.password
       }
     })
-    if (!userNameRes) {
+    if (!userRes) {
       throw new BizException(ResultCode.ERROR, ResultMsg.LOGIN_FAIL)
     }
   }
@@ -49,6 +57,6 @@ export class UserService {
       where: {
         userName: findUserDto.userName
       }
-    });
+    })
   }
 }
