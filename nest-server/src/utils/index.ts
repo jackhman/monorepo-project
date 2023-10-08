@@ -3,9 +3,9 @@ import { DefaultNamingStrategy } from "typeorm"
 /** 自定义数据库字段 */
 export class CustomNamingStrategy extends DefaultNamingStrategy {
   tableName(targetName: string, userSpecifiedName: string): string {
-    console.log(targetName)
-    let getTableName = userSpecifiedName
+    let getTableName = targetName
     getTableName = getTableName.replace(/\w{1}/, getTableName[0].toLowerCase())
+    getTableName = getTableName.replace(/([A-Z])/g, "_$1").toLowerCase()
     return getTableName
   }
   columnName(propertyName: string): string {

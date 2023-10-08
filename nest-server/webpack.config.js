@@ -26,7 +26,6 @@ module.exports = {
     hotOnly: true
   },
   optimization: {
-    minimize: true,
     concatenateModules: true
   },
   plugins: [
