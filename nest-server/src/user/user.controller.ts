@@ -11,7 +11,7 @@ import { RegisterUserDto } from "./dto/register-user.dto"
 import { LoginUserDto } from "./dto/login-user.dto"
 import { R } from "../utils/R/R"
 import { ResultCode, ResultMsg } from "@shared/enum/result-num"
-import { BizException } from "../utils/exceptionHandler/biz.exception"
+import { BizException } from "../utils/exceptionHandler/biz-exception.filter"
 @Controller("user")
 export class UserController {
   constructor(private readonly userService: UserService) {}

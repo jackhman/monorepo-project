@@ -3,13 +3,13 @@ import { TypeOrmModule } from "@nestjs/typeorm"
 import { CustomNamingStrategy } from "./utils"
 import { UserModule } from "./user/user.module"
 import { APP_FILTER } from "@nestjs/core"
-import { BizErrorsException } from "./utils/exceptionHandler/biz.exception"
+import { BizExceptionFilter } from "./utils/exceptionHandler/biz-exception.filter"
 
 @Module({
   providers: [
     {
       provide: APP_FILTER,
-      useClass: BizErrorsException,
+      useClass: BizExceptionFilter,
     }
   ],
   imports: [
