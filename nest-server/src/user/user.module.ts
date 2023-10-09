@@ -3,6 +3,7 @@ import { UserController } from "./user.controller"
 import { UserService } from "./user.service"
 import { TypeOrmModule } from "@nestjs/typeorm"
 import { User } from "./user.entity"
+import { AuthModule } from "../auth/auth.module"
 @Module({
   /**
    * TypeOrmModule.forFeature([User]) 这段代码的作用是在当前的Module中注册 User 实体。
@@ -10,7 +11,7 @@ import { User } from "./user.entity"
     1. 将User实体与当前Module关联,可以通过依赖注入使用
     2. 会在当前Module初始化数据库连接时,自动将User实体加入映射
    */
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [TypeOrmModule.forFeature([User]), AuthModule],
   controllers: [UserController],
   providers: [UserService],
   exports: [UserService]

@@ -5,11 +5,9 @@ import { PassportModule } from "@nestjs/passport"
 import { JwtModule } from "@nestjs/jwt"
 import { jwtConstants } from "./constants"
 import { JwtStrategy } from "./jwt.strategy"
-import { LocalStrategy } from "./local.strategy"
 
 @Module({
   imports: [
-    UserModule,
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,

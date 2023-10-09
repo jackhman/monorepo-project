@@ -23,7 +23,7 @@ export class UserController {
   @Public()
   @Post("login")
   async login(@Body() loginUserDto: LoginUserDto){
-    await this.userService.login(loginUserDto)
-    return R.success().setMsg(ResultMsg.LOGIN_SUCCESS)
+    const getUserInfo = await this.userService.login(loginUserDto)
+    return R.success().setMsg(ResultMsg.LOGIN_SUCCESS).setData(getUserInfo)
   }
 }

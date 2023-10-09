@@ -6,12 +6,15 @@ import { User } from "./user.entity"
 import { LoginUserDto } from "./dto/login-user.dto"
 import { BizException } from "../utils/exceptionHandler/biz-exception.filter"
 import { ResultCode, ResultMsg } from "@shared/enum/result-num"
+import { IUserBaseInfo } from "@shared/interface/user-interface"
 import { FindUserDto } from "./dto/find-user.dto"
+import { AuthService } from "../auth/auth.service"
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
-    private readonly usersRepository: Repository<User>
+    private readonly usersRepository: Repository<User>,
+    private readonly authService: AuthService
   ) {}
   /** 注册用户 */
   async register(registerUserDto: RegisterUserDto) {
@@ -49,6 +52,15 @@ export class UserService {
     if (!userRes) {
       throw new BizException(ResultCode.ERROR, ResultMsg.LOGIN_FAIL)
     }
+
+    const jwtRes = await this.authService.login({
+      userName: loginUserDto.userName
+    })
+
+    const userInfo: IUserBaseInfo = userRes
+    userInfo.token = jwtRes.token
+    console.log(userInfo)
+    return userInfo
   }
 
   /** 查找指定用户 */
