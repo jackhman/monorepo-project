@@ -13,7 +13,9 @@ export class User {
   userName: string
 
   // 密码
-  @Column()
+  @Column({
+    select: false
+  })
   password: string
 
   // 角色权限

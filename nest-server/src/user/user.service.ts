@@ -59,16 +59,21 @@ export class UserService {
 
     const userInfo: IUserBaseInfo = userRes
     userInfo.token = jwtRes.token
-    console.log(userInfo)
     return userInfo
   }
 
-  /** 查找指定用户 */
-  async findOne(findUserDto: FindUserDto): Promise<User> {
-    return this.usersRepository.findOne({
+  /** 通过用户id查询用户数据 */
+  async getUserById(id:string){
+    const res: IUserBaseInfo = await this.usersRepository.findOne({
       where: {
-        userName: findUserDto.userName
+        id
       }
     })
+    if(!res) {
+      throw new BizException(ResultCode.ERROR, ResultMsg.USERNAME_IS_ID)
+    }
+    res.token = this.authService.getToken()
+    console.log(res)
+    return res
   }
 }
