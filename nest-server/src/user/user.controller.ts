@@ -15,15 +15,15 @@ export class UserController {
 
   @Public()
   @Post("register")
-  register(@Body() registerUserDto: RegisterUserDto){
-    this.userService.register(registerUserDto)
-    // return R.success().setMsg(ResultMsg.REGISTER_SUCCESS)
+  async register(@Body() registerUserDto: RegisterUserDto){
+    await this.userService.register(registerUserDto)
+    return R.success().setMsg(ResultMsg.REGISTER_SUCCESS)
   }
 
   @Public()
   @Post("login")
-  login(@Body() loginUserDto: LoginUserDto): R {
-    this.userService.login(loginUserDto)
+  async login(@Body() loginUserDto: LoginUserDto){
+    await this.userService.login(loginUserDto)
     return R.success().setMsg(ResultMsg.LOGIN_SUCCESS)
   }
 }

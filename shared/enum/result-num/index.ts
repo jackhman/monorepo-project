@@ -31,7 +31,7 @@ export enum ResultCode {
 export enum ResultMsg {
   LOGIN_SUCCESS = "登录成功",
 
-  LOGIN_FAIL = "登录失败",
+  LOGIN_FAIL = "登录失败, 用户名或者密码不正确",
 
   USERNAME_IS_NOT = "登录的用户名不存在",
 
