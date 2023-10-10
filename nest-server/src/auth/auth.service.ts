@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common"
-import { FindUserDto } from "../user/dto/find-user.dto"
+import { FindUserDto } from "@shared/dto/user/user.dto"
 import { JwtService } from "@nestjs/jwt"
 
 @Injectable()

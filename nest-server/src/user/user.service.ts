@@ -1,14 +1,15 @@
 import { Injectable } from "@nestjs/common"
 import { Repository } from "typeorm"
 import { InjectRepository } from "@nestjs/typeorm"
-import { RegisterUserDto } from "./dto/register-user.dto"
 import { User } from "./user.entity"
-import { LoginUserDto } from "./dto/login-user.dto"
 import { BizException } from "../utils/exceptionHandler/biz-exception.filter"
 import { ResultCode, ResultMsg } from "@shared/enum/result-num"
-import { IUserBaseInfo } from "@shared/interface/user-interface"
-import { FindUserDto } from "./dto/find-user.dto"
 import { AuthService } from "../auth/auth.service"
+import {
+  LoginUserDto,
+  RegisterUserDto,
+  UserInfoDto
+} from "@shared/dto/user/user.dto"
 @Injectable()
 export class UserService {
   constructor(
@@ -57,19 +58,19 @@ export class UserService {
       userName: loginUserDto.userName
     })
 
-    const userInfo: IUserBaseInfo = userRes
+    const userInfo: UserInfoDto = userRes
     userInfo.token = jwtRes.token
     return userInfo
   }
 
   /** 通过用户id查询用户数据 */
-  async getUserById(id:string){
-    const res: IUserBaseInfo = await this.usersRepository.findOne({
+  async getUserById(id: string) {
+    const res: UserInfoDto = await this.usersRepository.findOne({
       where: {
         id
       }
     })
-    if(!res) {
+    if (!res) {
       throw new BizException(ResultCode.ERROR, ResultMsg.USERNAME_IS_ID)
     }
     res.token = this.authService.getToken()

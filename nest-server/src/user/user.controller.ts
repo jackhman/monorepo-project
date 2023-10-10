@@ -6,12 +6,11 @@ import {
   Post,
 } from "@nestjs/common"
 import { UserService } from "./user.service"
-import { RegisterUserDto } from "./dto/register-user.dto"
-import { LoginUserDto } from "./dto/login-user.dto"
+
+import { LoginUserDto, RegisterUserDto } from "@shared/dto/user/user.dto"
 import { R } from "../utils/R/R"
 import { ResultMsg } from "@shared/enum/result-num"
 import { Public } from "../auth/decorators/public.decorator"
-import { FindUserDto } from "./dto/find-user.dto"
 @Controller("user")
 export class UserController {
   constructor(private readonly userService: UserService) {}

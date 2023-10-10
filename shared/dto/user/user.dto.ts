@@ -1,7 +1,23 @@
 import { UserRolesEnum } from "../../enum/user-enum/user-roles.enum"
 
-/** 1. 用户基本信息的接口 */
-export interface IUserBaseInfo {
+export class LoginUserDto {
+  userName: string
+  password: string
+}
+
+export class RegisterUserDto {
+  userName: string
+  password: string
+}
+
+export class FindUserDto {
+  userName?: string
+  id? :string
+}
+
+
+/** 返回给用户基本信息 */
+export class UserInfoDto {
   /** 用户 id */
   id?: string | number
   /** 用户的权限 */

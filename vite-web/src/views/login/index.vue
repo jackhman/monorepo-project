@@ -1,0 +1,152 @@
+<template>
+  <div class="login-form-box">
+    <van-nav-bar :title="isFlag ? '登录' : '注册'" />
+    <div class="logo-box">
+      <img src="@/assets/images/default-logo.png" alt="" srcset="" />
+    </div>
+    <LoginCom v-show="isFlag" @onLoginSubmit="onSubmit" />
+    <RegisterCom
+      v-show="!isFlag"
+      @changeComStatus="isFlag = true"
+      @registerSubmit="registerSubmit"
+    />
+    <!-- 其他操作 -->
+    <div v-show="isFlag" class="login-form-bottom">
+      <div class="forget-pwd">忘记密码</div>
+      <span class="icon">|</span>
+      <div class="register-user" @click="registerUser">注册用户</div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue"
+import { useRouter } from "vue-router"
+import { showToast, NavBar as VanNavBar } from "vant"
+import 'vant/es/toast/style';
+import { useUserStore } from "@/store/user"
+import { loginApi, registerApi } from "@/api/modules/user"
+import { tokenExpired } from "@/utils"
+import { ROUTER_PATH } from "@/router/RouteConst"
+import { setToken, setUserIdStorage } from "@/utils/modules/commonSave"
+import LoginCom from "./components/LoginCom.vue"
+import RegisterCom from "./components/RegisterCom.vue"
+import { ResultCode } from "@shared/enum/result-num"
+import {
+  LoginUserDto,
+  UserInfoDto,
+  RegisterUserDto
+} from "@shared/dto/user/user.dto"
+
+/** 显示登录组件还是注册组件 true 登录组件 false 注册组件 */
+const isFlag = ref<boolean>(true)
+
+const router = useRouter()
+const store = useUserStore()
+
+/** 登录 提交按钮 */
+const onSubmit = async (form: LoginUserDto) => {
+  tokenExpired()
+  showToast({
+    message: "登录中...",
+    duration: 0,
+    type: "loading"
+  })
+  try {
+    const data = await loginApi(form)
+    if (data.code === ResultCode.SUCCESS) {
+      successCallBack("登录成功", data.data)
+    } else {
+      showToast({
+        message: data.msg,
+        type: "fail"
+      })
+    }
+  } catch (error) {
+    showToast({
+      message: `登录失败${error}`,
+      type: "fail"
+    })
+  }
+}
+
+/** 注册用户 */
+const registerSubmit = async (from: RegisterUserDto) => {
+  showToast({
+    message: "注册中...",
+    duration: 0,
+    type: "loading"
+  })
+  try {
+    const data = await registerApi(from)
+    if (data.code === ResultCode.SUCCESS) {
+      successCallBack("注册成功", data.data)
+    } else {
+      showToast({
+        message: data.msg,
+        type: "fail"
+      })
+    }
+  } catch (error) {
+    showToast({
+      message: `登录失败${error}`,
+      type: "fail"
+    })
+  }
+}
+
+/** 注册用户按钮 */
+const registerUser = () => {
+  isFlag.value = false
+}
+
+/** 登录 注册 成功的回调 */
+const successCallBack = (message: string, data: UserInfoDto) => {
+  setToken(data.token)
+  setUserIdStorage(data.id as string)
+  store.getUserInfo(data.id as string)
+  showToast({
+    message,
+    duration: 1000,
+    type: "success",
+    onClose: () => {
+      router.push({
+        path: ROUTER_PATH.HOME
+      })
+    }
+  })
+}
+</script>
+
+<style scoped lang="scss">
+.login-form-box {
+  .logo-box {
+    margin-top: 20vh;
+    text-align: center;
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+  }
+
+  .login-form-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    > div {
+      margin: 0 10px;
+      font-size: 12px;
+    }
+    .icon {
+      color: #f8f8f8;
+    }
+    .forget-pwd {
+      // color: $base-color;
+    }
+    .register-user {
+      // color: $font-color;
+    }
+  }
+}
+</style>
