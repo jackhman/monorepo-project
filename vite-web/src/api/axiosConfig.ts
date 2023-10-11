@@ -1,5 +1,5 @@
 import axios from "axios"
-import { Toast } from "vant"
+import { showNotify } from 'vant';
 import { getToken } from "@/utils/modules/commonSave"
 import { ResultCode } from "@shared/enum/result-num"
 import { ResultModel } from "@shared/model/index"
@@ -33,17 +33,19 @@ axiosConfig.interceptors.response.use(
   response => {
     const { status } = response
     const data: ResultModel<any> = response.data
-    console.log(response, data)
     return new Promise((resolve, reject) => {
       const errorMsg = "请求失败：" + data.msg || "未知错误"
       // 说明是成功的请求
-      if (status === 200) {
+      if (Math.floor(status / 100) === 2) {
         if (data.code === ResultCode.SUCCESS) {
           resolve(response.data)
         }
         // 说明 token 不正确了, 需要清空数据，跳转到登录页面
         else if (data.code === ResultCode.TOKEN_ERROR) {
-          Toast.fail(errorMsg)
+          showNotify({
+            type: "warning",
+            message: errorMsg
+          })
           tokenExpired()
         } else {
           // message.error(errorMsg)

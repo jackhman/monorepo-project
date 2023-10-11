@@ -28,7 +28,7 @@ export class PostStatusInterceptor<T>
     return next.handle().pipe(
       tap(() => {
         if (method === "POST" && response.statusCode === 201) {
-          response.status(200)
+          // response.status(200)
         }
       })
     )

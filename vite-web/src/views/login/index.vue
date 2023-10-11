@@ -22,8 +22,7 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { useRouter } from "vue-router"
-import { showToast } from "vant"
-import "vant/es/toast/style"
+import { showToast, showNotify } from "vant"
 import { useUserStore } from "@/store/user"
 import { loginApi, registerApi } from "@/api/modules/user"
 import { tokenExpired } from "@/utils"
@@ -57,15 +56,15 @@ const onSubmit = async (form: LoginUserDto) => {
     if (data.code === ResultCode.SUCCESS) {
       successCallBack("登录成功", data.data)
     } else {
-      showToast({
+      showNotify({
         message: data.msg,
-        type: "fail"
+        type: "warning"
       })
     }
   } catch (error) {
-    showToast({
+    showNotify({
       message: `登录失败${error}`,
-      type: "fail"
+      type: "warning"
     })
   }
 }
@@ -142,10 +141,10 @@ const successCallBack = (message: string, data: UserInfoDto) => {
       color: #f8f8f8;
     }
     .forget-pwd {
-      // color: $base-color;
+      color: $base-color;
     }
     .register-user {
-      // color: $font-color;
+      color: $font-color;
     }
   }
 }

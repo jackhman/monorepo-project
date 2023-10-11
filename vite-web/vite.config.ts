@@ -16,7 +16,15 @@ export default defineConfig({
     }
   },
   server: {
-    port: 2345
+    port: 2345,
+    host: true
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "@/assets/styles/variables.scss";`
+      }
+    }
   },
   plugins: [
     vue(),
