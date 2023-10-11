@@ -2,10 +2,11 @@ import { Module } from "@nestjs/common"
 import { TypeOrmModule } from "@nestjs/typeorm"
 import { CustomNamingStrategy } from "./utils"
 import { UserModule } from "./user/user.module"
-import { APP_FILTER, APP_GUARD } from "@nestjs/core"
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core"
 import { BizExceptionFilter } from "./utils/exceptionHandler/biz-exception.filter"
 import { AuthModule } from "./auth/auth.module"
 import { JwtAuthGuard } from "./auth/jwt-auth.guard"
+import { PostStatusInterceptor } from "./utils/interceptorHander/post-status.interceptor"
 
 @Module({
   imports: [
@@ -32,6 +33,10 @@ import { JwtAuthGuard } from "./auth/jwt-auth.guard"
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: PostStatusInterceptor
     }
   ]
 })

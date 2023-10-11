@@ -33,7 +33,7 @@ axiosConfig.interceptors.response.use(
   response => {
     const { status } = response
     const data: ResultModel<any> = response.data
-
+    console.log(response, data)
     return new Promise((resolve, reject) => {
       const errorMsg = "请求失败：" + data.msg || "未知错误"
       // 说明是成功的请求

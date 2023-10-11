@@ -74,7 +74,6 @@ export class UserService {
       throw new BizException(ResultCode.ERROR, ResultMsg.USERNAME_IS_ID)
     }
     res.token = this.authService.getToken()
-    console.log(res)
     return res
   }
 }

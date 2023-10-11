@@ -22,8 +22,8 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { useRouter } from "vue-router"
-import { showToast, NavBar as VanNavBar } from "vant"
-import 'vant/es/toast/style';
+import { showToast } from "vant"
+import "vant/es/toast/style"
 import { useUserStore } from "@/store/user"
 import { loginApi, registerApi } from "@/api/modules/user"
 import { tokenExpired } from "@/utils"
