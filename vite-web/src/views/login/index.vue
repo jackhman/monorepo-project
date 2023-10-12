@@ -106,8 +106,7 @@ const successCallBack = (message: string, data: UserInfoDto) => {
   store.getUserInfo(data.id as string)
   showToast({
     message,
-    duration: 1000,
-    type: "success",
+    type: "loading",
     onClose: () => {
       router.push({
         path: ROUTER_PATH.HOME
@@ -133,6 +132,7 @@ const successCallBack = (message: string, data: UserInfoDto) => {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 10px 0;
     > div {
       margin: 0 10px;
       font-size: 12px;

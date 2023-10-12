@@ -19,17 +19,16 @@
           <span class="iconfont icon-mima customIcon" />
         </template>
       </van-field>
-      <div class="submit-btn">
         <van-button
           round
           block
           type="primary"
           native-type="submit"
           size="small"
+          class="submit-btn"
         >
           登录
         </van-button>
-      </div>
     </van-form>
   </div>
 </template>
@@ -53,6 +52,7 @@ const emit = defineEmits<{ (e: "onLoginSubmit", form: LoginUserDto): void }>()
 const onSubmit = () => {
   emit("onLoginSubmit", form)
 }
+
 </script>
 
 <style scoped lang="scss">
@@ -66,7 +66,9 @@ const onSubmit = () => {
       font-size: 16px;
     }
     .submit-btn {
-      margin: 16px;
+      width: 90%;
+      margin: auto;
+      margin-top: 12px;
     }
   }
 }

@@ -8,6 +8,7 @@ export class LoginUserDto {
 export class RegisterUserDto {
   userName: string
   password: string
+  nickName?: string
 }
 
 export class FindUserDto {

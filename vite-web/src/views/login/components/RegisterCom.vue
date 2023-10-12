@@ -12,13 +12,11 @@
       <!-- 请输入昵称 -->
       <van-field
         v-model="form.nickName"
-        type="nickName"
         name="nickName"
         placeholder="请输入昵称"
-        :rules="[{ required: true, message: '请输入昵称' }]"
       >
         <template #left-icon>
-          <span class="iconfont icon-nicheng customIcon" />
+          <span class="iconfont icon-nicheng" />
         </template>
       </van-field>
       <!-- 请输入密码 -->
@@ -30,7 +28,7 @@
         :rules="[{ required: true, message: '请填写密码' }]"
       >
         <template #left-icon>
-          <span class="iconfont icon-mima customIcon" />
+          <span class="iconfont icon-mima" />
         </template>
       </van-field>
       <!-- 确认密码 -->
@@ -67,7 +65,6 @@ import { reactive } from "vue"
 import {
   RegisterUserDto,
 } from "@shared/dto/user/user.dto"
-import { format } from "path"
 
 interface ICom extends RegisterUserDto {
   confirmPwd: string
@@ -93,13 +90,14 @@ const formRules = reactive({
         if (form.password !== value) {
           return "两次密码不相同"
         }
+        else return false
       }
     }
   ]
 })
 /** 注册 */
 const registerSubmit = () => {
-  const registerForm: IUserRegister = {
+  const registerForm: RegisterUserDto = {
     userName: form.userName,
     nickName: form.nickName,
     password: form.password
