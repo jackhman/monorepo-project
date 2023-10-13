@@ -1,5 +1,5 @@
 import router from "@/router"
-import { ROUTER_NAME } from "@/router/RouteConst"
+import { ROUTE_NAME } from "@/router/RouteConst"
 import { removeToken, removeUserId } from "./modules/commonSave"
 
 enum EEnv {
@@ -32,9 +32,9 @@ export const tokenExpired = () => {
   // 获取当前的路由
   const { value } = router.currentRoute
   // 在登录页面,不需要跳转
-  if (value.name !== ROUTER_NAME.LOGIN) {
+  if (value.name !== ROUTE_NAME.LOGIN) {
     router.push({
-      name: ROUTER_NAME.LOGIN
+      name: ROUTE_NAME.LOGIN
     })
   }
 }

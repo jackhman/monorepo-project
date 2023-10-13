@@ -26,7 +26,7 @@ import { showToast,closeToast, showNotify } from "vant"
 import { useUserStore } from "@/store/user"
 import { loginApi, registerApi } from "@/api/modules/user"
 import { tokenExpired } from "@/utils"
-import { ROUTER_PATH } from "@/router/RouteConst"
+import { ROUTE_PATH } from "@/router/RouteConst"
 import { setToken, setUserIdStorage } from "@/utils/modules/commonSave"
 import LoginCom from "./components/LoginCom.vue"
 import RegisterCom from "./components/RegisterCom.vue"
@@ -103,7 +103,7 @@ const registerUser = () => {
 
 /** 登录 注册 成功的回调 */
 const successCallBack = async (message: string, data: UserInfoDto) => {
-  setToken(data.token)
+  setToken(data.token as string)
   setUserIdStorage(data.id as string)
   await store.getUserInfo(data.id as string)
   showToast({
@@ -112,7 +112,7 @@ const successCallBack = async (message: string, data: UserInfoDto) => {
     duration: 1000,
     onClose: () => {
       router.push({
-        path: ROUTER_PATH.HOME
+        path: ROUTE_PATH.HOME
       })
     }
   })
@@ -120,9 +120,9 @@ const successCallBack = async (message: string, data: UserInfoDto) => {
 </script>
 
 <script lang="ts">
-import { ROUTER_NAME } from "@/router/RouteConst"
+import { ROUTE_NAME } from "@/router/RouteConst"
 export default {
-  name: ROUTER_NAME.LOGIN
+  name: ROUTE_NAME.LOGIN
 }
 </script>
 
