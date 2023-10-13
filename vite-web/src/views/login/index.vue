@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { useRouter } from "vue-router"
-import { showToast, showNotify } from "vant"
+import { showToast,closeToast, showNotify } from "vant"
 import { useUserStore } from "@/store/user"
 import { loginApi, registerApi } from "@/api/modules/user"
 import { tokenExpired } from "@/utils"
@@ -66,6 +66,8 @@ const onSubmit = async (form: LoginUserDto) => {
       message: `登录失败${error}`,
       type: "warning"
     })
+  } finally {
+    closeToast(true)
   }
 }
 
@@ -100,19 +102,27 @@ const registerUser = () => {
 }
 
 /** 登录 注册 成功的回调 */
-const successCallBack = (message: string, data: UserInfoDto) => {
+const successCallBack = async (message: string, data: UserInfoDto) => {
   setToken(data.token)
   setUserIdStorage(data.id as string)
-  store.getUserInfo(data.id as string)
+  await store.getUserInfo(data.id as string)
   showToast({
     message,
     type: "loading",
+    duration: 1000,
     onClose: () => {
       router.push({
         path: ROUTER_PATH.HOME
       })
     }
   })
+}
+</script>
+
+<script lang="ts">
+import { ROUTER_NAME } from "@/router/RouteConst"
+export default {
+  name: ROUTER_NAME.LOGIN
 }
 </script>
 

@@ -31,6 +31,7 @@ export class UserController {
 
   @Get(":id")
   async getUserById(@Param("id") id:string) {
-    return await this.userService.getUserById(id)
+    const getUserInfo =  await this.userService.getUserById(id)
+    return R.success().setData(getUserInfo)
   }
 }

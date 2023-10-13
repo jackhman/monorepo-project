@@ -8,7 +8,8 @@ export const useUserStore = defineStore("user", () => {
 
   async function getUserInfo(id: string) {
     const data = await getUserInfoApi(id)
-    console.log(data)
+    userInfo.value = data.data
+    return data
   }
 
   return {
