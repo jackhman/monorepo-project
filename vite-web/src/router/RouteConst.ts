@@ -26,7 +26,7 @@ export const ROUTE_PATH = {
   /** 文章详情页 */
   ARTICLE_DETAILS: "/article-details",
   /** 购物车 */
-  SHOPCAR: "shopCar",
+  SHOPCAR: "shop-car",
   /** 我的 */
   PERSONAL: "personal",
   /** 搜索 */

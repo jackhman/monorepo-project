@@ -15,6 +15,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/home/index.vue')
       },
       {
+        path: ROUTE_PATH.SHOPCAR,
+        name: ROUTE_NAME.SHOPCAR,
+        component: () => import('@/views/shopCar/index.vue')
+      },
+      {
         path: ROUTE_PATH.PERSONAL,
         name: ROUTE_NAME.PERSONAL,
         component: () => import('@/views/personal/index.vue')
