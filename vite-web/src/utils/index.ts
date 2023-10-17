@@ -2,15 +2,6 @@ import router from "@/router"
 import { ROUTE_NAME } from "@/router/RouteConst"
 import { removeToken, removeUserId } from "./modules/commonSave"
 
-enum EEnv {
-  /** 开发 */
-  development = "development",
-  /** 生产 */
-  production = "production",
-  /** 测试 */
-  test = "test"
-}
-
 /** 当前的环境 */
 export const BaseEnv = {
   /** 开发 */

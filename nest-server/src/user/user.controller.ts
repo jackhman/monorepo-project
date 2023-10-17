@@ -11,6 +11,7 @@ import { LoginUserDto, RegisterUserDto } from "@shared/dto/user/user.dto"
 import { R } from "../utils/R/R"
 import { ResultMsg } from "@shared/enum/result-num"
 import { Public } from "../auth/decorators/public.decorator"
+import { Observable } from "rxjs"
 @Controller("user")
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -33,5 +34,8 @@ export class UserController {
   async getUserById(@Param("id") id:string) {
     const getUserInfo =  await this.userService.getUserById(id)
     return R.success().setData(getUserInfo)
+    // return new Observable(observer => {});
   }
 }
+
+25
