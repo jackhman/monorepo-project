@@ -12,6 +12,8 @@ export const useAppStore = defineStore("app", () => {
   const dialogFlag = ref(false)
   /** 物理按键的点击 */
   const popstateFlag = ref(+new Date())
+  /** 全屏的遮罩层 */
+  const fullOverlayFlag = ref(true)
 
   /** 存储每个路由距离顶部的滚动距离 */
   function scrollTop({ key, top }: { key: string; top: number }) {
@@ -26,12 +28,18 @@ export const useAppStore = defineStore("app", () => {
   function changePopstateFlag(tagFlag: number) {
     popstateFlag.value = tagFlag
   }
+  /** 修改 全屏的遮罩层  */
+  function changeFullOverlay(flag: boolean) {
+    fullOverlayFlag.value = flag
+  }
   return {
     routeScroll,
     dialogFlag,
     popstateFlag,
+    fullOverlayFlag,
     scrollTop,
     changeDialogFlag,
-    changePopstateFlag
+    changePopstateFlag,
+    changeFullOverlay
   }
 })

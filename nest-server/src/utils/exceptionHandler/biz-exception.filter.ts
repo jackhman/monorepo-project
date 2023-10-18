@@ -2,7 +2,7 @@ import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from
 /** 处理自定义的抛出错误, 用来处理没有相应的内容时返回给前端 */
 export class BizException extends Error  {
   constructor(public code: number, public msg: string) {
-    super('User not found')
+    super()
   }
 }
 

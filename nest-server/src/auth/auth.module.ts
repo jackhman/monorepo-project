@@ -13,7 +13,13 @@ import { JwtStrategy } from "./jwt.strategy"
       signOptions: { expiresIn: "1 days" }
     })
   ],
-  providers: [AuthService, JwtStrategy],
+  providers: [
+    AuthService,
+    {
+      provide: "JWT_STRATEGY",
+      useClass: JwtStrategy
+    }
+  ],
   exports: [AuthService]
 })
 export class AuthModule {}
