@@ -4,13 +4,10 @@ import { getToken } from "@/utils/modules/commonSave"
 import { ResultCode } from "@shared/enum/result-num"
 import { ResultModel } from "@shared/model/index"
 import { tokenExpired, isDev } from "@/utils"
-const baseURL = isDev() ? "http://127.0.0.1:6789" : "http://118.178.235.203:2580"
+const baseURL = isDev() ? "/" : "http://118.178.235.203:2580"
 const axiosConfig = axios.create({
   baseURL,
-  timeout: 20000,
-  headers: {
-    "X-Custom-Header": "foobar"
-  }
+  timeout: 20000
 })
 
 // 发送请求之前的拦截

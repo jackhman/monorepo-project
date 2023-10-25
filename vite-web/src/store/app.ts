@@ -13,7 +13,7 @@ export const useAppStore = defineStore("app", () => {
   /** 物理按键的点击 */
   const popstateFlag = ref(+new Date())
   /** 全屏的遮罩层 */
-  const fullOverlayFlag = ref(true)
+  const fullOverlayFlag = ref(false)
 
   /** 存储每个路由距离顶部的滚动距离 */
   function scrollTop({ key, top }: { key: string; top: number }) {
