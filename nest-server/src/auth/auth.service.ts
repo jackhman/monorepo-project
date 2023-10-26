@@ -14,7 +14,7 @@ export class AuthService {
 
   constructor(private jwtService: JwtService) {}
   async login(user: FindUserDto) {
-    const payload = { username: user.userName, sub: user.id }
+    const payload = { username: user.userName, userId: user.id }
     const token = this.jwtService.sign(payload)
     this.setToken(token)
     return {

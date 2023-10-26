@@ -55,7 +55,8 @@ export class UserService {
     }
 
     const jwtRes = await this.authService.login({
-      userName: loginUserDto.userName
+      userName: loginUserDto.userName,
+      id: userRes.id
     })
 
     const userInfo: UserInfoDto = userRes

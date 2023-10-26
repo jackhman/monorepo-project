@@ -7,6 +7,7 @@ import { BizExceptionFilter } from "./utils/exceptionHandler/biz-exception.filte
 import { AuthModule } from "./auth/auth.module"
 import { JwtAuthGuard } from "./auth/jwt-auth.guard"
 import { PostStatusInterceptor } from "./utils/interceptorHander/post-status.interceptor"
+import { TokenExceptionFilter } from "./utils/exceptionHandler/token-exception.filter"
 
 @Module({
   imports: [
@@ -29,6 +30,10 @@ import { PostStatusInterceptor } from "./utils/interceptorHander/post-status.int
     {
       provide: APP_FILTER,
       useClass: BizExceptionFilter
+    },
+    {
+      provide: APP_FILTER,
+      useClass: TokenExceptionFilter
     },
     {
       provide: APP_GUARD,
