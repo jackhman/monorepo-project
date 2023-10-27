@@ -67,9 +67,7 @@ export enum ResultMsg {
 
   DELETE_SUCCESS = "删除成功",
 
-  TOKEN_IS_EMPTY = "token 不存在",
-
-  TOKEN_IS_EXPIRE = "token 过期",
+  TOKEN_ERROR = "token不存在或者已经过期",
 
   PARENT_ID_EMPTY = "parentId 为必填项",
 

@@ -15,7 +15,7 @@ export class TokenExceptionFilter implements ExceptionFilter {
     response.status(200)
     response.json({ 
       code: ResultCode.TOKEN_ERROR,
-      message: ResultMsg.TOKEN_IS_EXPIRE
+      message: ResultMsg.TOKEN_ERROR
      })
   }
 }
