@@ -12,7 +12,7 @@
     />
     <!-- 其他操作 -->
     <div v-show="isFlag" class="login-form-bottom">
-      <div class="forget-pwd">忘记密码</div>
+      <div class="forget-pwd" @click="forgetPWD">忘记密码</div>
       <span class="icon">|</span>
       <div class="register-user" @click="registerUser">注册用户</div>
     </div>
@@ -90,7 +90,7 @@ const registerSubmit = async (from: RegisterUserDto) => {
     }
   } catch (error) {
     showToast({
-      message: `登录失败${error}`,
+      message: `${error}`,
       type: "fail"
     })
   }
@@ -116,6 +116,11 @@ const successCallBack = async (message: string, data: UserInfoDto) => {
       })
     }
   })
+}
+
+/** 忘记密码 */
+const forgetPWD = ()=> {
+  console.log(123)
 }
 </script>
 

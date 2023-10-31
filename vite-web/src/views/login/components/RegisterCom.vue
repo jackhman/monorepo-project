@@ -1,6 +1,6 @@
 <template>
   <div class="register-com">
-    <van-form @submit="registerSubmit">
+    <van-form @failed="registerSubmit">
       <!-- 请输入用户名 -->
       <van-field
         v-model="form.userName"
@@ -75,10 +75,10 @@ const emits = defineEmits<{
   (e: "registerSubmit", form: RegisterUserDto): void
 }>()
 const form = reactive<ICom>({
-  userName: "",
-  nickName: "",
-  password: "",
-  confirmPwd: ""
+  userName: "admin",
+  nickName: "admin",
+  password: "123456",
+  confirmPwd: "123456"
 })
 /** 规则 */
 const formRules = reactive({

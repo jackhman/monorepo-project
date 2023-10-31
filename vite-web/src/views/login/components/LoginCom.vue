@@ -19,16 +19,16 @@
           <span class="iconfont icon-mima customIcon" />
         </template>
       </van-field>
-        <van-button
-          round
-          block
-          type="primary"
-          native-type="submit"
-          size="small"
-          class="submit-btn"
-        >
-          登录
-        </van-button>
+      <van-button
+        round
+        block
+        type="primary"
+        native-type="submit"
+        size="small"
+        class="submit-btn"
+      >
+        登录
+      </van-button>
     </van-form>
   </div>
 </template>
@@ -38,12 +38,10 @@
 import { reactive } from "vue"
 import type { UnwrapRef } from "vue"
 
-import {
-  LoginUserDto,
-} from "@shared/dto/user/user.dto"
+import { LoginUserDto } from "@shared/dto/user/user.dto"
 
 const form: UnwrapRef<LoginUserDto> = reactive({
-  userName: "liuzhao",
+  userName: "admin",
   password: "123456"
 })
 
@@ -52,7 +50,6 @@ const emit = defineEmits<{ (e: "onLoginSubmit", form: LoginUserDto): void }>()
 const onSubmit = () => {
   emit("onLoginSubmit", form)
 }
-
 </script>
 
 <style scoped lang="scss">
