@@ -13,6 +13,10 @@ export const registerApi = (
   params: RegisterUserDto
 ): Promise<ResultModel<UserInfoDto>> => axios.post("user/register", params)
 
+
+/** 退出登录 */
+export const logoutApi = (): Promise<ResultModel<[]>>=> axios.get("user/logout")
+
 /** 获取用户的信息 */
 export const getUserInfoApi = (
   id: string

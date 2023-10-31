@@ -11,6 +11,9 @@ export class AuthService {
   setToken(token: string) {
     this.token = token
   }
+  removeToken() {
+    this.token = null
+  }
 
   constructor(private jwtService: JwtService) {}
   async login(user: FindUserDto) {
@@ -23,6 +26,6 @@ export class AuthService {
   }
 
   logout() {
-    
+    this.removeToken()
   }
 }

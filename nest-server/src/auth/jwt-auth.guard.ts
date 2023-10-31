@@ -1,8 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common"
 import { Reflector } from "@nestjs/core"
-import { AuthGuard } from "@nestjs/passport"
 import { IS_PUBLIC_KEY } from "./decorators/public.decorator"
-import { Observable } from "rxjs"
 import { JwtService } from "@nestjs/jwt"
 import { Request } from "express"
 import { jwtConstants } from "./constants"
@@ -31,15 +29,11 @@ export class JwtAuthGuard implements CanActivate {
       const payload = await this.jwtService.verifyAsync(token, {
         secret: jwtConstants.secret
       })
-      // 💡 We're assigning the payload to the request object here
-      // so that we can access it in our route handlers
       request["user"] = payload
     } catch {
       throw new BizException(ResultCode.TOKEN_ERROR, ResultMsg.TOKEN_ERROR)
     }
     return true
-
-    // return super.canActivate(context)
   }
 
   private extractTokenFromHeader(request: Request): string | undefined {

@@ -33,6 +33,8 @@ export enum ResultMsg {
 
   LOGIN_FAIL = "登录失败, 用户名或者密码不正确",
 
+  LOGOUT_SUCCESS = "退出登录成功",
+
   USERNAME_IS_NOT = "登录的用户名不存在",
 
   USERNAME_IS = "用户名已存在",

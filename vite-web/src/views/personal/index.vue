@@ -53,6 +53,7 @@ import { logoutClearUtils } from "@/utils"
 import OpearCom from "./components/OpearCom.vue"
 import LinkCom from "./components/LinkCom.vue"
 import { showConfirmDialog } from "vant"
+import { logoutApi } from "@/api/modules/user"
 const store = useUserStore()
 const router = useRouter()
 /** 退出登录 */
@@ -61,7 +62,8 @@ const logoutBtn = (): void => {
     title: "是否退出登录",
     message: "退出之后,部分模块不可访问"
   })
-    .then(() => {
+    .then(async () => {
+      await logoutApi()
       logoutClearUtils()
       router.push({
         path: ROUTE_PATH.LOGIN
