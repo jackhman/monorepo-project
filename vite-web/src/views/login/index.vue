@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { useRouter } from "vue-router"
-import { showToast,closeToast, showNotify } from "vant"
+import { showToast, closeToast, showNotify, showDialog } from "vant"
 import { useUserStore } from "@/store/user"
 import { loginApi, registerApi } from "@/api/modules/user"
 import { tokenExpired } from "@/utils"
@@ -119,8 +119,13 @@ const successCallBack = async (message: string, data: UserInfoDto) => {
 }
 
 /** 忘记密码 */
-const forgetPWD = ()=> {
-  console.log(123)
+const forgetPWD = () => {
+  showDialog({
+    title: "静候佳音",
+    message: "功能开发中..."
+  }).then(() => {
+    // on close
+  })
 }
 </script>
 

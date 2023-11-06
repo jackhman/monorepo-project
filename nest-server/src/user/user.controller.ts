@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common"
+import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common"
 import { UserService } from "./user.service"
 
 import { LoginUserDto, RegisterUserDto } from "@shared/dto/user/user.dto"
@@ -33,6 +33,13 @@ export class UserController {
     this.authService.logout()
     return R.success().setMsg(ResultMsg.LOGOUT_SUCCESS)
   }
+  
+  /** 删除用户 */
+  @Delete(":id")
+  async deleteUser(@Param("id") id: string) {
+    await this.userService.deleteUser(id)
+    return R.success().setMsg(ResultMsg.DELETE_SUCCESS)
+  }
 
   @Get(":id")
   async getUserById(@Param("id") id: string) {
@@ -41,5 +48,3 @@ export class UserController {
     // return new Observable(observer => {});
   }
 }
-
-25

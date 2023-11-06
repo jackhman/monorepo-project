@@ -12,11 +12,22 @@ export class User {
   @Column()
   userName: string
 
+  // 用户昵称
+  @Column()
+  nickName: string
+
   // 密码
   @Column({
     select: false
   })
   password: string
+
+  // 用户头像
+  @Column({
+    default: "https://fastly.jsdelivr.net/npm/lz-npm-assets/images/gkd.gif",
+    comment: "用户头像"
+  })
+  avatar: string
 
   // 角色权限
   @Column({

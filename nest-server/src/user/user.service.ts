@@ -22,6 +22,7 @@ export class UserService {
     const user = new User()
     user.userName = registerUserDto.userName
     user.password = registerUserDto.password
+    user.nickName = registerUserDto.nickName || registerUserDto.userName
     const userNameRes = await this.usersRepository.findOne({
       where: {
         userName: registerUserDto.userName
@@ -75,6 +76,15 @@ export class UserService {
       throw new BizException(ResultCode.ERROR, ResultMsg.USERNAME_IS_ID)
     }
     res.token = this.authService.getToken()
+    return res
+  }
+
+  /** 删除用户 */
+  async deleteUser(id: string) {
+    const res = await this.usersRepository.update(id, { isDelete: 1 })
+    if(!res) {
+      throw new BizException(ResultCode.ERROR, ResultMsg.DELETE_FAIL)
+    }
     return res
   }
 }
