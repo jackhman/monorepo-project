@@ -87,4 +87,9 @@ export class UserService {
     }
     return res
   }
+
+  /** 查找所有用户信息 */
+  async findAllUser() {
+    
+  }
 }
