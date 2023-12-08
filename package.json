@@ -8,6 +8,7 @@
     "dev:nest": "pnpm -C nest-server start:dev"
   },
   "dependencies": {
+    "axios": "^1.5.1",
     "dayjs": "^1.11.10"
   }
 }
