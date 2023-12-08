@@ -1,17 +1,20 @@
 import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
-import { viteStaticCopy } from "vite-plugin-static-copy"
-import { resolve } from "path"
+import { ViteOptions } from "../shared/common/index"
 // https://vitejs.dev/config/
-export default defineConfig({
-  server: {
-    port: 5432,
-    host: true
-  },
-  plugins: [
-    react(),
-    viteStaticCopy({
-      targets: [{ src: resolve(__dirname, "../shared"), dest: "dist/shared" }]
-    })
-  ]
+export default defineConfig(() => {
+  return {
+    resolve: {
+      alias: ViteOptions.alias(__dirname)
+    },
+    server: {
+      port: 5432,
+      host: true,
+      proxy: ViteOptions.proxy
+    },
+    plugins: [
+      react(),
+      ViteOptions.plugins.viteStaticCopy(__dirname)
+    ]
+  }
 })

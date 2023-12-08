@@ -6,7 +6,6 @@ import Components from "unplugin-vue-components/vite"
 import { VantResolver } from "@vant/auto-import-resolver"
 import { viteStaticCopy } from "vite-plugin-static-copy"
 import path from "node:path"
-
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {

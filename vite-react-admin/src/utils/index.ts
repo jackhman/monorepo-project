@@ -1,5 +1,3 @@
-import router from "@/router"
-import { ROUTE_NAME } from "@/router/RouteConst"
 import { removeToken, removeUserId } from "./modules/commonSave"
 
 /** 当前的环境 */
@@ -21,13 +19,13 @@ export const isDev = (): boolean => !!import.meta.env.VITE_DEV
 export const tokenExpired = () => {
   logoutClearUtils()
   // 获取当前的路由
-  const { value } = router.currentRoute
-  // 在登录页面,不需要跳转
-  if (value.name !== ROUTE_NAME.LOGIN) {
-    router.push({
-      name: ROUTE_NAME.LOGIN
-    })
-  }
+  // const { value } = router
+  // // 在登录页面,不需要跳转
+  // if (value.name !== ROUTE_NAME.LOGIN) {
+  //   router.push({
+  //     name: ROUTE_NAME.LOGIN
+  //   })
+  // }
 }
 
 /** 退出登录--需要清除的数据 */

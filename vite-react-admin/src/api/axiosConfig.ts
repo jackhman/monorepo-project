@@ -1,5 +1,5 @@
 import axios from "axios"
-import { showNotify } from 'vant';
+import { message } from 'antd';
 import { getToken } from "@/utils/modules/commonSave"
 import { ResultCode, ResultMsg } from "@shared/enum/result-num"
 import { ResultModel } from "@shared/model/index"
@@ -28,7 +28,6 @@ axiosConfig.interceptors.request.use(config => {
 // 接收数据之前的拦截
 axiosConfig.interceptors.response.use(
   response => {
-    console.log(response)
     const { status } = response
     const data: ResultModel<any> = response.data
     return new Promise((resolve, reject) => {
@@ -40,10 +39,7 @@ axiosConfig.interceptors.response.use(
         }
         // 说明 token 不正确了, 需要清空数据，跳转到登录页面
         else if (data.code === ResultCode.TOKEN_ERROR) {
-          showNotify({
-            type: "warning",
-            message: ResultMsg.TOKEN_ERROR
-          })
+          message.error(ResultMsg.TOKEN_ERROR)
           tokenExpired()
         } else {
           // message.error(errorMsg)
@@ -58,20 +54,16 @@ axiosConfig.interceptors.response.use(
     })
   },
   error => {
-    console.log(error)
     // 请求错误处理
     if (!error.response) {
-      console.log(2222)
       // 请求未发出,在这里对网络错误做出响应
       return Promise.reject(error)
     }
-
     // 请求发出,但是不在2xx的范围 
     if (error.response.status) {
       // 对返回状态码进行处理
       return Promise.reject(error);
     }
-
     // 全部请求都在2xx的范围内都会进入这里
     // 对响应数据做处理
     // return response;
