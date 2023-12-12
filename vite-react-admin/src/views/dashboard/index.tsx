@@ -12,7 +12,6 @@ const HomeDom = () => {
       <HomeCard />
       {/* Echarts 组件 */}
       <div className="echart-component">
-        
         <Row className="echart-component-main" gutter={10}>
           <Col xs={{ span: 24 }} xl={{ span: 8 }} className="echart-item-col">
             <div className="echart-item-div">

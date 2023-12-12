@@ -1,5 +1,5 @@
 import { Row, Col, Card } from "antd"
-import funnyImg from "@/assets/images/funny.png"
+import funnyImg from "@shared/assets/images/funny.png"
 const homeCard = () => {
   return (
     <div className='home-card-box'>

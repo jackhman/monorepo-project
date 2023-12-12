@@ -9,23 +9,26 @@ import { setUserIdStorage, setToken } from "@/utils/modules/commonSave"
 import { LoginUserDto } from "@shared/dto/user/user.dto"
 import { ROUTE_PATH } from "@/router/RouteConst"
 const LoginDom = () => {
+  interface IForm {
+    userName: string
+    password: string
+  }
   const navigate = useNavigate()
-  const [loginForm] = useState({ userName: "admin", password: 123456 })
+  const [loginForm] = useState<IForm>({ userName: "admin", password: "123456" })
   const [loading, setLoading] = useState(false)
-
   /** 登录请求 */
-  const onFinish = async values => {
+  const onFinish = async (values: IForm) => {
     setLoading(true)
     const params: LoginUserDto = {
       userName: values.userName,
       password: values.password
     }
     try {
-      navigate(ROUTE_PATH.DASHBOARD)
       const { data } = await loginApi(params)
       message.success("登录成功")
       setUserIdStorage(data.id!)
       setToken(`Bearer ${data.token}`)
+      navigate(ROUTE_PATH.DASHBOARD)
     } finally {
       setLoading(false)
     }
