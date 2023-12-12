@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { Form, Input, Button, Checkbox, message } from "antd"
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
 
@@ -6,7 +7,9 @@ import "./login.scss"
 import { loginApi } from "@/api/modules/user"
 import { setUserIdStorage, setToken } from "@/utils/modules/commonSave"
 import { LoginUserDto } from "@shared/dto/user/user.dto"
+import { ROUTE_PATH } from "@/router/RouteConst"
 const LoginDom = () => {
+  const navigate = useNavigate()
   const [loginForm] = useState({ userName: "admin", password: 123456 })
   const [loading, setLoading] = useState(false)
 
@@ -18,6 +21,7 @@ const LoginDom = () => {
       password: values.password
     }
     try {
+      navigate(ROUTE_PATH.DASHBOARD)
       const { data } = await loginApi(params)
       message.success("登录成功")
       setUserIdStorage(data.id!)
