@@ -1,4 +1,3 @@
-import React from 'react'
 import { Row, Col } from 'antd'
 import './index.scss'
 import HomeCard from './components/HomeCard'
