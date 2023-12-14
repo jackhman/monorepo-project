@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress"
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "快速入门",
+  title: "小火车况且况且",
   description: "快速入门,介绍项目",
   head: [
     [
@@ -22,13 +22,33 @@ export default defineConfig({
       { text: "Vue", link: "/guide/vue/index" },
       { text: "React", link: "/guide/react/index" }
     ],
+    aside: "left",
+    outline: {
+      label: "导航"
+    },
     sidebar: {
       '/guide/nestjs': [
         {
-          text: "介绍",
+          text: "基础",
           items: [
-            { text: "功能", link: "/guide/nestjs/index" },
-            { text: "Runtime API Examples", link: "/api-examples" }
+            {
+              text: "入门",
+              link: "/guide/nestjs/index"
+            },
+            {
+              text: "配置",
+              items: [
+                {
+                  text: "链接数据库",
+                  link: "/guide/nestjs/config/database"
+                },
+                {
+                  text: "定义模块",
+                  link: "/guide/nestjs/config/module"
+                }
+              ]
+            },
+            { text: "示例", link: "/guide/markdown-examples" }
           ]
         }
       ]
