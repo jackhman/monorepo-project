@@ -2,3 +2,4 @@ packages:
   - "nest-server/"
   - "vite-vue-web/"
   - "vite-react-admin/"
+  - "vite-press/"
