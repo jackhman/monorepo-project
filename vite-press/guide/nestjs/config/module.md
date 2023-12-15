@@ -225,8 +225,6 @@ export class UserController {
 
 让我们从创建一个简单的 `UserService` 开始。该服务将负责数据存储和检索，其由 `UserController` 使用，因此把它定义为 `provider`，是一个很好的选择。因此，我们用 `@Injectable()` 来装饰这个类 。
 
-
-
 `@InjectRepository()`装饰器将 `UserRepository` 注入到 `UserService` 中，就可以调用数据库了
 
 ```ts
@@ -238,8 +236,6 @@ export class UserService {
   ) {}
 }
 ```
-
-
 
 ::: details 完整代码
 
@@ -334,8 +330,6 @@ export class UserService {
     return res
   }
 }
-
-
 ```
 
 :::
