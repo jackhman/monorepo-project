@@ -3,6 +3,7 @@
 [NestJS 9x 的官方网址](https://docs.nestjs.cn/9/introduction)
 
 <!-- https://img.shields.io/badge/NestJS-v9.5.0-brightgreen?labelColor=pink -->
+
 <p align="center">
   <a href="https://github.com/nodejs/node/releases/tag/v20.10.0" target="_blank"><img src="https://img.shields.io/badge/nodejs-v20.10.0-brightgreen" alt="Nodejs" /></a>
   <a href="https://github.com/nestjs/nest" target="_blank"><img src="https://img.shields.io/badge/NestJS-v9.5.0-brightgreen" alt="NestJS" /></a>
@@ -10,13 +11,46 @@
 
 ::: tip
 `nestJs`需要先进行全局安装
+
 ```bash
 $ npm i -g @nestjs/cli
 $ nest new project-name
 ```
+
 :::
 
+## 目录结构
+
+```bash
+├─src
+│  │  app.module.ts # 定义模块，每个模块都需要在此处定义声明
+│  │  main.ts # 用户配置，定义端口之类
+│  │
+│  ├─auth # 权限的文件夹
+│  │
+│  ├─user
+│  │      user.controller.ts
+│  │      user.entity.ts
+│  │      user.module.ts
+│  │      user.service.ts
+│  │
+│  └─utils
+│      │  index.ts
+│      │
+│      ├─exceptionHandler
+│      │      biz-exception.filter.ts
+│      │      http-exception.filter.ts
+│      │      token-exception.filter.ts
+│      │
+│      ├─interceptorHander
+│      │      post-status.interceptor.ts
+│      │
+│      └─R
+│              R.ts
+```
+
 ## `webpack`接管`nestjs`编译
+
 ```
 - webapck.config.js
 - webpack.dev.js
@@ -24,6 +58,7 @@ $ nest new project-name
 ```
 
 `package.json`中修改配置
+
 ```json
 ...
 "scripts": {
@@ -37,12 +72,15 @@ $ nest new project-name
 ```
 
 ## `webapck.config.js`
+
 `copy-webpack-plugin`模块用来复制跟目录下面的 `shared` 文件到 `nestjs` 目录下面
+
 ```bash
 pnpm add copy-webpack-plugin -D 
 ```
 
 ::: details `webapck.config.js`详细配置
+
 ```js
 const path = require("path")
 const webpack = require("webpack")
@@ -90,4 +128,5 @@ module.exports = {
   }
 }
 ```
+
 :::
