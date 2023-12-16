@@ -48,7 +48,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: vitepress-dist
+          name: github-pages
           path: docs/.vitepress/dist
 
   # Deployment job
@@ -63,3 +63,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+        with:
+          artifact_name: github-pages  # 与上传工件步骤中的名称匹配
