@@ -2,6 +2,7 @@ import { defineConfig } from "vitepress"
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: "/monorepo-project/",
   title: "小火车况且况且",
   description: "快速入门,介绍项目",
   head: [
