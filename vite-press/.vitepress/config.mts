@@ -10,7 +10,16 @@ export default defineConfig({
       "link",
       {
         rel: "icon",
-        href: "/images/icon/vitepress-logo.svg"
+        href: "images/icon/vitepress-logo.svg",
+        type: "image/svg+xml"
+      }
+    ],
+    [
+      "link",
+      {
+        rel: "icon",
+        href: "images/common/funny.png",
+        type: "image/png"
       }
     ]
   ],
@@ -19,7 +28,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: "Home", link: "/" },
-      { text: "NestJs", link: "/guide/nestjs/index" },
+      { text: "NestJS", link: "/guide/nestjs/index" },
       { text: "Vue", link: "/guide/vue/index" },
       { text: "React", link: "/guide/react/index" }
     ],
@@ -57,8 +66,13 @@ export default defineConfig({
 
     socialLinks: [
       { icon: "github", link: "https://github.com/vuejs/vitepress" }
-    ]
+    ],
+    footer: {
+      message: 'Released under the MIT License.',
+      copyright: 'Copyright © 2023-present <a href="https://github.com/liuzhao2580" target="_blank">小火车况且况且</a>'
+    }
   },
+  lastUpdated: true,
   vite: {
     server: {
       port: 10010,

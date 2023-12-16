@@ -11,20 +11,20 @@ hero:
     alt: VitePress
   actions:
     - theme: brand
+      text: NestJS
+      link: /guide/nestjs/index.md
+    - theme: brand
       text: Vue
       link: /guide/vue/index.md
     - theme: brand
       text: React
       link: /guide/react/index.md
-    - theme: brand
-      text: NestJs
-      link: /guide/nestjs/index.md
     - theme: alt
       text: VitePress文档入门
       link: /guide/markdown
 
 features:
-  - title: NestJs
+  - title: NestJS
     icon: { src: /images/icon/NestJs.svg }
     details: 基于NestJs开发的后端接口
   - title: Vue
