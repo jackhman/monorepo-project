@@ -1,10 +1,9 @@
-name: Deploy VitePress site to Pages
+name: Deploy VitePress to GitHub Pages
 
 on:
   push:
-    branches: [docs]
-
-  workflow_dispatch:
+    branches:
+      - docs
 
 jobs:
   build-and-deploy:
@@ -12,35 +11,23 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          ref: docs
 
       - name: Setup Node.js and pnpm
-        uses: pnpm/action-setup@v2
+        uses: actions/setup-node@v3
         with:
-          version: 'latest'
-          global: true
+          node-version: '20.10.0'
+          
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install dependencies
         run: pnpm install
 
       - name: Build VitePress
-        run: |
-          pnpm run docs:build
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: github-pages
-          path: docs/.vitepress/dist
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build-and-deploy
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+        run: pnpm run docs:build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
