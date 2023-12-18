@@ -35,3 +35,4 @@ jobs:
           github_token: ${{ secrets.PAT_TOKEN }}
           publish_dir: docs/.vitepress/dist
           publish_branch: gh-pages
+          dotfiles: true  # 包括在提交中，即使被 .gitignore 文件忽略
