@@ -33,6 +33,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.PAT_TOKEN }}
-          publish_dir: docs/.vitepress/dist
+          publish_dir: .vitepress/dist
           publish_branch: gh-pages
           dotfiles: true  # 包括在提交中，即使被 .gitignore 文件忽略
