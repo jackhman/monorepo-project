@@ -28,7 +28,6 @@ jobs:
       - name: Build VitePress
         run: |
           pnpm run docs:build
-          touch docs/.vitepress/dist/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
