@@ -10,34 +10,35 @@ export default defineConfig({
       "link",
       {
         rel: "icon",
-        href: "images/icon/vitepress-logo.svg",
-        type: "image/svg+xml"
-      }
-    ],
-    [
-      "link",
-      {
-        rel: "icon",
-        href: "images/common/funny.png",
+        href: "favicon.ico",
         type: "image/png"
       }
     ]
   ],
   themeConfig: {
-    logo: "/images/icon/vitepress-logo.svg",
+    logo: "/images/common/funnyR.png",
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: "Home", link: "/" },
-      { text: "NestJS", link: "/guide/nestjs/index" },
-      { text: "Vue", link: "/guide/vue/index" },
-      { text: "React", link: "/guide/react/index" }
+      { text: "NestJS",activeMatch: "nestjs", link: "/guide/nestjs/index" },
+      { text: "Vue",activeMatch: "vue", link: "/guide/vue/index" },
+      { text: "React",activeMatch: "react", link: "/guide/react/index" },
+      {
+        text: "链接",
+        items: [
+          {
+            text: "VitePress",
+            link: "https://vitepress.dev/"
+          }
+        ]
+      }
     ],
     aside: "left",
     outline: {
       label: "导航"
     },
     sidebar: {
-      '/guide/nestjs': [
+      "/guide/nestjs": [
         {
           text: "基础",
           items: [
@@ -68,8 +69,9 @@ export default defineConfig({
       { icon: "github", link: "https://github.com/vuejs/vitepress" }
     ],
     footer: {
-      message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2023-present <a href="https://github.com/liuzhao2580" target="_blank">小火车况且况且</a>'
+      message: "Released under the MIT License.",
+      copyright:
+        'Copyright © 2023-present <a href="https://github.com/liuzhao2580" target="_blank">小火车况且况且</a>'
     }
   },
   lastUpdated: true,
