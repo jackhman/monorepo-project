@@ -1,4 +1,4 @@
-name: Deploy VitePress to GitHub Pages
+name: 部署VitePress
 
 on:
   push:
@@ -10,14 +10,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Set up Node.js and pnpm
-        uses: pnpm/action-setup@v2
         with:
-          version: 'latest'
-          global: true  # 将 pnpm 安装为全局工具
+          ref: docs
+
+      - name: Setup Node.js and pnpm
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.10.0'
+          
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install dependencies
         run: pnpm install
@@ -25,15 +29,10 @@ jobs:
       - name: Build VitePress
         run: pnpm run docs:build
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: vitepress-dist
-          path: docs/.vitepress/dist
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.PAT_TOKEN }}
-          publish_dir: docs/.vitepress/dist
+          publish_dir: .vitepress/dist
           publish_branch: gh-pages
+          dotfiles: true  # 包括在提交中，即使被 .gitignore 文件忽略

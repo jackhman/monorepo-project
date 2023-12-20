@@ -1,25 +1,9 @@
----
-# https://vitepress.dev/reference/default-theme-home-page
-layout: home
+# 介绍
 
-hero:
-  name: "Vue"
-  text: ""
-  tagline: "帮助快速了解，项目的基本情况"
-  actions:
-    - theme: brand
-      text: Markdown Examples
-      link: /Vue/src/markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /src/api-examples
+[Vue的官方网址](https://cn.vuejs.org/guide/introduction.html)
 
-features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
----
-
+<p align="center">
+  <a href="https://github.com/vuejs/core" target="_blank"><img src="https://img.shields.io/badge/Vue-v3.3.4-brightgreen" alt="Vue" /></a>
+  <a href="https://github.com/vuejs/pinia" target="_blank"><img src="https://img.shields.io/badge/pinia-v2.1.6-brightgreen" alt="pinia" /></a>
+  <a href="https://github.com/vuejs/router" target="_blank"><img src="https://img.shields.io/badge/vueRouter-v2.1.6-brightgreen" alt="vue-router" /></a>
+</p>
