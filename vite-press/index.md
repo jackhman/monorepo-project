@@ -11,17 +11,8 @@ hero:
     alt: VitePress
   actions:
     - theme: brand
-      text: NestJS
-      link: /guide/nestjs/index.md
-    - theme: brand
-      text: Vue
-      link: /guide/vue/index.md
-    - theme: brand
-      text: React
-      link: /guide/react/index.md
-    - theme: alt
-      text: VitePress文档入门
-      link: /guide/markdown
+      text: 快速上手 ☛
+      link: /start/quick-start
 
 features:
   - title: NestJS

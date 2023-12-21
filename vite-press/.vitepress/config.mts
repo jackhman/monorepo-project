@@ -19,10 +19,10 @@ export default defineConfig({
     logo: "/images/common/funnyR.png",
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: "Home", link: "/" },
-      { text: "NestJS",activeMatch: "nestjs", link: "/guide/nestjs/index" },
-      { text: "Vue",activeMatch: "vue", link: "/guide/vue/index" },
-      { text: "React",activeMatch: "react", link: "/guide/react/index" },
+      { text: "指南",activeMatch: 'start', link: "/start/quick-start" },
+      { text: "NestJS", activeMatch: "nestjs", link: "/guide/nestjs/index" },
+      { text: "Vue", activeMatch: "vue", link: "/guide/vue/index" },
+      { text: "React", activeMatch: "react", link: "/guide/react/index" },
       {
         text: "链接",
         items: [
@@ -38,6 +38,16 @@ export default defineConfig({
       label: "导航"
     },
     sidebar: {
+      "/start": [
+        {
+          text: "指南",
+          link: "/start/quick-start"
+        },
+        {
+          text: "VitePress入门文档",
+          link: "/start/vite-press"
+        }
+      ],
       "/guide/nestjs": [
         {
           text: "基础",
@@ -64,7 +74,6 @@ export default defineConfig({
         }
       ]
     },
-
     socialLinks: [
       { icon: "github", link: "https://github.com/vuejs/vitepress" }
     ],

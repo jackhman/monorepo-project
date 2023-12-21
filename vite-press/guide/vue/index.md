@@ -1,6 +1,6 @@
 # 介绍
 
-[Vue的官方网址](https://cn.vuejs.org/guide/introduction.html)
+[Vue 的官方网址](https://cn.vuejs.org/guide/introduction.html)
 
 <p align="center">
   <a href="https://github.com/vuejs/core" target="_blank"><img src="https://img.shields.io/badge/Vue-v3.3.4-brightgreen" alt="Vue" /></a>
