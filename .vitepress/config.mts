@@ -17,7 +17,6 @@ export default defineConfig({
   ],
   themeConfig: {
     logo: "/images/common/funnyR.png",
-    // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: "指南",activeMatch: 'start', link: "/start/quick-start" },
       { text: "NestJS", activeMatch: "nestjs", link: "/guide/nestjs/index" },
@@ -33,7 +32,6 @@ export default defineConfig({
         ]
       }
     ],
-    aside: "left",
     outline: {
       label: "导航"
     },
@@ -75,7 +73,7 @@ export default defineConfig({
       ]
     },
     socialLinks: [
-      { icon: "github", link: "https://github.com/vuejs/vitepress" }
+      { icon: "github", link: "https://github.com/liuzhao2580/monorepo-project/" }
     ],
     footer: {
       message: "Released under the MIT License.",

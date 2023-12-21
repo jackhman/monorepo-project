@@ -101,6 +101,124 @@ cd vite-vue-web
 pnpm add vue-router
 ```
 
+## 添加 `vscode` 任务
+
+在项目根目录下面创建`.vscode/tasks.json`文件，同时安装一个拓展[Task Explorer](https://marketplace.visualstudio.com/items?itemName=spmeesseman.vscode-taskexplorer)
+![vscode-tasks](/images/start/vscode-tasks.png)
+
+安装该拓展之后，可以看到不同的命令可以直接运行，这里的命令名称来源于下面的`.vscode/tasks.json`文件中的`label`字段。
+
+![Snipaste_2023-12-21_15-35-05](/images/start/Snipaste_2023-12-21_15-35-05.png)
+代码说明
+
+- 在 `monorepo`（单仓库多包）项目中`pnpm -C` 是 `pnpm` 命令的一个选项，用于指定命令的执行目录（也称为工作目录或上下文目录）。
+- `"command": "pnpm -C nest-server start:dev"` 相当于进入 `nest-server` 文件夹之后，运行`package.json`中的 `start:dev` 命令。
+
+```json
+{
+  "label": "Run nest-server", // 这是一个任务名称
+  "type": "shell", // 以 shell 命令运行
+  "command": "pnpm -C nest-server start:dev", // 相当于进入 nest-server 文件夹之后，运行 start:dev 命令
+  "problemMatcher": [],
+  "presentation": {
+    "panel": "shared",
+    "showReuseMessage": true,
+    "clear": false
+  },
+  "group": {
+    "kind": "build",
+    "isDefault": true
+  }
+}
+```
+
+- `"dependsOn": ["Run nest-server", "Run vite-vue-web", "Run vite-react-admin"]` 相当于一次性运行三个命令，打开三个窗口
+```json
+{
+  "label": "Run Meantime Nestjs Vite React",
+  "type": "shell",
+  "presentation": {
+    "reveal": "always",
+    "panel": "shared"
+  },
+  "problemMatcher": [],
+  "dependsOn": ["Run nest-server", "Run vite-vue-web", "Run vite-react-admin"]
+}
+```
+
+::: details 完整代码
+
+```json
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run nest-server",
+      "type": "shell",
+      "command": "pnpm -C nest-server start:dev",
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Run vite-vue-web",
+      "type": "shell",
+      "command": "pnpm -C vite-vue-web dev",
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Run vite-react-admin",
+      "type": "shell",
+      "command": "pnpm -C vite-react-admin dev",
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Run Meantime Nestjs Vite React",
+      "type": "shell",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [],
+      "dependsOn": [
+        "Run nest-server",
+        "Run vite-vue-web",
+        "Run vite-react-admin"
+      ]
+    }
+  ]
+}
+```
+
+:::
+
 ## 使用`github`的`action`自动部署到`github-pages`中
 
 ### 创建部署的`deploy.yml`文件，在项目的根目录下面
@@ -205,24 +323,24 @@ jobs:
 #### 分解步骤
 
 1.先点击个人头像，进入设置页面
-   ![请添加图片描述](/images/start/Snipaste_2023-12-21_09-49-37.png)
+![请添加图片描述](/images/start/Snipaste_2023-12-21_09-49-37.png)
 
 2.进入 Developer Settings 设置
-   ![请添加图片描述](/images/start/Snipaste_2023-12-21_09-50-53.png)
+![请添加图片描述](/images/start/Snipaste_2023-12-21_09-50-53.png)
 
 3.生成个人`token` Personal access tokens (classic)
-   ![请添加图片描述](/images/start/Snipaste_2023-12-21_09-52-06.png)
+![请添加图片描述](/images/start/Snipaste_2023-12-21_09-52-06.png)
 
 4.设置 token
-   ![请添加图片描述](/images/start/Snipaste_2023-12-21_09-54-50.png)
+![请添加图片描述](/images/start/Snipaste_2023-12-21_09-54-50.png)
 
 5.保存生成的 token
-   ![请添加图片描述](/images/start/Snipaste_2023-12-21_09-56-15.png)
+![请添加图片描述](/images/start/Snipaste_2023-12-21_09-56-15.png)
 
 6.进入仓库添加该仓库的 token
-   ![请添加图片描述](/images/start/Snipaste_2023-12-21_10-05-47.png)
-   ![请添加图片描述](/images/start/Snipaste_2023-12-21_10-06-12.png)
-   ![请添加图片描述](/images/start/Snipaste_2023-12-21_10-06-54.png)
+![请添加图片描述](/images/start/Snipaste_2023-12-21_10-05-47.png)
+![请添加图片描述](/images/start/Snipaste_2023-12-21_10-06-12.png)
+![请添加图片描述](/images/start/Snipaste_2023-12-21_10-06-54.png)
 
 ### 4. 创建`githubpages`
 
