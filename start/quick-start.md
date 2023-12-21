@@ -14,7 +14,7 @@ vite-vue-web # 使用V3+vite开发的H5项目
 pnpm-workspace.yaml # 用来指定该项目下面的子项目文件夹
 ```
 
-## windows自动推送脚本
+## windows 自动推送脚本
 
 ```bat
 @echo off
@@ -65,7 +65,8 @@ if %errorlevel% neq 0 (
 11. `echo 达到最大重试次数。退出。`：输出一条消息表示已经达到最大重试次数。
 
 12. `exit /b %errorlevel%`：以上一个命令的错误代码退出脚本，确保脚本返回与失败的命令相同的错误代码。
-    :::
+
+:::
 
 ## 依赖安装
 
@@ -102,9 +103,7 @@ pnpm add vue-router
 
 ## 使用`github`的`action`自动部署到`github-pages`中
 
-# 使用`github`的`action`自动部署到`github-pages`中
-
-## 创建部署的`deploy.yml`文件，在项目的根目录下面
+### 创建部署的`deploy.yml`文件，在项目的根目录下面
 
 `.github\workflows\deploy.yml`
 
@@ -133,7 +132,7 @@ jobs:
       - name: Setup Node.js and pnpm
         uses: actions/setup-node@v3
         with:
-          node-version: '20.10.0' # 设置 nodejs 的版本
+          node-version: "20.10.0" # 设置 nodejs 的版本
 
       - name: Install pnpm
         run: npm install -g pnpm # 全局安装 pnpm
@@ -148,9 +147,9 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.PAT_TOKEN }} # 这一步很重要，单独看下面的大步骤，主要是用来给该脚本一些仓库权限
-          publish_dir: .vitepress/dist # 指定该文件夹中的 dist 
+          publish_dir: .vitepress/dist # 指定该文件夹中的 dist
           publish_branch: gh-pages # 推送到关联仓库的 gh-pages 分支
-          dotfiles: true  # 包括在提交中，即使被 .gitignore 文件忽略
+          dotfiles: true # 包括在提交中，即使被 .gitignore 文件忽略
 ```
 
 这段 YAML 文件定义了一个 GitHub Actions 工作流，用于在推送到 `docs` 分支时构建和部署 VitePress 项目。
@@ -158,19 +157,19 @@ jobs:
 - `on`: 定义触发工作流的事件，这里是在推送到 `docs` 分支时触发。
 
 - `jobs`: 定义工作流中的任务。
-  
+
   - `build-and-deploy`: 任务的名称，表示构建和部署。
-    
+
     - `runs-on`: 指定任务运行的操作系统，这里是 `ubuntu-latest`。
-    
+
     - `steps`: 定义任务的一系列步骤。
-      
+
       - `name`: 步骤的名称。
-      
+
       - `uses`: 使用的 GitHub Action。
-      
+
       - `with`: 配置项，用于传递参数给 Action。
-      
+
       - `run`: 执行的脚本命令。
 
 其中，具体步骤解释如下：
@@ -187,39 +186,51 @@ jobs:
 
 6. 部署到 GitHub Pages：使用 `peaceiris/actions-gh-pages` Action 部署生成的静态文件到 GitHub Pages。配置中包括 GitHub Token、发布目录、发布分支以及是否包括 dotfiles（即使在 `.gitignore` 中也提交）等。
 
-## 仓库说明
+### 仓库说明
 
 ![Snipaste_2023-12-21_09-41-55.png](/images/start/Snipaste_2023-12-21_09-41-55.png)
 
-## 以下创建私人token和pages详细的步骤截图
+### 以下创建私人 token 和 pages 详细的步骤截图
 
 > 如果看不清楚，可以右键打开到新窗口预览
 
 ![请添加图片描述](/images/start/all-pic.png)
 
-## `github_token: secrets.PAT_TOKEN`创建
+### `github_token: secrets.PAT_TOKEN`创建
 
-1. 先点击个人头像，进入设置页面
-   ![请添加图片描述](https://img-blog.csdnimg.cn/direct/7ccad3afb4674f779a8bc20aa481c746.png)
+#### 整合步骤
 
-2. 进入 Developer Settings 设置
-   ![请添加图片描述](https://img-blog.csdnimg.cn/direct/42580ea2e5834139bfa88a8a63ea67c0.png)
+![请添加图片描述](/images/start/create-token.png)
 
-3. 生成个人`token` Personal access tokens (classic)
-   ![请添加图片描述](https://img-blog.csdnimg.cn/direct/ae99382ac066459f89246eb147ca8bcb.png)
+#### 分解步骤
 
-4. 设置token
-   ![请添加图片描述](https://img-blog.csdnimg.cn/direct/ab73a527aa3044b1b84104757b0b675f.png)
+1.先点击个人头像，进入设置页面
+   ![请添加图片描述](/images/start/Snipaste_2023-12-21_09-49-37.png)
 
-5. 保存生成的token
-   ![请添加图片描述](https://img-blog.csdnimg.cn/direct/0ef89a0dc2064c08921673fb20e0c75a.png)
+2.进入 Developer Settings 设置
+   ![请添加图片描述](/images/start/Snipaste_2023-12-21_09-50-53.png)
 
-6. 进入仓库添加该仓库的token
-   ![请添加图片描述](https://img-blog.csdnimg.cn/direct/2d40006ee89b4d43bbd34e1caf42fd61.png)
-   ![请添加图片描述](https://img-blog.csdnimg.cn/direct/ea7909fed1c84dd8b5d80352ee3cfc62.png)
-   ![请添加图片描述](https://img-blog.csdnimg.cn/direct/48b647217d804514a06ec242bfeaf849.png)
+3.生成个人`token` Personal access tokens (classic)
+   ![请添加图片描述](/images/start/Snipaste_2023-12-21_09-52-06.png)
 
-## 4. 创建`githubpages`
+4.设置 token
+   ![请添加图片描述](/images/start/Snipaste_2023-12-21_09-54-50.png)
 
-![请添加图片描述](https://img-blog.csdnimg.cn/direct/36a6c4af4dea46e989c4f6bc12f3aa78.png)
-![请添加图片描述](https://img-blog.csdnimg.cn/direct/70b9f88816c743b781f35547183ee791.png)
+5.保存生成的 token
+   ![请添加图片描述](/images/start/Snipaste_2023-12-21_09-56-15.png)
+
+6.进入仓库添加该仓库的 token
+   ![请添加图片描述](/images/start/Snipaste_2023-12-21_10-05-47.png)
+   ![请添加图片描述](/images/start/Snipaste_2023-12-21_10-06-12.png)
+   ![请添加图片描述](/images/start/Snipaste_2023-12-21_10-06-54.png)
+
+### 4. 创建`githubpages`
+
+#### 整合步骤
+
+![请添加图片描述](/images/start/set-pages.png)
+
+#### 分解步骤
+
+![请添加图片描述](/images/start/Snipaste_2023-12-21_10-08-44.png)
+![请添加图片描述](/images/start/Snipaste_2023-12-21_10-09-25.png)
