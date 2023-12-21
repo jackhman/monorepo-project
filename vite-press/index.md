@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "快速入门"
-  text: "Vue React NestJs\n项目说明"
+  text: "Vue React NestJS\n项目说明"
   tagline: "帮助快速了解，项目的基本情况"
   image:
     src: /images/common/VitePress.png
@@ -17,7 +17,7 @@ hero:
 features:
   - title: NestJS
     icon: { src: /images/icon/NestJs.svg }
-    details: 基于NestJs开发的后端接口
+    details: 基于NestJS开发的后端接口
   - title: Vue
     icon: { src: /images/icon/Vue.svg }
     details: 基于Vue开发的前端H5项目
