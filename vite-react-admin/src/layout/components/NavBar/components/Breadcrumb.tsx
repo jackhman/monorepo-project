@@ -3,10 +3,11 @@ import { useNavigate, Link } from 'react-router-dom'
 import { Breadcrumb } from 'antd'
 
 import { constRoutes } from "@/router/RouteConst"
-import { IRouterList } from '@/typescript/shared/interface/router'
+import { IRouterList } from '@/ts/interface/router'
 const BreadcrumbDom = () => {
   const navigate = useNavigate()
-  const { pathname } = navigate
+  const pathname = ""
+  // const { pathname } = navigate
   const [breadcrumbArr, setBreadcrumbArr] = useState<IRouterList[]>(() => [])
   // 获取当前的路由
   useEffect(() => {
@@ -21,7 +22,7 @@ const BreadcrumbDom = () => {
     }
     const getRouters: Array<IRouterList> = []
     // 获取当前的路由
-    function routerLoop(routes: Array<IRouterList> = constRoutes) {
+    function routerLoop(routes = []) {
       routes.forEach(item => {
         if (item.path === pathname) {
           if (item.path === '/dashboard') return

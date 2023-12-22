@@ -13,6 +13,13 @@ export const BaseEnv = {
 /** 判断是否是开发环境 */
 export const isDev = (): boolean => !!import.meta.env.VITE_DEV
 
+
+/** 退出登录之前, 清除保存的数据 */
+export const clearLoginData = () => {
+  removeToken()
+  removeUserId()
+}
+
 /**
  * token 过期，用户需要重新登录，并且清除掉部分数据
  */

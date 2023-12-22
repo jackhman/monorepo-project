@@ -18,9 +18,9 @@ const NavBar = observer(() => {
         {appStore.sideStatus ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
       </div>
       {/* 面包屑 */}
-      {/* <Breadcrumb></Breadcrumb> */}
+      <Breadcrumb></Breadcrumb>
       {/* 头像下拉框 */}
-      {/* <Personal></Personal> */}
+      <Personal></Personal>
     </Header>
   )
 })

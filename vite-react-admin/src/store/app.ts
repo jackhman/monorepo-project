@@ -1,6 +1,9 @@
 import { makeAutoObservable } from "mobx"
 
 class AppStore {
+  constructor() {
+    makeAutoObservable(this)
+  }
   mobile: boolean = false
   /** 侧边栏的状态 false 关闭 true 展开 */
   sideStatus: boolean = false
@@ -8,9 +11,6 @@ class AppStore {
   layoutLoading: boolean = true
   /** 是否需要重新获取用户的基本信息 true 需要 */
   refreshUserInfoFlag: boolean = true
-  constructor() {
-    makeAutoObservable(this)
-  }
   changeSiderStatus(flag: boolean) {
     this.mobile = flag
   }

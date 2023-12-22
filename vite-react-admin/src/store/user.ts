@@ -1,8 +1,12 @@
-import {  } from "mobx-react-lite"
-
-
-export class UserStore {
+import { makeAutoObservable } from "mobx"
+import { UserInfoDto } from '@shared/dto/user/user.dto'
+class UserStore {
   constructor() {
-    
+    makeAutoObservable(this)
+  }
+  userInfo: UserInfoDto = {
+    userName: ""
   }
 }
+
+export const userStore = new UserStore()
