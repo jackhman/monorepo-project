@@ -1,20 +1,21 @@
-import { Layout } from 'antd'
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
-
-import Breadcrumb from './components/Breadcrumb'
-import Personal from './components/Personal'
+import { Layout } from "antd"
+import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons"
+import { observer } from "mobx-react-lite"
+import { appStore } from "@/store/app"
+import Breadcrumb from "./components/Breadcrumb"
+import Personal from "./components/Personal"
 
 const { Header } = Layout
-const NavBar = ({ sideStatus, ChangeAsideStatus }) => {
+const NavBar = observer(() => {
   return (
     <Header style={{ padding: 0 }} className="header-box">
       {/* 侧边栏开关按钮 */}
       <div
         className="trigger"
-        // onClick={() => ChangeAsideStatus(!sideStatus)}
-        style={{ fontSize: '20px' }}
+        onClick={() => appStore.changeSideStatus()}
+        style={{ fontSize: "20px" }}
       >
-        {sideStatus ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
+        {appStore.sideStatus ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
       </div>
       {/* 面包屑 */}
       {/* <Breadcrumb></Breadcrumb> */}
@@ -22,5 +23,5 @@ const NavBar = ({ sideStatus, ChangeAsideStatus }) => {
       {/* <Personal></Personal> */}
     </Header>
   )
-}
+})
 export default NavBar
