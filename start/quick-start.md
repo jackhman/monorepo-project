@@ -8,11 +8,87 @@
 .vscode # 存放vscode的命令脚本
 nest-serve # 使用nestJS开发的项目后端接口
 script # 存放一些脚本信息，其中包括定时推送到Gitee和GitHub的脚本
+shared # 存放公共文件
 vite-press # vitepress的文档地址
 vite-react-admin # 使用React+Vite开发的后台管理系统
 vite-vue-web # 使用V3+vite开发的H5项目
 pnpm-workspace.yaml # 用来指定该项目下面的子项目文件夹
 ```
+
+```bash
+├─shared
+  ├─assets  # 存放静态资源
+  ├─common  # 存放公共方法
+  ├─dto     # 存放接口实例，比如接口需要的字段和返回的字段
+  ├─enum    # 存放 ts 的枚举
+  ├─interface # 存放 ts 的接口类型
+  └─model   # 存放 模块
+```
+
+::: warning 注意哟！！！
+
+`webpack` 接管 的`nestJS`项目要想正常获取到 `shared` 文件夹中的数据，需要在 `webpack` 配置文件中添加一个依赖
+```js
+const path = require("path")
+const CopyPlugin = require("copy-webpack-plugin")
+const sharedDirPath = path.resolve(__dirname, "../shared")
+module.exports = {
+  ...
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+    alias: {
+      "@shared": sharedDirPath
+    }
+  },
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        {
+          from: sharedDirPath,
+          to: "shared"
+        }
+      ]
+    })
+  ],
+  ...
+}
+
+```
+同理，`vite` 项目要想获取到 `shared` 文件夹的数据，也需要在 `vite.config.ts` 中添加配置
+```ts
+import { viteStaticCopy } from "vite-plugin-static-copy"
+export default defineConfig({
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+      "@shared": path.resolve(__dirname, "../shared")
+    }
+  },
+  plugins: [
+    vue(),
+    viteStaticCopy({
+      targets: [
+        { src: path.resolve(__dirname, "../shared"), dest: "dist/shared" }
+      ]
+    })
+  ]
+})
+```
+
+如果想要有`@shared`代码提示，还需要再**每个项目**的目录下面配置 `tsconfig.json`
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@shared/*": ["../shared/*"]
+    }
+  }
+}
+```
+:::
 
 ## windows 自动推送脚本
 
@@ -133,6 +209,7 @@ pnpm add vue-router
 ```
 
 - `"dependsOn": ["Run nest-server", "Run vite-vue-web", "Run vite-react-admin"]` 相当于一次性运行三个命令，打开三个窗口
+
 ```json
 {
   "label": "Run Meantime Nestjs Vite React",
