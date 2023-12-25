@@ -10,14 +10,15 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: ROUTE_PATH.LAYOUT,
+    path: ROUTE_PATH.DASHBOARD,
     element: <LayoutPage />,
     children: [
       {
         path: ROUTE_PATH.DASHBOARD,
         element: <Dashboard />,
       }
-    ]
+    ],
+    
   },
   {
     path: "*",

@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { Layout, Spin } from "antd"
+import { Layout } from "antd"
 import "./index.scss"
 import SiderDom from "./components/SideBar"
 import NavBarDom from "./components/NavBar/"

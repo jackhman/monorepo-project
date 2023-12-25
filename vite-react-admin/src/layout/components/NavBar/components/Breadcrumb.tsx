@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import { Breadcrumb } from 'antd'
-
-import { constRoutes } from "@/router/RouteConst"
-import { IRouterList } from '@/ts/interface/router'
+import { useState, useEffect } from "react"
+import { useLocation } from "react-router-dom"
+import type { RouteObject } from "react-router-dom"
+import { Breadcrumb } from "antd"
+import  type {  BreadcrumbProps } from "antd"
+import { HomeOutlined } from "@ant-design/icons"
+import { constRoutes, ROUTE_PATH } from "@/router/RouteConst"
 const BreadcrumbDom = () => {
-  const navigate = useNavigate()
-  const pathname = ""
+  const location = useLocation()
+  const pathname = location.pathname
   // const { pathname } = navigate
-  const [breadcrumbArr, setBreadcrumbArr] = useState<IRouterList[]>(() => [])
+  const [breadcrumbArr, setBreadcrumbArr] = useState<RouteObject[]>(() => [])
   // 获取当前的路由
   useEffect(() => {
     breadcrumbChange(pathname)
@@ -20,18 +21,18 @@ const BreadcrumbDom = () => {
       if (pathname.indexOf(routePATH) === -1) return false
       else return true
     }
-    const getRouters: Array<IRouterList> = []
+    const getRouters: Array<RouteObject> = []
     // 获取当前的路由
-    function routerLoop(routes = []) {
+    function routerLoop(routes = breadcrumbArr) {
       routes.forEach(item => {
         if (item.path === pathname) {
-          if (item.path === '/dashboard') return
+          if (item.path === "/dashboard") return
         }
         if (!item.children) {
           // 说明该路由显示在面包屑上
-          if (item.meta?.breadcrumbShowFlag !== false) {
-            if (findBreadcrumb(item.path)) getRouters.push(item)
-          }
+          // if (item.meta?.breadcrumbShowFlag !== false) {
+          //   if (findBreadcrumb(item.path)) getRouters.push(item)
+          // }
         } else {
           if (
             findBreadcrumb(item.path) &&
@@ -46,25 +47,34 @@ const BreadcrumbDom = () => {
     routerLoop()
     setBreadcrumbArr([...getRouters])
   }
+
+  // breadcrumbArr.map((breadcrumb, index) => {
+  //   return (
+  //       <Link
+  //         className="breadcrumb-item"
+  //         to={`${
+  //           breadcrumb.redirect ? breadcrumb.redirect : breadcrumb.path
+  //         }`}
+  //       >
+  //         {breadcrumb.meta?.title}
+  //       </Link>
+  //   )
+  // })
   return (
-    <Breadcrumb className="breadcrumb-box">
-      <Breadcrumb.Item>
-        <Link to="/">首页</Link>
-      </Breadcrumb.Item>
-      {breadcrumbArr.map((breadcrumb, index) => {
-        return (
-          <Breadcrumb.Item key={index}>
-            <Link
-              className="breadcrumb-item"
-              to={`${
-                breadcrumb.redirect ? breadcrumb.redirect : breadcrumb.path
-              }`}
-            >
-              {breadcrumb.meta?.title}
-            </Link>
-          </Breadcrumb.Item>
-        )
-      })}
+    <Breadcrumb
+      className="breadcrumb-box"
+      items={[
+        {
+          href: ROUTE_PATH.DASHBOARD,
+          title: (
+            <>
+              <HomeOutlined />
+              <span>首页</span>
+            </>
+          )
+        }
+      ]}
+    >
     </Breadcrumb>
   )
 }

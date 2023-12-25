@@ -12,6 +12,13 @@ export default defineConfig(() => {
       host: true,
       proxy: ViteOptions.proxy
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "@/assets/styles/variables.scss";`
+        }
+      }
+    },
     plugins: [
       react(),
       ViteOptions.plugins.viteStaticCopy(__dirname)

@@ -1,47 +1,75 @@
-/** 路由名称 */
-export const ROUTE_NAME = {
-  /** 登录 */
-  LOGIN: "LoginPage",
-  /** layout */
-  LAYOUT: "LayoutPage",
-  /** 首页 */
-  DASHBOARD: "dashboardPage",
-  /** 文章详情页 */
-  ARTICLE_DETAILS: "ArticleDetailsPage",
-  /** 购物车 */
-  SHOPCAR: "ShopCarPage",
-  /** 我的 */
-  PERSONAL: "PersonalPage",
-  /** 搜索 */
-  SEARCH: "SearchPage"
-}
 /** 路由path */
 export const ROUTE_PATH = {
-  /** 登录 */
-  LOGIN: "/login",
-  /** layout */
-  LAYOUT: "/",
+  /** 登录页面 */
+  LOGIN: '/login',
   /** 首页 */
-  DASHBOARD: "/dashboard",
-  /** 文章详情页 */
-  ARTICLE_DETAILS: "/article-details",
-  /** 购物车 */
-  SHOPCAR: "shop-car",
-  /** 我的 */
-  PERSONAL: "personal",
-  /** 搜索 */
-  SEARCH: "/search"
+  DASHBOARD: '/dashboard',
+  /** 个人中心 */
+  PERSONAL: '/personal',
+  /** 文档 */
+  DOCUMENT: '/document',
+  /** 权限 */
+  ADMIN_MANAGEMENT: '/admin',
+  /** 文章 */
+  ARTICLE: '/article',
+  /** 文章分类 */
+  ARTICLE_CATEGORY: '/article/category',
+  /** 文章列表 */
+  ARTICLE_LIST: '/article/list',
+  /** 文章创建 */
+  ARTICLE_CREATE: '/article/create',
+  /** 文章编辑 */
+  ARTICLE_EDIT: '/article/edit',
+  /** 文章预览 */
+  ARTICLE_DETAILS: '/article/details',
+  /** 多级菜单 */
+  MULTILEVEL: '/multilevel-menu',
+  /** 一级菜单 */
+  MULTILEVEL_FIRST: '/multilevel-menu/first-menu',
+  /** 二级菜单 */
+  MULTILEVEL_SECOND: '/multilevel-menu/first-one-menu',
+  /** 三级菜单 */
+  MULTILEVEL_THIRD: '/multilevel-menu/first-one-menu/third-menu',
+  /** 3-2级菜单 */
+  MULTILEVEL_THIRD_TWO: '/multilevel-menu/first-one-menu/third-two-menu',
+  /** 四级菜单 */
+  MULTILEVEL_FOUR: '/multilevel-menu/first-one-menu/third-two-menu/four-menu',
 }
 
-/** 需要缓存的路由 */
-export const KeepAliveRouteList = [
-  ROUTE_NAME.DASHBOARD,
-  ROUTE_NAME.SHOPCAR,
-  ROUTE_NAME.PERSONAL
-]
+export const ROUTE_TITLE = {
+  /** 登录页面 */
+  LOGIN: '登录',
+  /** 首页 */
+  DASHBOARD: '首页',
+  /** 个人中心 */
+  PERSONAL: '个人中心',
+  /** 文档 */
+  DOCUMENT: '文档',
+  /** 权限 */
+  ADMIN_MANAGEMENT: '权限',
+  /** 文章 */
+  ARTICLE: '文章',
+  /** 文章分类 */
+  ARTICLE_CATEGORY: '文章分类',
+  /** 文章列表 */
+  ARTICLE_LIST: '文章列表',
+  /** 文章创建 */
+  ARTICLE_CREATE: '文章创建',
+  /** 文章编辑 */
+  ARTICLE_EDIT: '文章编辑',
+  /** 文章预览 */
+  ARTICLE_DETAILS: '文章预览',
+  /** 多级菜单 */
+  MULTILEVEL: '多级菜单',
+  /** 一级菜单 */
+  MULTILEVEL_FIRST: '一级菜单',
+  /** 二级菜单 */
+  MULTILEVEL_SECOND: '二级菜单',
+  /** 三级菜单 */
+  MULTILEVEL_THIRD: '三级菜单',
+  /** 3-2级菜单 */
+  MULTILEVEL_THIRD_TWO: '3-2级菜单',
+  /** 四级菜单 */
+  MULTILEVEL_FOUR: '四级菜单',
+}
 
-/** 需要记录页面滚动的距离的 路由name */
-export const RouteRecordScroll = new Set([
-  ROUTE_NAME.SHOPCAR,
-  ROUTE_NAME.PERSONAL
-])
