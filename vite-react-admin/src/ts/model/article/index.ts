@@ -1,7 +1,7 @@
-import { BaseQueryModel } from '@/typescript/shared/model'
+import { BaseQueryModel } from '@/ts/model'
 import { getUserIdStorage } from '@/utils/modules/commonSave'
-import { EArticleSaveType, EArticleStatus } from '@/typescript/shared/enum/article'
-import { IArticleBasic } from '@/typescript/shared/interface/article'
+import { EArticleSaveType, EArticleStatus } from '@/ts/enum/article'
+import { IArticleBasic } from '@/ts/interface/article'
 
 /** 文章分类的列表查询 */
 export class ArticleCategoryModel extends BaseQueryModel {

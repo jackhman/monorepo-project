@@ -1,5 +1,5 @@
 import { useState, useLayoutEffect } from 'react'
-import { UserRolesEnum } from '@shared/enum/user-enum/user-roles.enum'
+import { UserRolesEnum } from '@shared/enum/user-enum'
 interface ICom {
   children: any
   /** 传入的用户权限id */

@@ -1,5 +1,5 @@
 import { EArticleStatus } from "@/ts/enum/article"
-import { UserRolesEnum } from "@/ts/enum/user"
+import { UserRolesEnum } from "@shared/enum/user-enum"
 
 /** 定义常用 map 对象,处理键值对转换为 文字 */
 class CustomMapToText {

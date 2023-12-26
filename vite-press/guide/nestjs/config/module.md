@@ -82,7 +82,7 @@ import {
   UserRolesEnum,
   UserRolesTextEnum,
   UserIsDeletedEnum
-} from "@shared/enum/user-enum/user-roles.enum"
+} from "@shared/enum/user-enum"
 @Entity("User")
 export class User {
   @PrimaryGeneratedColumn("uuid")

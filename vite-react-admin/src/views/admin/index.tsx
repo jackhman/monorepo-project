@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Radio, RadioChangeEvent } from 'antd'
 import './index.scss'
 import { EnumFieldToTransformText } from '@/utils'
-import { UserRolesEnum, UserRolesTextEnum } from '@shared/enum/user-enum/user-roles.enum'
+import { UserRolesEnum, UserRolesTextEnum } from '@shared/enum/user-enum'
 import { userStore } from "@/store/user"
 const AdminManagement = () => {
   const userInfo = userStore.userInfo
