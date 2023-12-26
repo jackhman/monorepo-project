@@ -3,7 +3,7 @@ import { UserService } from "./user.service"
 
 import { LoginUserDto, RegisterUserDto } from "@shared/dto/user/user.dto"
 import { R } from "../utils/R/R"
-import { ResultMsg } from "@shared/enum/result-num"
+import { ResultMsg } from "@shared/enum/result-enum"
 import { Public } from "../auth/decorators/public.decorator"
 import { AuthService } from "../auth/auth.service"
 @Controller("user")

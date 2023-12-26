@@ -1,4 +1,4 @@
-import { ResultCode, ResultMsg } from "@shared/enum/result-num"
+import { ResultCode, ResultMsg } from "@shared/enum/result-enum"
 /**
  * 返回的数据格式
  */

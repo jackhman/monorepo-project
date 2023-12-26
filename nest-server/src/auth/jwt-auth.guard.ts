@@ -5,7 +5,7 @@ import { JwtService } from "@nestjs/jwt"
 import { Request } from "express"
 import { jwtConstants } from "./constants"
 import { BizException } from "../utils/exceptionHandler/biz-exception.filter"
-import { ResultCode, ResultMsg } from "@shared/enum/result-num"
+import { ResultCode, ResultMsg } from "@shared/enum/result-enum"
 
 /** 管道, 在 app.module.ts中导入,自动会在每个controller中注册 */
 @Injectable()

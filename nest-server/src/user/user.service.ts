@@ -3,7 +3,7 @@ import { Repository } from "typeorm"
 import { InjectRepository } from "@nestjs/typeorm"
 import { User } from "./user.entity"
 import { BizException } from "../utils/exceptionHandler/biz-exception.filter"
-import { ResultCode, ResultMsg } from "@shared/enum/result-num"
+import { ResultCode, ResultMsg } from "@shared/enum/result-enum"
 import { AuthService } from "../auth/auth.service"
 import {
   LoginUserDto,

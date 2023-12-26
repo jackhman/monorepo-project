@@ -30,7 +30,7 @@ import { ROUTE_PATH } from "@/router/RouteConst"
 import { setToken, setUserIdStorage } from "@/utils/modules/commonSave"
 import LoginCom from "./components/LoginCom.vue"
 import RegisterCom from "./components/RegisterCom.vue"
-import { ResultCode } from "@shared/enum/result-num"
+import { ResultCode } from "@shared/enum/result-enum"
 import {
   LoginUserDto,
   UserInfoDto,

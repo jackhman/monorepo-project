@@ -7,7 +7,7 @@ import { UserInfoDto } from '@shared/dto/user/user.dto'
 // import { uploadUserAvatarApi } from '@/api/modules/common'
 // import { uploadUserInfoApi } from '@/api/modules/user'
 
-// import { ResultCode } from '@shared/enum/result-num/index'
+// import { ResultCode } from '@shared/enum/result-enum/index'
 interface ICom {
   userInfo: UserInfoDto
 }

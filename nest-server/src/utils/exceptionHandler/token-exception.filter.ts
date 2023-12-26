@@ -4,7 +4,7 @@ import {
   ArgumentsHost,
   UnauthorizedException
 } from "@nestjs/common"
-import { ResultCode, ResultMsg } from "@shared/enum/result-num"
+import { ResultCode, ResultMsg } from "@shared/enum/result-enum"
 
 /** 用来处理 token 过期时, 自定义传递给前端的参数 */
 @Catch(UnauthorizedException)

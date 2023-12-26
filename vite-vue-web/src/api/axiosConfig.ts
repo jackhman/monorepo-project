@@ -1,7 +1,7 @@
 import axios from "axios"
 import { showNotify } from 'vant';
 import { getToken } from "@/utils/modules/commonSave"
-import { ResultCode, ResultMsg } from "@shared/enum/result-num"
+import { ResultCode, ResultMsg } from "@shared/enum/result-enum"
 import { ResultModel } from "@shared/model/index"
 import { tokenExpired, isDev } from "@/utils"
 const baseURL = isDev() ? "/" : "http://118.178.235.203:2580"
