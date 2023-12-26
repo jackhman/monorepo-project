@@ -1,8 +1,5 @@
-import React, { useState, useLayoutEffect } from 'react'
-import { connect } from 'react-redux'
-import { UserRolesEnum } from '@/typescript/shared/enum/user'
-import IStoreState from '@/typescript/store'
-
+import { useState, useLayoutEffect } from 'react'
+import { UserRolesEnum } from '@shared/enum/user-enum/user-roles.enum'
 interface ICom {
   children: any
   /** 传入的用户权限id */
@@ -36,11 +33,5 @@ const PermissionCom = ({
   return <>{show && children}</>
 }
 
-const mapStateToProps = (state: IStoreState): { userRoleId: UserRolesEnum } => {
-  return {
-    userRoleId: state.user.userInfo.roleId
-  }
-}
-
 /** 用来设置 权限的显示 */
-export default connect(mapStateToProps)(PermissionCom)
+export default PermissionCom

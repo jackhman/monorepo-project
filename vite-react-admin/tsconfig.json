@@ -25,6 +25,6 @@
       "@shared/*": ["../shared/*"]
     }
   },
-  "include": ["../shared/common", "src/*", ],
+  "include": ["../shared/common", "src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx" ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

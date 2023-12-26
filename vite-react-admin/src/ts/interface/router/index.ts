@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { UserRolesEnum } from '@/ts/enum/user'
+import { UserRolesEnum } from '@shared/enum/user-enum/user-roles.enum'
 /** 路由 */
 export interface IRouterList {
   /** 路由的地址 */

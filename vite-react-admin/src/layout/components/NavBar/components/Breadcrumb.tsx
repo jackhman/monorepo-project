@@ -1,27 +1,24 @@
 import { useState, useEffect } from "react"
 import { useLocation } from "react-router-dom"
-import type { RouteObject } from "react-router-dom"
 import { Breadcrumb } from "antd"
-import  type {  BreadcrumbProps } from "antd"
 import { HomeOutlined } from "@ant-design/icons"
-import { constRoutes, ROUTE_PATH } from "@/router/RouteConst"
+import { ROUTE_PATH } from "@/router/RouteConst"
+import { IRouterList } from "@/ts/interface/router"
 const BreadcrumbDom = () => {
   const location = useLocation()
   const pathname = location.pathname
-  // const { pathname } = navigate
-  const [breadcrumbArr, setBreadcrumbArr] = useState<RouteObject[]>(() => [])
+  const [breadcrumbArr, setBreadcrumbArr] = useState<IRouterList[]>(() => [])
   // 获取当前的路由
   useEffect(() => {
     breadcrumbChange(pathname)
-    // setAnimateFlag(!animateFlag)
   }, [pathname])
   // 每次路由切换的时候 面包屑变换
   const breadcrumbChange = (pathname: string) => {
-    function findBreadcrumb(routePATH) {
+    function findBreadcrumb(routePATH: string) {
       if (pathname.indexOf(routePATH) === -1) return false
       else return true
     }
-    const getRouters: Array<RouteObject> = []
+    const getRouters: Array<IRouterList> = []
     // 获取当前的路由
     function routerLoop(routes = breadcrumbArr) {
       routes.forEach(item => {
@@ -30,9 +27,9 @@ const BreadcrumbDom = () => {
         }
         if (!item.children) {
           // 说明该路由显示在面包屑上
-          // if (item.meta?.breadcrumbShowFlag !== false) {
-          //   if (findBreadcrumb(item.path)) getRouters.push(item)
-          // }
+          if (item.meta?.breadcrumbShowFlag !== false) {
+            if (findBreadcrumb(item.path)) getRouters.push(item)
+          }
         } else {
           if (
             findBreadcrumb(item.path) &&
@@ -47,19 +44,6 @@ const BreadcrumbDom = () => {
     routerLoop()
     setBreadcrumbArr([...getRouters])
   }
-
-  // breadcrumbArr.map((breadcrumb, index) => {
-  //   return (
-  //       <Link
-  //         className="breadcrumb-item"
-  //         to={`${
-  //           breadcrumb.redirect ? breadcrumb.redirect : breadcrumb.path
-  //         }`}
-  //       >
-  //         {breadcrumb.meta?.title}
-  //       </Link>
-  //   )
-  // })
   return (
     <Breadcrumb
       className="breadcrumb-box"
@@ -72,10 +56,15 @@ const BreadcrumbDom = () => {
               <span>首页</span>
             </>
           )
-        }
+        },
+        ...breadcrumbArr.map(breadcrumb => {
+          return {
+            href: breadcrumb.redirect ? breadcrumb.redirect : breadcrumb.path,
+            title: breadcrumb.meta?.title
+          }
+        })
       ]}
-    >
-    </Breadcrumb>
+    ></Breadcrumb>
   )
 }
 

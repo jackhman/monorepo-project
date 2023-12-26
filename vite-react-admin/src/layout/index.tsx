@@ -17,7 +17,7 @@ const LayoutDom = () => {
   return (
     <Layout className="layout-box">
       {/* 侧边栏 */}
-      {/* <SiderDom /> */}
+      <SiderDom />
       {/* 右边内容区域 */}
       <Layout className="site-layout">
         {/* 头部 */}

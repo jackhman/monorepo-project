@@ -40,3 +40,25 @@ export const logoutClearUtils = (): void => {
   removeToken()
   removeUserId()
 }
+
+
+type keyType = string | number | undefined
+/** ts中的枚举字段 转换为枚举中文字段 */
+export function EnumFieldToTransformText<
+  T extends Record<string, keyType>,
+  S extends Record<string, keyType>
+>(enumField: T, enumTransform: S, field: keyType) {
+  if(!field) return
+  let getFindKey = ''
+  for (const key in enumField) {
+    const element = enumField[key]
+    if(element === field) {
+      getFindKey = key
+      break
+    }
+  }
+  const getTextValue = enumTransform[getFindKey]
+  if(getTextValue) return getTextValue
+  else console.warn('错误,未匹配到')
+}
+
