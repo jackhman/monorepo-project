@@ -38,7 +38,7 @@ export const routerList: Array<IRouterList> = [
   {
     path: ROUTE_PATH.DOCUMENT,
     meta: { icon: FileTextOutlined, title: ROUTE_TITLE.DOCUMENT },
-    component: Document
+    // component: Document
   },
   // 权限页面
   {

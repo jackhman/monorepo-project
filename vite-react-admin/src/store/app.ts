@@ -11,7 +11,7 @@ class AppStore {
   layoutLoading: boolean = true
   /** 是否需要重新获取用户的基本信息 true 需要 */
   refreshUserInfoFlag: boolean = true
-  changeSiderStatus(flag: boolean) {
+  changeMobileStatus(flag: boolean) {
     this.mobile = flag
   }
   /** 修改侧边栏状态 */

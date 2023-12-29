@@ -1,8 +1,12 @@
 .layout-box {
+  display: flex;
   height: 100vh;
   .sider-box {
     max-height: 100%;
     overflow: auto;
+    .ant-menu-title-content {
+      user-select: none;
+    }
   }
   .header-box {
     display: flex;

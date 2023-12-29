@@ -7,7 +7,7 @@ import Error404Page from "@/views/error_page/404_page"
 const router = createBrowserRouter([
   {
     path: ROUTE_PATH.LOGIN,
-    element: <Login />,
+    element: <Login />
   },
   {
     path: ROUTE_PATH.DASHBOARD,
@@ -15,10 +15,9 @@ const router = createBrowserRouter([
     children: [
       {
         path: ROUTE_PATH.DASHBOARD,
-        element: <Dashboard />,
+        element: <Dashboard />
       }
-    ],
-    
+    ]
   },
   {
     path: "*",
