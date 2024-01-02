@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { ComponentType } from 'react'
 import { UserRolesEnum } from '@shared/enum/user-enum'
 /** 路由 */
 export interface IRouterList {
@@ -9,7 +9,7 @@ export interface IRouterList {
   /** 路由的元数据 */
   meta?: IMeta
   /** 路由组件 */
-  component?: FC
+  component?: ComponentType
   /** 子路由 */
   children?: Array<IRouterList>
 }
@@ -29,7 +29,7 @@ export interface IMeta {
   /** 侧边栏的名称 */
   title: string
   /** 侧边栏的图标 */
-  icon?: FC | string
+  icon?: ComponentType | string
   /** 用户的权限
    * 如果没有设置,则代表所有的权限均可以访问
    */

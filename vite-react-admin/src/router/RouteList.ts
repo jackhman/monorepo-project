@@ -12,7 +12,7 @@ import { IRouterList } from "@/ts/interface/router"
 import { ROUTE_PATH, ROUTE_TITLE } from "./RouteConst"
 import Dashboard from "@/views/dashboard/index"
 import Personal from "@/views/personal"
-// import Document from "@/views/document"
+import Document from "@/views/document"
 // import ArticleCategory from "@/views/article/category"
 // import ArticleList from "@/views/article/list"
 // import ArticleDetails from "@/views/article/details"
@@ -38,7 +38,7 @@ export const routerList: Array<IRouterList> = [
   {
     path: ROUTE_PATH.DOCUMENT,
     meta: { icon: FileTextOutlined, title: ROUTE_TITLE.DOCUMENT },
-    // component: Document
+    component: Document
   },
   // 权限页面
   {

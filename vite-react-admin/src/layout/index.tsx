@@ -1,12 +1,15 @@
 import { useEffect } from "react"
+import { redirect } from "react-router-dom"
 import { Layout } from "antd"
 import "./index.scss"
 import SiderDom from "./components/SideBar"
 import NavBarDom from "./components/NavBar/"
 import ContentDom from "./components/Content"
 import resizeMethods from "../utils/modules/onResize"
+import { ROUTE_PATH } from "@/router/RouteConst"
 
 const LayoutDom = () => {
+  redirect(ROUTE_PATH.DASHBOARD)
   useEffect(() => {
     resizeMethods.onResize()
     resizeMethods.listenResize()
