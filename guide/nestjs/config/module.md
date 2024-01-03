@@ -82,7 +82,7 @@ import {
   UserRolesEnum,
   UserRolesTextEnum,
   UserIsDeletedEnum
-} from "@shared/enum/user-enum/user-roles.enum"
+} from "@shared/enum/user-enum"
 @Entity("User")
 export class User {
   @PrimaryGeneratedColumn("uuid")
@@ -172,7 +172,7 @@ import { UserService } from "./user.service"
 
 import { LoginUserDto, RegisterUserDto } from "@shared/dto/user/user.dto"
 import { R } from "../utils/R/R"
-import { ResultMsg } from "@shared/enum/result-num"
+import { ResultMsg } from "@shared/enum/result-enum"
 import { Public } from "../auth/decorators/public.decorator"
 import { AuthService } from "../auth/auth.service"
 @Controller("user")
@@ -245,7 +245,7 @@ import { Repository } from "typeorm"
 import { InjectRepository } from "@nestjs/typeorm"
 import { User } from "./user.entity"
 import { BizException } from "../utils/exceptionHandler/biz-exception.filter"
-import { ResultCode, ResultMsg } from "@shared/enum/result-num"
+import { ResultCode, ResultMsg } from "@shared/enum/result-enum"
 import { AuthService } from "../auth/auth.service"
 import {
   LoginUserDto,
