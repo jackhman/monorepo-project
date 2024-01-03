@@ -10,6 +10,8 @@ import {
   RegisterUserDto,
   UserInfoDto
 } from "@shared/dto/user/user.dto"
+import { UserPageDto } from "@shared/dto/page.dto"
+import { validateInstance } from "../utils/validateHandler/index"
 @Injectable()
 export class UserService {
   constructor(
@@ -82,16 +84,25 @@ export class UserService {
   /** 删除用户 */
   async deleteUser(id: string) {
     const res = await this.usersRepository.update(id, { isDelete: 1 })
-    if(!res) {
+    if (!res) {
       throw new BizException(ResultCode.ERROR, ResultMsg.DELETE_FAIL)
     }
     return res
   }
 
   /** 查找所有用户信息 */
-  async findAllUser() {
-    const res = await this.usersRepository.find()
-    if(!res) {
+  async findAllUser(userPageDto: UserPageDto) {
+    const errors = validateInstance(UserPageDto, userPageDto)
+    console.log(errors)
+    const { current, pageSize } = userPageDto
+    const skip = (current - 1) * pageSize
+    const res = await this.usersRepository.find({
+      take: pageSize,
+      skip
+    })
+    const total = await this.usersRepository.count()
+    console.log(total)
+    if (!res) {
       throw new BizException(ResultCode.ERROR, ResultMsg.REQUEST_FAIL)
     }
     return res

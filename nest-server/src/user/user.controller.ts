@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common"
 import { UserService } from "./user.service"
 
 import { LoginUserDto, RegisterUserDto } from "@shared/dto/user/user.dto"
+import { UserPageDto } from "@shared/dto/page.dto"
 import { R } from "../utils/R/R"
 import { ResultMsg } from "@shared/enum/result-enum"
 import { Public } from "../auth/decorators/public.decorator"
@@ -50,8 +51,8 @@ export class UserController {
 
   /** 查找所有用户信息 */
   @Post("list")
-  async findAllUser() {
-    const findAllUser = await this.userService.findAllUser()
+  async findAllUser(@Body() userPageDto: UserPageDto) {
+    const findAllUser = await this.userService.findAllUser(userPageDto)
     return R.success().setData(findAllUser)
   }
 }
