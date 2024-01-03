@@ -90,6 +90,10 @@ export class UserService {
 
   /** 查找所有用户信息 */
   async findAllUser() {
-    
+    const res = await this.usersRepository.find()
+    if(!res) {
+      throw new BizException(ResultCode.ERROR, ResultMsg.REQUEST_FAIL)
+    }
+    return res
   }
 }

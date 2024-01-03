@@ -41,10 +41,17 @@ export class UserController {
     return R.success().setMsg(ResultMsg.DELETE_SUCCESS)
   }
 
+  /** 通过用户id查询用户数据 */
   @Get(":id")
   async getUserById(@Param("id") id: string) {
     const getUserInfo = await this.userService.getUserById(id)
     return R.success().setData(getUserInfo)
-    // return new Observable(observer => {});
+  }
+
+  /** 查找所有用户信息 */
+  @Post("list")
+  async findAllUser() {
+    const findAllUser = await this.userService.findAllUser()
+    return R.success().setData(findAllUser)
   }
 }
