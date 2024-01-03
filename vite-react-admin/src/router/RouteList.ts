@@ -1,9 +1,8 @@
 import {
   HomeOutlined,
   FileTextOutlined,
-  // DatabaseOutlined,
-  // DiffOutlined,
   FileAddOutlined,
+  BarsOutlined,
   GroupOutlined,
   UserSwitchOutlined
 } from "@ant-design/icons"
@@ -21,30 +20,31 @@ import FirstMenu from "@/views/multilevel-menu/first-menu"
 import SecondMenu from "@/views/multilevel-menu/second-menu"
 import ThirdMenu from "@/views/multilevel-menu/third-menu"
 import AdminManagement from "@/views/admin"
+
 /** 路由的保存数组*/
 export const routerList: Array<IRouterList> = [
   {
     path: ROUTE_PATH.DASHBOARD,
     meta: { icon: HomeOutlined, title: ROUTE_TITLE.DASHBOARD },
-    component: Dashboard
+    Component: Dashboard
   },
   // 个人中心页面
   {
     path: ROUTE_PATH.PERSONAL,
     meta: { hidden: true, title: ROUTE_TITLE.PERSONAL },
-    component: Personal
+    Component: Personal
   },
   // 文档页面
   {
     path: ROUTE_PATH.DOCUMENT,
     meta: { icon: FileTextOutlined, title: ROUTE_TITLE.DOCUMENT },
-    component: Document
+    Component: Document
   },
   // 权限页面
   {
     path: ROUTE_PATH.ADMIN_MANAGEMENT,
     meta: { icon: UserSwitchOutlined, title: ROUTE_TITLE.ADMIN_MANAGEMENT },
-    component: AdminManagement
+    Component: AdminManagement
   },
   // 文章
   // {
@@ -87,24 +87,24 @@ export const routerList: Array<IRouterList> = [
     children: [
       {
         path: ROUTE_PATH.MULTILEVEL_FIRST,
-        meta: { icon: "icon-sishi", title: ROUTE_TITLE.MULTILEVEL_FIRST },
-        component: FirstMenu
+        meta: { icon: BarsOutlined, title: ROUTE_TITLE.MULTILEVEL_FIRST },
+        Component: FirstMenu
       },
       {
         path: ROUTE_PATH.MULTILEVEL_SECOND,
         redirect: ROUTE_PATH.MULTILEVEL_THIRD,
         meta: {
-          icon: "icon-jinganglang",
+          icon: BarsOutlined,
           title: ROUTE_TITLE.MULTILEVEL_SECOND
         },
         children: [
           {
             path: ROUTE_PATH.MULTILEVEL_THIRD,
             meta: {
-              icon: "icon-zhizhuxia",
+              icon: BarsOutlined,
               title: ROUTE_TITLE.MULTILEVEL_THIRD
             },
-            component: SecondMenu
+            Component: SecondMenu
           },
           {
             path: ROUTE_PATH.MULTILEVEL_THIRD_TWO,
@@ -121,7 +121,7 @@ export const routerList: Array<IRouterList> = [
                   icon: FileAddOutlined,
                   title: ROUTE_TITLE.MULTILEVEL_FOUR
                 },
-                component: ThirdMenu
+                Component: ThirdMenu
               }
             ]
           }

@@ -1,12 +1,30 @@
 import { useState, useMemo } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { Layout, Menu } from "antd"
+import type { MenuProps } from "antd"
 
 import CustomIconCom from "@/components/CustomIcon/index"
 import { routerList } from "@/router/RouteList"
 import { appStore } from "@/store/app"
 const { Sider } = Layout
-const { SubMenu } = Menu
+type MenuItem = Required<MenuProps>["items"][number]
+
+function getItem(
+  label: React.ReactNode,
+  key: React.Key,
+  icon?: React.ReactNode,
+  children?: MenuItem[],
+  type?: "group"
+): MenuItem {
+  return {
+    label,
+    key,
+    icon,
+    children,
+    type
+  } as MenuItem
+}
+
 const SideBar = () => {
   const navigate = useNavigate()
   const location = useLocation()
@@ -20,41 +38,30 @@ const SideBar = () => {
   useMemo(() => {
     const { pathname } = location
     setSelectenMenu([pathname])
-
     const getOpenKeyArr = pathname.split("/")
     const getOpenKey = getOpenKeyArr.length >= 3 ? "/" + getOpenKeyArr[1] : null
     setDefaultOpenKeys([getOpenKey])
   }, [location.pathname])
 
+  let menuItems: MenuItem[] = []
   // 获取动态的侧边栏
-  const getMenu = (routerArr = routerList) => {
-    const getMenuList: any = []
+  const getMenu = (routerArr = routerList): MenuItem[] => {
+    const menuItemsChild: MenuItem[] = []
     for (let index = 0; index < routerArr.length; index++) {
       const element = routerArr[index]
       if (element.meta) {
         if (!element.meta.hidden) {
           if (!element.children) {
-            getMenuList.push(
-              <Menu.Item key={element.path} icon={handleIcon(element)}>
-                {element.meta.title}
-              </Menu.Item>
-            )
+            menuItemsChild.push(getItem(element.meta.title, element.path, handleIcon(element)))
           } else if (element.children) {
-            getMenuList.push(
-              <SubMenu
-                key={element.path}
-                icon={handleIcon(element)}
-                title={element.meta.title}
-              >
-                {getMenu(element.children)}
-              </SubMenu>
-            )
+            menuItemsChild.push(getItem(element.meta.title, element.path, handleIcon(element), getMenu(element.children)))
           }
         }
       }
     }
-    return getMenuList
+    return menuItemsChild
   }
+
   /** 处理侧边栏图标 */
   const handleIcon = item => {
     if (typeof item.meta.icon === "string") {
@@ -62,9 +69,8 @@ const SideBar = () => {
     } else {
       return <item.meta.icon />
     }
-    // return <iconCom />
   }
-  getMenu()
+  menuItems = getMenu()
   // 点击侧边栏跳转
   const MenuClick = ({ key }) => {
     navigate(key)
@@ -84,8 +90,8 @@ const SideBar = () => {
         mode="inline"
         onClick={MenuClick}
         defaultOpenKeys={defaultOpenKeys}
+        items={menuItems}
       >
-        {getMenu()}
       </Menu>
     </Sider>
   )

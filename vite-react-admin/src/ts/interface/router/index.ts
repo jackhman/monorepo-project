@@ -1,6 +1,7 @@
 import { ComponentType } from 'react'
 import { UserRolesEnum } from '@shared/enum/user-enum'
 /** 路由 */
+
 export interface IRouterList {
   /** 路由的地址 */
   path: string
@@ -9,7 +10,7 @@ export interface IRouterList {
   /** 路由的元数据 */
   meta?: IMeta
   /** 路由组件 */
-  component?: ComponentType
+  Component?: ComponentType
   /** 子路由 */
   children?: Array<IRouterList>
 }
