@@ -79,7 +79,5 @@ export enum ResultMsg {
 
   UPLOAD_SUCCESS = "上传成功",
 
-  UPLOAD_IMG_FAIL = "图片上传失败",
-
-  VALIDATION_FAILED = "参数校验出错"
+  UPLOAD_IMG_FAIL = "图片上传失败"
 }

@@ -1,11 +1,13 @@
-import { IsNotNull } from "../../nest-server/src/utils/validateHandler"
+import { IsNotNull, IsNumber } from "../../nest-server/src/utils/validateHandler"
 
 /** 分页需要的 dto */
 export class BasePageDto {
-  @IsNotNull
+  @IsNotNull()
   pageSize: number = 10
+  @IsNumber()
   current: number = 1
-  total: number = 0
+  @IsNumber()
+  total?: number = 0
 }
 
 /** 用户分页 */
