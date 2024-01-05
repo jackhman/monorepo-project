@@ -3,7 +3,7 @@ import { Upload } from 'antd'
 import ImgCrop from 'antd-img-crop'
 import './avatar-upload.scss'
 
-import { UserInfoDto } from '@shared/dto/user/user.dto'
+import { UserInfoDto } from '@shared/dto/user.dto'
 // import { uploadUserAvatarApi } from '@/api/modules/common'
 // import { uploadUserInfoApi } from '@/api/modules/user'
 

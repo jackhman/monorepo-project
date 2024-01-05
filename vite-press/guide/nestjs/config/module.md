@@ -170,7 +170,7 @@ export class User {
 import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common"
 import { UserService } from "./user.service"
 
-import { LoginUserDto, RegisterUserDto } from "@shared/dto/user/user.dto"
+import { LoginUserDto, RegisterUserDto } from "@shared/dto/user.dto"
 import { R } from "../utils/R/R"
 import { ResultMsg } from "@shared/enum/result-enum"
 import { Public } from "../auth/decorators/public.decorator"
@@ -251,7 +251,7 @@ import {
   LoginUserDto,
   RegisterUserDto,
   UserInfoDto
-} from "@shared/dto/user/user.dto"
+} from "@shared/dto/user.dto"
 @Injectable()
 export class UserService {
   constructor(

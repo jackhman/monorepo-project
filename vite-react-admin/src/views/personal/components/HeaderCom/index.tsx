@@ -1,4 +1,4 @@
-import { UserInfoDto } from '@shared/dto/user/user.dto'
+import { UserInfoDto } from '@shared/dto/user.dto'
 import CustomMapToText from '@/utils/modules/CustomMapToText'
 import ChangeAvatarCom from './ChangeAvatarCom'
 interface ICom {

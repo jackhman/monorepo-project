@@ -1,6 +1,6 @@
 import axios from "../axiosConfig"
 import { ResultModel } from "@shared/model"
-import { LoginUserDto, RegisterUserDto, UserInfoDto } from "@shared/dto/user/user.dto"
+import { LoginUserDto, RegisterUserDto, UserInfoDto } from "@shared/dto/user.dto"
 /** 用户登录 */
 export const loginApi = (
   params: LoginUserDto

@@ -1,4 +1,4 @@
-import { UserRolesEnum } from "../../enum/user-enum"
+import { UserRolesEnum } from "../enum/user-enum"
 
 export class LoginUserDto {
   userName: string

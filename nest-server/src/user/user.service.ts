@@ -9,7 +9,7 @@ import {
   LoginUserDto,
   RegisterUserDto,
   UserInfoDto
-} from "@shared/dto/user/user.dto"
+} from "@shared/dto/user.dto"
 import { UserPageDto } from "@shared/dto/page.dto"
 import { validate } from "../utils/validateHandler/index"
 @Injectable()

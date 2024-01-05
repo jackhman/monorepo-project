@@ -1,7 +1,7 @@
 import { defineStore } from "pinia"
 import { ref } from "vue"
 import { getUserInfoApi } from "@/api/modules/user"
-import { UserInfoDto } from "@shared/dto/user/user.dto"
+import { UserInfoDto } from "@shared/dto/user.dto"
 
 export const useUserStore = defineStore("user", () => {
   const userInfo = ref<UserInfoDto>()

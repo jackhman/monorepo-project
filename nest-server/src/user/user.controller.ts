@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common"
 import { UserService } from "./user.service"
 
-import { LoginUserDto, RegisterUserDto } from "@shared/dto/user/user.dto"
+import { LoginUserDto, RegisterUserDto } from "@shared/dto/user.dto"
 import { UserPageDto } from "@shared/dto/page.dto"
 import { R } from "../utils/R/R"
 import { ResultMsg } from "@shared/enum/result-enum"

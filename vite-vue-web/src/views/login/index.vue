@@ -35,7 +35,7 @@ import {
   LoginUserDto,
   UserInfoDto,
   RegisterUserDto
-} from "@shared/dto/user/user.dto"
+} from "@shared/dto/user.dto"
 
 /** 显示登录组件还是注册组件 true 登录组件 false 注册组件 */
 const isFlag = ref<boolean>(true)

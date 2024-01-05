@@ -1,5 +1,5 @@
 import "./index.scss"
-import { UserInfoDto } from "@shared/dto/user/user.dto"
+import { UserInfoDto } from "@shared/dto/user.dto"
 
 interface InfoComInter {
   userInfo: UserInfoDto

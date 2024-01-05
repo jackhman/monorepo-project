@@ -64,7 +64,7 @@
 import { reactive } from "vue"
 import {
   RegisterUserDto,
-} from "@shared/dto/user/user.dto"
+} from "@shared/dto/user.dto"
 
 interface ICom extends RegisterUserDto {
   confirmPwd: string

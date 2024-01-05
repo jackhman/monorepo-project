@@ -38,7 +38,7 @@
 import { reactive } from "vue"
 import type { UnwrapRef } from "vue"
 
-import { LoginUserDto } from "@shared/dto/user/user.dto"
+import { LoginUserDto } from "@shared/dto/user.dto"
 
 const form: UnwrapRef<LoginUserDto> = reactive({
   userName: "admin",
