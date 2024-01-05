@@ -109,6 +109,6 @@ export class UserService {
     if (!res) {
       throw new BizException(ResultCode.ERROR, ResultMsg.REQUEST_FAIL)
     }
-    return { res, total,current,pageSize  }
+    return { res, total }
   }
 }

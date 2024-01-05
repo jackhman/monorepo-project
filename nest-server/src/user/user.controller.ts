@@ -34,7 +34,7 @@ export class UserController {
     this.authService.logout()
     return R.success().setMsg(ResultMsg.LOGOUT_SUCCESS)
   }
-  
+
   /** 删除用户 */
   @Delete(":id")
   async deleteUser(@Param("id") id: string) {
@@ -52,7 +52,7 @@ export class UserController {
   /** 查找所有用户信息 */
   @Post("list")
   async findAllUser(@Body() userPageDto: UserPageDto) {
-    const findAllUser = await this.userService.findAllUser(userPageDto)
-    return R.success().setData(findAllUser)
+    const { res: row, total } = await this.userService.findAllUser(userPageDto)
+    return R.success().setRow({ row, total })
   }
 }

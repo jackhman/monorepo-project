@@ -51,6 +51,12 @@ export class R {
     return this
   }
 
+  /** 专门处理列表分页的数据 */
+  public setRow(v: { total: number; row: any }): R {
+    this.data = v
+    return this
+  }
+
   public putData(k: string, v: any): R {
     const o = new Map()
     o.set(k, v)
