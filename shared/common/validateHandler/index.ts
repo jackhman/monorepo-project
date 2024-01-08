@@ -33,7 +33,7 @@ export function IsString(errorMessage: string) {
 export function validate(targetClass: any, instance: any): string[] {
   // 获取类的所有属性
   const properties = Object.keys(new targetClass())
-  const errors = []
+  const errors: string[]= []
   // 遍历属性
   properties.forEach(propertyKey => {
     // 获取属性上的元数据

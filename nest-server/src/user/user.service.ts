@@ -11,7 +11,7 @@ import {
   UserInfoDto
 } from "@shared/dto/user.dto"
 import { UserPageDto } from "@shared/dto/page.dto"
-import { validate } from "../utils/validateHandler/index"
+import { validate } from "@shared/common"
 @Injectable()
 export class UserService {
   constructor(
