@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client"
 import App from "./App"
 import "@shared/assets/styles/resect.scss"
 import "@/assets/styles/index.scss"
-import "@/utils/validateHandler/test"
 ReactDOM.createRoot(document.getElementById("root")!).render(
   /** React.StrictMode 的作用主要有:
     检查不安全的生命周期

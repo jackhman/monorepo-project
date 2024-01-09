@@ -1,21 +1,26 @@
 import { UserRolesEnum } from "../enum/user-enum"
+import { IsNotNull } from "../common/validateHandler"
 
 export class LoginUserDto {
+  @IsNotNull()
   userName: string
+  @IsNotNull()
   password: string
 }
 
 export class RegisterUserDto {
+  @IsNotNull()
   userName: string
+
+  @IsNotNull()
   password: string
   nickName?: string
 }
 
 export class FindUserDto {
   userName?: string
-  id? :string
+  id?: string
 }
-
 
 /** 返回给用户基本信息 */
 export class UserInfoDto {

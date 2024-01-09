@@ -93,11 +93,12 @@ export class UserService {
   /** 查找所有用户信息 */
   async findAllUser(userPageDto: UserPageDto) {
     const errors = validate(UserPageDto, userPageDto)
+    console.log(errors)
     if (errors.length) {
-      throw new BizException(
-        ResultCode.ERROR,
-        errors.reduce((pre, cur) => pre + cur + ", ")
-      )
+      // throw new BizException(
+      //   ResultCode.ERROR,
+      //   errors
+      // )
     }
     const { current, pageSize } = userPageDto
     const skip = (current - 1) * pageSize

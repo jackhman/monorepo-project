@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common"
 import { TypeOrmModule } from "@nestjs/typeorm"
 import { CustomNamingStrategy } from "./utils"
 import { UserModule } from "./user/user.module"
+import { MenuModule } from "./menu/menu.module"
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core"
 import { BizExceptionFilter } from "./utils/exceptionHandler/biz-exception.filter"
 import { AuthModule } from "./auth/auth.module"
@@ -23,7 +24,8 @@ import { PostStatusInterceptor } from "./utils/interceptorHander/post-status.int
       namingStrategy: new CustomNamingStrategy() // 启用驼峰命名
     }),
     AuthModule,
-    UserModule
+    UserModule,
+    MenuModule
   ],
   providers: [
     {

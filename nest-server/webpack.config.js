@@ -21,9 +21,9 @@ module.exports = {
       "@shared": sharedDirPath
     }
   },
-  mode: "production",
+  mode: "development",
   devServer: {
-    hotOnly: true
+    hot: true
   },
   optimization: {
     concatenateModules: true
