@@ -1,18 +1,17 @@
 import { UserRolesEnum } from "../enum/user-enum"
-import { IsNotNull } from "../common/validateHandler"
-
+import { IsNotEmpty } from "class-validator"
 export class LoginUserDto {
-  @IsNotNull()
+  @IsNotEmpty()
   userName: string
-  @IsNotNull()
+  @IsNotEmpty()
   password: string
 }
 
 export class RegisterUserDto {
-  @IsNotNull()
+  @IsNotEmpty()
   userName: string
 
-  @IsNotNull()
+  @IsNotEmpty()
   password: string
   nickName?: string
 }

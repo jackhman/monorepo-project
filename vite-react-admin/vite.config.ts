@@ -1,6 +1,7 @@
 import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import { ViteOptions } from "../shared/common/index"
+import createSvgSpritePlugin from "vite-plugin-svg-sprite"
 // https://vitejs.dev/config/
 export default defineConfig(() => {
   return {
@@ -21,6 +22,7 @@ export default defineConfig(() => {
     },
     plugins: [
       react(),
+      createSvgSpritePlugin({ symbolId: "icon-[name]" }),
       ViteOptions.plugins.viteStaticCopy(__dirname)
     ]
   }
