@@ -1,8 +1,5 @@
 import { resolve } from "path"
 import { viteStaticCopy } from "vite-plugin-static-copy"
-
-export * from "./validateHandler"
-
 export const ViteOptions = {
   alias: (__dirname: string) => {
     return {

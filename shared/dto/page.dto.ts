@@ -1,8 +1,8 @@
-import { IsNotNull, IsNumber } from "../common/validateHandler"
+import { IsNotEmpty, IsNumber } from "class-validator"
 
 /** 分页需要的 dto */
 export class BasePageDto {
-  @IsNotNull()
+  @IsNotEmpty()
   @IsNumber()
   pageSize: number
   @IsNumber()

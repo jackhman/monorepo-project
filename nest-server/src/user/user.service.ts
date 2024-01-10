@@ -11,7 +11,8 @@ import {
   UserInfoDto
 } from "@shared/dto/user.dto"
 import { UserPageDto } from "@shared/dto/page.dto"
-import { validate } from "@shared/common"
+import { handleValidate } from "../utils"
+
 @Injectable()
 export class UserService {
   constructor(
@@ -92,13 +93,9 @@ export class UserService {
 
   /** 查找所有用户信息 */
   async findAllUser(userPageDto: UserPageDto) {
-    const errors = validate(UserPageDto, userPageDto)
-    console.log(errors)
+    const errors = await handleValidate(UserPageDto, userPageDto)
     if (errors.length) {
-      // throw new BizException(
-      //   ResultCode.ERROR,
-      //   errors
-      // )
+      throw new BizException(ResultCode.ERROR, errors)
     }
     const { current, pageSize } = userPageDto
     const skip = (current - 1) * pageSize

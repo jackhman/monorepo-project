@@ -1,6 +1,5 @@
-// import { IsNotNull, IsString } from "../common/validateHandler"
 import { UserRolesEnum } from "../enum/user-enum"
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator"
 /** 用户菜单 */
 export class MenuDto {
   /** 菜单id */
@@ -22,7 +21,7 @@ export class MenuDto {
   /** 用户权限 */
   roleId: UserRolesEnum
   /** 是否是外链 */
-  link: string = ""
+  link: string
   /** 备注 */
   remark: string
 }
