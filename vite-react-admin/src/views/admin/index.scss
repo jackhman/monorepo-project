@@ -7,3 +7,16 @@
     }
   }
 }
+.admin-management-box-modal {
+  .form-select-icon-box {
+    position: relative;
+    &-input {
+      background-color: #fff;
+    }
+    &-select {
+      position: absolute;
+      left: 0;
+      opacity: 0;
+    }
+  }
+}
