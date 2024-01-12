@@ -8,15 +8,28 @@
   }
 }
 .admin-management-box-modal {
+  .modal-form {
+    .ant-form-item-label {
+      width: 100px;
+    }
+  }
   .form-select-icon-box {
     position: relative;
     &-input {
       background-color: #fff;
+      color: #000;
+      .ant-input {
+        color: #000;
+      }
     }
     &-select {
       position: absolute;
       left: 0;
       opacity: 0;
     }
+  }
+  .form-inline-item {
+    display: inline-block;
+    width: 50%;
   }
 }

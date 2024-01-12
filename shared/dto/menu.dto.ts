@@ -1,3 +1,4 @@
+import { MenuStatusEnum, MenuVisibleEnum } from "../enum/menu-enum"
 import { UserRolesEnum } from "../enum/user-enum"
 import { IsNotEmpty, IsString } from "class-validator"
 /** 用户菜单 */
@@ -8,7 +9,6 @@ export class MenuDto {
   @IsNotEmpty({ message: "不能为空" })
   menuName: string
   /** 父菜单id */
-  @IsString()
   parentId: string
   /** 路由地址 */
   @IsNotEmpty()
@@ -24,4 +24,8 @@ export class MenuDto {
   link: string
   /** 备注 */
   remark: string
+  /** 展示状态 显示|隐藏 */
+  visible: MenuVisibleEnum
+  /** 状态 正常|停用 */
+  status: MenuStatusEnum
 }

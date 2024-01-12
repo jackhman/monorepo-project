@@ -1,15 +1,37 @@
-import { useState } from "react"
-import { Button, Form, Input, Modal, Radio, Select, Space } from "antd"
+import { useState, useRef } from "react"
+import {
+  Button,
+  Form,
+  Input,
+  Modal,
+  Radio,
+  Select,
+  Space,
+  TreeSelect
+} from "antd"
 import { HomeFilled } from "@ant-design/icons"
 import "./index.scss"
-const { Option } = Select
 import IconList from "@/components/IconList"
 import CustomIconCom from "@/components/CustomIcon"
+import { MenuVisibleEnum, MenuStatusEnum } from "@shared/enum/menu-enum"
+
+interface BaseSelectRef {
+  focus: () => void
+  blur: () => void
+}
+
 const AdminManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalTitle, setModalTitle] = useState("新增菜单")
-  const [loading, setLoading] = useState(false)
+  const [loading] = useState(false)
+  const selectRef = useRef<BaseSelectRef>(null)
+  const [iconPath, setIconPath] = useState("#icon-Menu")
   const [form] = Form.useForm()
+  const [iconInputValue, setIconInputValue] = useState("")
+  const initialValues = {
+    visible: MenuVisibleEnum.show,
+    status: MenuStatusEnum.normal
+  }
   function addMenu() {
     setModalTitle("新增菜单")
     setIsModalOpen(true)
@@ -25,9 +47,16 @@ const AdminManagement = () => {
   /** 弹出框取消按钮 */
   const handleCancel = () => {
     setIsModalOpen(false)
+    form.resetFields()
   }
+  // 点击了icon列表图标
   function iconListClick(icon) {
-    console.log(icon)
+    form.setFieldsValue({
+      icon: icon.name
+    })
+    setIconPath(icon.icon)
+    selectRef.current!.blur()
+    setIconInputValue(form.getFieldValue("icon"))
   }
 
   return (
@@ -44,6 +73,7 @@ const AdminManagement = () => {
         onCancel={handleCancel}
         maskClosable={false}
         width="50%"
+        style={{ maxWidth: 1200 }}
         wrapClassName="admin-management-box-modal"
         footer={[
           <Button
@@ -61,23 +91,21 @@ const AdminManagement = () => {
       >
         <Form
           form={form}
-          name="control-hooks"
+          rootClassName="modal-form"
           onFinish={handleConfrim}
-          labelCol={{ span: 3 }}
-          wrapperCol={{ span: 24 }}
+          initialValues={initialValues}
+          wrapperCol={{ span: 22 }}
         >
-          <Form.Item
-            name="note"
-            label="上级菜单"
-            rules={[{ required: true, message: "22332232" }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item name="radio-group" label="菜单类型">
-            <Radio.Group>
-              <Radio value="a">目录</Radio>
-              <Radio value="b">菜单</Radio>
-            </Radio.Group>
+          <Form.Item name="parentId" label="上级菜单">
+            <TreeSelect
+              treeData={[
+                {
+                  title: "主目录",
+                  value: "",
+                  children: [{ title: "Bamboo", value: "bamboo" }]
+                }
+              ]}
+            />
           </Form.Item>
           <Form.Item name="icon" label="菜单图标">
             <div className="form-select-icon-box">
@@ -85,12 +113,15 @@ const AdminManagement = () => {
                 className="form-select-icon-box-input"
                 placeholder="点击选择菜单图标"
                 disabled
-                prefix={<CustomIconCom iconPath="icon-Github"></CustomIconCom>}
+                value={iconInputValue}
+                prefix={<CustomIconCom iconPath={iconPath}></CustomIconCom>}
               />
               <Select
                 className="form-select-icon-box-select"
                 defaultValue={<HomeFilled></HomeFilled>}
                 allowClear
+                /* @ts-ignore */
+                ref={selectRef}
                 dropdownRender={() => (
                   <IconList iconClick={iconListClick}></IconList>
                 )}
@@ -98,21 +129,46 @@ const AdminManagement = () => {
             </div>
           </Form.Item>
           <Form.Item
-            shouldUpdate={(prevValues, currentValues) =>
-              prevValues.gender !== currentValues.gender
-            }
+            name="menuName"
+            label="菜单名称"
+            rules={[{ required: true, message: "菜单名称必填" }]}
           >
-            {({ getFieldValue }) =>
-              getFieldValue("gender") === "other" ? (
-                <Form.Item
-                  name="customizeGender"
-                  label="Customize Gender"
-                  rules={[{ required: true }]}
-                >
-                  <Input />
-                </Form.Item>
-              ) : null
-            }
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="path"
+            label="路由地址"
+            rules={[{ required: true, message: "请填写路由地址" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item name="link" label="外链地址">
+            <Input />
+          </Form.Item>
+          <Form.Item
+            className="form-inline-item"
+            name="visible"
+            label="显示状态"
+          >
+            <Radio.Group>
+              <Radio value={MenuVisibleEnum.show}>显示</Radio>
+              <Radio value={MenuVisibleEnum.hidden}>隐藏</Radio>
+            </Radio.Group>
+          </Form.Item>
+          <Form.Item
+            className="form-inline-item"
+            name="status"
+            label="菜单状态"
+          >
+            <Radio.Group>
+              <Radio value={MenuStatusEnum.normal}>正常</Radio>
+              <Radio value={MenuStatusEnum.stop}>停用</Radio>
+            </Radio.Group>
+          </Form.Item>
+
+          <Form.Item name="remark" label="菜单备注">
+            <Input />
           </Form.Item>
         </Form>
       </Modal>
