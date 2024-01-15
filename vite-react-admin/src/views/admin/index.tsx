@@ -1,33 +1,15 @@
-import { useState, useRef } from "react"
-import {
-  Button,
-  Form,
-  Input,
-  Modal,
-  Radio,
-  Select,
-  Space,
-  TreeSelect
-} from "antd"
-import { HomeFilled } from "@ant-design/icons"
+import { useState } from "react"
+import { Button, Form, Input, Modal, Radio, Space, TreeSelect } from "antd"
 import "./index.scss"
-import IconList from "@/components/IconList"
-import CustomIconCom from "@/components/CustomIcon"
 import { MenuVisibleEnum, MenuStatusEnum } from "@shared/enum/menu-enum"
-
-interface BaseSelectRef {
-  focus: () => void
-  blur: () => void
-}
-
+import { menuAddApi } from "@/api/modules/menu"
+import { MenuAddDto } from "@shared/dto/menu.dto"
+import FormSelectIcon from "./components/FormSelectIcon"
 const AdminManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalTitle, setModalTitle] = useState("新增菜单")
   const [loading] = useState(false)
-  const selectRef = useRef<BaseSelectRef>(null)
-  const [iconPath, setIconPath] = useState("#icon-Menu")
-  const [form] = Form.useForm()
-  const [iconInputValue, setIconInputValue] = useState("")
+  const [form] = Form.useForm<MenuAddDto>()
   const initialValues = {
     visible: MenuVisibleEnum.show,
     status: MenuStatusEnum.normal
@@ -42,6 +24,9 @@ const AdminManagement = () => {
     // setIsModalOpen(false)
     const values = await form.validateFields()
     console.log("Success:", values)
+    const params: MenuAddDto = JSON.parse(JSON.stringify(values))
+    console.log(params)
+    await menuAddApi(params)
   }
 
   /** 弹出框取消按钮 */
@@ -54,9 +39,6 @@ const AdminManagement = () => {
     form.setFieldsValue({
       icon: icon.name
     })
-    setIconPath(icon.icon)
-    selectRef.current!.blur()
-    setIconInputValue(form.getFieldValue("icon"))
   }
 
   return (
@@ -108,25 +90,7 @@ const AdminManagement = () => {
             />
           </Form.Item>
           <Form.Item name="icon" label="菜单图标">
-            <div className="form-select-icon-box">
-              <Input
-                className="form-select-icon-box-input"
-                placeholder="点击选择菜单图标"
-                disabled
-                value={iconInputValue}
-                prefix={<CustomIconCom iconPath={iconPath}></CustomIconCom>}
-              />
-              <Select
-                className="form-select-icon-box-select"
-                defaultValue={<HomeFilled></HomeFilled>}
-                allowClear
-                /* @ts-ignore */
-                ref={selectRef}
-                dropdownRender={() => (
-                  <IconList iconClick={iconListClick}></IconList>
-                )}
-              ></Select>
-            </div>
+            <FormSelectIcon iconListClick={iconListClick} />
           </Form.Item>
           <Form.Item
             name="menuName"
@@ -140,6 +104,13 @@ const AdminManagement = () => {
             name="path"
             label="路由地址"
             rules={[{ required: true, message: "请填写路由地址" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="component"
+            label="组件地址"
+            rules={[{ required: true, message: "请填写组件地址" }]}
           >
             <Input />
           </Form.Item>

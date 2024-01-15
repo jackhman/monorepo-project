@@ -13,7 +13,7 @@ const axiosConfig = axios.create({
 // 发送请求之前的拦截
 axiosConfig.interceptors.request.use(config => {
   if (config.headers) {
-    config.headers.Authorization = `Bearer ${getToken()}`
+    config.headers.Authorization = `${getToken()}`
   }
   if (config.url) {
     // 说明 url 地址 不是 http 开头

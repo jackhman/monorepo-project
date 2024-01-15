@@ -1,7 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
-import {
-  UserRolesEnum
-} from "@shared/enum/user-enum"
+import { UserRolesEnum } from "@shared/enum/user-enum"
 @Entity("Menu")
 export class Menu {
   @PrimaryGeneratedColumn()
@@ -11,7 +9,9 @@ export class Menu {
   menuName: string
 
   // 父菜单id
-  @Column()
+  @Column({
+    default: ""
+  })
   parentId: string
 
   // 路由地址
@@ -22,6 +22,10 @@ export class Menu {
   @Column()
   component: string
 
+  // 组件图标
+  @Column()
+  icon: string
+
   // 用户权限
   @Column({
     default: UserRolesEnum.user,
@@ -30,10 +34,14 @@ export class Menu {
   roleId: UserRolesEnum
 
   // 是否是外链
-  @Column()
+  @Column({
+    default: ""
+  })
   link: string
 
   // 备注
-  @Column()
+  @Column({
+    default: ""
+  })
   remark: string
 }

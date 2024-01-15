@@ -4,7 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm"
 import { Menu } from "./menu.entity"
 import { BizException } from "../utils/exceptionHandler/biz-exception.filter"
 import { ResultCode, ResultMsg } from "@shared/enum/result-enum"
-import { MenuDto } from "@shared/dto/menu.dto"
+import { MenuAddDto } from "@shared/dto/menu.dto"
 import { handleValidate } from "../utils"
 @Injectable()
 export class MenuService {
@@ -13,11 +13,15 @@ export class MenuService {
     private readonly menuRepository: Repository<Menu>
   ) {}
 
-  async addMenu(menu: MenuDto) {
-    const errors = await handleValidate(MenuDto, menu)
+  async addMenu(menu: MenuAddDto) {
+    
+    console.log(menu)
+    const errors = await handleValidate(MenuAddDto, menu)
+    console.log(errors)
     if (errors.length > 0) {
       throw new BizException(ResultCode.ERROR, errors)
     }
+    console.log(menu)
     await this.menuRepository.save(menu)
   }
 }
