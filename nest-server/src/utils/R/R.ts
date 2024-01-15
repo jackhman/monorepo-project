@@ -11,6 +11,9 @@ export class R {
   /** 返回的message */
   private msg: string
 
+  /** 分页的页码 */
+  private total?: number
+
   /** 返回的数据 */
   private data: any = []
   private R() {}
@@ -53,7 +56,8 @@ export class R {
 
   /** 专门处理列表分页的数据 */
   public setRow(v: { total: number; row: any }): R {
-    this.data = v
+    this.data = v.row
+    this.total = v.total
     return this
   }
 

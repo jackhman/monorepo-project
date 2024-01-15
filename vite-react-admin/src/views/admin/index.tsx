@@ -1,15 +1,45 @@
-import { useState } from "react"
-import { Button, Form, Input, Modal, Radio, Space, TreeSelect } from "antd"
+import { useState, useEffect } from "react"
+import {
+  Button,
+  Form,
+  Input,
+  Modal,
+  Radio,
+  Space,
+  TreeSelect
+} from "antd"
 import "./index.scss"
 import { MenuVisibleEnum, MenuStatusEnum } from "@shared/enum/menu-enum"
-import { menuAddApi } from "@/api/modules/menu"
-import { MenuAddDto } from "@shared/dto/menu.dto"
+import { menuAddApi, menuListApi } from "@/api/modules/menu"
+import { MenuAddDto, MenuDto } from "@shared/dto/menu.dto"
+import { MenuPageDto } from "@shared/dto/page.dto"
 import FormSelectIcon from "./components/FormSelectIcon"
+import MenuList from "./components/MenuList"
+import { ResultCode } from "@shared/enum/result-enum"
 const AdminManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalTitle, setModalTitle] = useState("新增菜单")
+  const [menuList, setMenuList] = useState<MenuDto[]>([])
   const [loading] = useState(false)
   const [form] = Form.useForm<MenuAddDto>()
+
+  useEffect(()=> {
+    fetchFunc()
+  }, [])
+
+  async function fetchFunc() {
+    const params:MenuPageDto = {
+      pageSize: 10,
+      current: 1
+    }
+    const data = await menuListApi(params)
+    if(data.code === ResultCode.SUCCESS) {
+      setMenuList(data.data)
+    }
+    console.log(data)
+  }
+
+
   const initialValues = {
     visible: MenuVisibleEnum.show,
     status: MenuStatusEnum.normal
@@ -48,6 +78,9 @@ const AdminManagement = () => {
           新增菜单
         </Button>
       </Space>
+
+      <MenuList list={menuList}></MenuList>
+
       <Modal
         title={modalTitle}
         open={isModalOpen}

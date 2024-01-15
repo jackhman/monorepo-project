@@ -6,15 +6,12 @@ export class MenuDto {
   /** 菜单id */
   menuId: string
   /** 菜单名称 */
-  @IsNotEmpty({ message: "不能为空" })
   menuName: string
   /** 父菜单id */
   parentId: string
   /** 路由地址 */
-  @IsNotEmpty()
   path: string
   /** 组件地址 */
-  @IsNotEmpty()
   component: string
   /** 图标 */
   icon: string

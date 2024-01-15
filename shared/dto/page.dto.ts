@@ -7,7 +7,6 @@ export class BasePageDto {
   pageSize: number
   @IsNumber()
   current: number
-  @IsNumber()
   total?: number
 }
 
@@ -15,4 +14,9 @@ export class BasePageDto {
 export class UserPageDto extends BasePageDto {
   /** 用户名 */
   userName: string
+}
+
+/** 菜单分页 */
+export class MenuPageDto extends BasePageDto {
+  menuName?: string
 }
