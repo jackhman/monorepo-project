@@ -48,7 +48,7 @@ export function EnumFieldToTransformText<
   T extends Record<string, keyType>,
   S extends Record<string, keyType>
 >(enumField: T, enumTransform: S, field: keyType) {
-  if(!field) return
+  if(!field && field !== 0) return
   let getFindKey = ''
   for (const key in enumField) {
     const element = enumField[key]

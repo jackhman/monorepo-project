@@ -1,16 +1,12 @@
-import { useState } from "react"
-import ReactSvg from "@/assets/images/svg/React.svg"
-import giteeSvg from "@/assets/images/svg/Gitee.svg"
-import githubSvg from "@/assets/images/svg/Github.svg"
 import "./index.scss"
 import { List, Card, Image } from "antd"
 const { Meta } = Card
 
 const Document = () => {
-  const [documentList] = useState(() => [
+  const documentList = [
     {
       url: "https://react.docschina.org/",
-      img: ReactSvg,
+      img: new URL("@/assets/images/svg/React.svg", import.meta.url).href,
       title: "React"
     },
     {
@@ -25,15 +21,15 @@ const Document = () => {
     },
     {
       url: "https://gitee.com/liuzhao2580",
-      img: giteeSvg,
+      img: new URL("@/assets/images/svg/Gitee.svg", import.meta.url).href,
       title: "码云"
     },
     {
       url: "https://github.com/liuzhao2580",
-      img: githubSvg,
+      img: new URL("@/assets/images/svg/Github.svg", import.meta.url).href,
       title: "Github"
     }
-  ])
+  ]
   return (
     <List
       grid={{

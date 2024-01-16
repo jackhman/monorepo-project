@@ -1,6 +1,6 @@
 import { MenuStatusEnum, MenuVisibleEnum } from "../enum/menu-enum"
 import { UserRolesEnum } from "../enum/user-enum"
-import { IsNotEmpty, IsString } from "class-validator"
+import { IsNotEmpty } from "class-validator"
 /** 用户菜单 */
 export class MenuDto {
   /** 菜单id */
