@@ -36,7 +36,6 @@ const AdminManagement = () => {
     if(data.code === ResultCode.SUCCESS) {
       setMenuList(data.data)
     }
-    console.log(data)
   }
 
 
@@ -65,9 +64,9 @@ const AdminManagement = () => {
     form.resetFields()
   }
   // 点击了icon列表图标
-  function iconListClick(icon) {
+  function iconListClick(iconName: string) {
     form.setFieldsValue({
-      icon: icon.name
+      icon: iconName
     })
   }
 

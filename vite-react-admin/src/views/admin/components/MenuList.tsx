@@ -8,7 +8,6 @@ import {
   MenuVisibleEnum
 } from "@shared/enum/menu-enum"
 import { Table, TableColumnsType, Tag } from "antd"
-
 interface Props {
   list: MenuDto[]
 }
@@ -23,7 +22,7 @@ const columns: TableColumnsType<MenuDto> = [
     dataIndex: "icon",
     render: icon => {
       return (
-        <CustomIconCom iconPath={`icon-${icon}`}></CustomIconCom>
+        <CustomIconCom iconPath={icon}></CustomIconCom>
       )
     }
   },

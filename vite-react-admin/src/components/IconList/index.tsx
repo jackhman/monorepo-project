@@ -1,40 +1,41 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, FC } from "react"
 import CustomIconCom from "../CustomIcon"
 import "./index.scss"
-type FileType = { icon: string; name: string }
-const IconList = (props) => {
-  const [fileList, setFileList] = useState<FileType[]>([])
+interface IProps {
+  iconClick(icon: string): void
+}
+const IconList: FC<IProps> = props => {
+  const [iconList, setIconList] = useState<string[]>([])
 
   useEffect(() => {
     getFiles()
   }, [])
   async function getFiles() {
-    const newFileList: FileType[] = []
+    const newIconList: string[] = []
     const files = Object.keys(import.meta.glob("/src/assets/images/svg/*.svg"))
     for (const path in files) {
       if (Object.prototype.hasOwnProperty.call(files, path)) {
         const file = await import(/* @vite-ignore */ files[path])
-        newFileList.push({
-          icon: file.default,
-          name: file.default.split("-")[1]
-        })
+        const parts = file.default.split("/")
+        const iconName: string = parts[parts.length - 1].split(".")[0]
+        newIconList.push(iconName)
       }
     }
-    setFileList(newFileList)
+    setIconList(newIconList)
   }
 
   /** icon 的点击事件 */
-  function iconClick(icon: FileType) {
+  function iconClick(icon: string) {
     props.iconClick(icon)
   }
 
   return (
     <ul className="icon-list-box">
-      {fileList.map(file => {
+      {iconList.map(iconName => {
         return (
-          <li key={file.icon} onClick={()=> iconClick(file)}>
-            <CustomIconCom iconPath={file.icon}></CustomIconCom>
-            <span className="icon-name">{file.name}</span>
+          <li key={iconName} onClick={() => iconClick(iconName)}>
+            <CustomIconCom iconPath={iconName}></CustomIconCom>
+            <span className="icon-name">{iconName}</span>
           </li>
         )
       })}

@@ -5,6 +5,7 @@ import zhCN from "antd/locale/zh_CN"
 import App from "./App"
 import "@shared/assets/styles/resect.scss"
 import "@/assets/styles/index.scss"
+import 'virtual:svg-icons-register'
 ReactDOM.createRoot(document.getElementById("root")!).render(
   /** React.StrictMode 的作用主要有:
     检查不安全的生命周期

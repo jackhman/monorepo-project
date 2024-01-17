@@ -15,13 +15,10 @@ export class MenuService {
   ) {}
 
   async addMenu(menu: MenuAddDto) {
-    console.log(menu)
     const errors = await handleValidate(MenuAddDto, menu)
-    console.log(errors)
     if (errors.length > 0) {
       throw new BizException(ResultCode.ERROR, errors)
     }
-    console.log(menu)
     await this.menuRepository.save(menu)
   }
 

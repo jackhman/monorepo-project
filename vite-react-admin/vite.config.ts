@@ -1,7 +1,8 @@
 import { defineConfig } from "vite"
+import { resolve } from "path"
 import react from "@vitejs/plugin-react"
 import { ViteOptions } from "../shared/common/index"
-import createSvgSpritePlugin from "vite-plugin-svg-sprite"
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons"
 // https://vitejs.dev/config/
 export default defineConfig(() => {
   return {
@@ -22,7 +23,11 @@ export default defineConfig(() => {
     },
     plugins: [
       react(),
-      createSvgSpritePlugin({ symbolId: "icon-[name]" }),
+      createSvgIconsPlugin({
+        iconDirs: [resolve(__dirname, "src/assets/images/svg")],
+        // 指定symbolId格式
+        symbolId: "icon-[name]"
+      }),
       ViteOptions.plugins.viteStaticCopy(__dirname)
     ]
   }
