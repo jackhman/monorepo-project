@@ -20,10 +20,9 @@ const columns: TableColumnsType<MenuDto> = [
   {
     title: "菜单图标",
     dataIndex: "icon",
+    width: 100,
     render: icon => {
-      return (
-        <CustomIconCom iconPath={icon}></CustomIconCom>
-      )
+      return <CustomIconCom iconPath={icon}></CustomIconCom>
     }
   },
   {
@@ -33,10 +32,13 @@ const columns: TableColumnsType<MenuDto> = [
   {
     title: "是否显示在侧边栏",
     dataIndex: "visible",
+    width: 160,
     render: visible => {
       return (
         <>
-          <Tag color={visible === MenuVisibleEnum.show ? "processing" : "warning"}>
+          <Tag
+            color={visible === MenuVisibleEnum.show ? "processing" : "warning"}
+          >
             {EnumFieldToTransformText(
               MenuVisibleEnum,
               MenuVisibleTextEnum,
@@ -50,6 +52,7 @@ const columns: TableColumnsType<MenuDto> = [
   {
     title: "状态",
     dataIndex: "status",
+    width: 80,
     render: status => {
       return (
         <>
@@ -71,7 +74,9 @@ const columns: TableColumnsType<MenuDto> = [
 ]
 
 const MenuList = (props: Props) => {
-  return <Table bordered rowKey="menuId" columns={columns} dataSource={props.list} />
+  return (
+    <Table bordered rowKey="menuId" columns={columns} dataSource={props.list} />
+  )
 }
 
 export default MenuList

@@ -4,16 +4,16 @@ import { MenuStatusEnum, MenuVisibleEnum } from "@shared/enum/menu-enum"
 @Entity("Menu")
 export class Menu {
   @PrimaryGeneratedColumn()
-  menuId: string
+  menuId: number
 
   @Column()
   menuName: string
 
   // 父菜单id
   @Column({
-    default: ""
+    type: "int"
   })
-  parentId: string
+  parentId?: number
 
   // 路由地址
   @Column()

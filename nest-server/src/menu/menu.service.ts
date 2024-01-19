@@ -4,9 +4,10 @@ import { InjectRepository } from "@nestjs/typeorm"
 import { Menu } from "./menu.entity"
 import { BizException } from "../utils/exceptionHandler/biz-exception.filter"
 import { ResultCode, ResultMsg } from "@shared/enum/result-enum"
-import { MenuAddDto } from "@shared/dto/menu.dto"
+import { MenuAddDto, MenuRouterDto } from "@shared/dto/menu.dto"
 import { handleValidate } from "../utils"
 import { MenuPageDto } from "@shared/dto/page.dto"
+import { MenuVisibleEnum } from "@shared/enum/menu-enum"
 @Injectable()
 export class MenuService {
   constructor(
@@ -37,6 +38,57 @@ export class MenuService {
     if (!res) {
       throw new BizException(ResultCode.ERROR, ResultMsg.REQUEST_FAIL)
     }
-    return { res, total }
+    // console.log(res)
+    const menuList: MenuRouterDto[] = []
+    for (let index = 0; index < res.length; index++) {
+      const menu = res[index]
+      if(!menu.parentId) {
+        menuList.push({
+          ...handleData(menu)
+        })
+      }
+      else {
+        const getFind = res.find(i => menu.parentId === i.menuId)
+        if (getFind) {
+          findMenuChild(getFind)
+        }
+      }
+    }
+
+    function findMenuChild(filterMenu: Menu) {
+      function loop(list: MenuRouterDto[]) {
+        list.forEach(i => {
+          if (i.children.length) {
+            loop(i.children)
+          } else {
+            if (i.path === filterMenu.path) {
+              i.children.push({
+                ...handleData(filterMenu)
+              })
+            }
+          }
+        })
+      }
+      loop(menuList)
+    }
+    // 用来处理数据，将 接口返回的数据，赋值给前端需要的数据
+    function handleData(menu: Menu): MenuRouterDto {
+      return {
+        id: menu.menuId,
+        path: menu.path,
+        component: menu.component,
+        meta: {
+          title: menu.menuName,
+          icon: menu.icon,
+          role: menu.roleId,
+          hidden: menu.visible === MenuVisibleEnum.hidden
+        },
+        children: []
+      }
+    }
+
+    console.log(menuList, "menuList")
+
+    return { res: menuList, total }
   }
 }
