@@ -50,7 +50,7 @@ export class MenuService {
       else {
         const getFind = res.find(i => menu.parentId === i.menuId)
         if (getFind) {
-          findMenuChild(getFind)
+          findMenuChild(menu)
         }
       }
     }
@@ -61,7 +61,8 @@ export class MenuService {
           if (i.children.length) {
             loop(i.children)
           } else {
-            if (i.path === filterMenu.path) {
+            // console.log(i, "-----")
+            if (i.id === filterMenu.parentId) {
               i.children.push({
                 ...handleData(filterMenu)
               })
@@ -81,13 +82,14 @@ export class MenuService {
           title: menu.menuName,
           icon: menu.icon,
           role: menu.roleId,
-          hidden: menu.visible === MenuVisibleEnum.hidden
+          visible: menu.visible,
+          status: menu.status
         },
         children: []
       }
     }
 
-    console.log(menuList, "menuList")
+    // console.log(menuList, "menuList")
 
     return { res: menuList, total }
   }

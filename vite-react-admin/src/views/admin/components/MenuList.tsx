@@ -1,6 +1,7 @@
 import CustomIconCom from "@/components/CustomIcon"
 import { EnumFieldToTransformText } from "@/utils"
-import { MenuDto } from "@shared/dto/menu.dto"
+import { MinusCircleTwoTone, PlusCircleTwoTone } from "@ant-design/icons"
+import { MenuDto, MenuMeta } from "@shared/dto/menu.dto"
 import {
   MenuStatusTextEnum,
   MenuStatusEnum,
@@ -8,6 +9,7 @@ import {
   MenuVisibleEnum
 } from "@shared/enum/menu-enum"
 import { Table, TableColumnsType, Tag } from "antd"
+import { ReactNode } from "react"
 interface Props {
   list: MenuDto[]
 }
@@ -15,14 +17,17 @@ interface Props {
 const columns: TableColumnsType<MenuDto> = [
   {
     title: "菜单名称",
-    dataIndex: "menuName"
+    dataIndex: "meta",
+    render: (meta: MenuMeta) => {
+      return meta.title
+    }
   },
   {
     title: "菜单图标",
-    dataIndex: "icon",
+    dataIndex: "meta",
     width: 100,
-    render: icon => {
-      return <CustomIconCom iconPath={icon}></CustomIconCom>
+    render: (meta: MenuMeta) => {
+      return <CustomIconCom iconPath={meta.icon || ""}></CustomIconCom>
     }
   },
   {
@@ -31,9 +36,10 @@ const columns: TableColumnsType<MenuDto> = [
   },
   {
     title: "是否显示在侧边栏",
-    dataIndex: "visible",
+    dataIndex: "meta",
     width: 160,
-    render: visible => {
+    render: (meta: MenuMeta) => {
+      const visible = meta.visible
       return (
         <>
           <Tag
@@ -51,9 +57,10 @@ const columns: TableColumnsType<MenuDto> = [
   },
   {
     title: "状态",
-    dataIndex: "status",
+    dataIndex: "meta",
     width: 80,
-    render: status => {
+    render: (meta: MenuMeta) => {
+      const status = meta.status
       return (
         <>
           <Tag color={status === MenuStatusEnum.normal ? "success" : "error"}>
@@ -74,8 +81,30 @@ const columns: TableColumnsType<MenuDto> = [
 ]
 
 const MenuList = (props: Props) => {
+  /** 用来处理表格的展示关闭图标 */
+  function handleExpandIcon({ expanded, onExpand, record }): ReactNode {
+    if (record.children && record.children.length) {
+      return (
+        <span style={{marginRight: "6px"}}>
+          {expanded ? (
+            <MinusCircleTwoTone onClick={e => onExpand(record, e)} />
+          ) : (
+            <PlusCircleTwoTone onClick={e => onExpand(record, e)} />)}
+        </span>
+      )
+    }
+  }
+
   return (
-    <Table bordered rowKey="menuId" columns={columns} dataSource={props.list} />
+    <Table
+      bordered
+      rowKey="id"
+      columns={columns}
+      dataSource={props.list}
+      expandable={{
+        expandIcon: handleExpandIcon
+      }}
+    />
   )
 }
 

@@ -1,5 +1,4 @@
 import { removeToken, removeUserId } from "./modules/commonSave"
-
 /** 当前的环境 */
 export const BaseEnv = {
   /** 开发 */
@@ -25,7 +24,7 @@ export const clearLoginData = () => {
  */
 export const tokenExpired = () => {
   logoutClearUtils()
-  // 获取当前的路由
+  // // 获取当前的路由
   // const { value } = router
   // // 在登录页面,不需要跳转
   // if (value.name !== ROUTE_NAME.LOGIN) {

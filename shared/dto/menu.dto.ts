@@ -71,7 +71,9 @@ export class MenuRouterDto {
 /** 路由的元数据 */
 export interface MenuMeta {
   /** 设置为 true 说明不在侧边栏显示 */
-  hidden?: boolean
+  visible: MenuVisibleEnum
+  /** 状态 正常|停用 */
+  status: MenuStatusEnum
   /** 是否显示在面包屑中 默认true 显示 false 隐藏 */
   breadcrumbShowFlag?: boolean
   /** 面包屑是否可被点击 默认true 可以被点击 false 不可被点击 */
@@ -89,4 +91,3 @@ export interface MenuMeta {
    */
   role?: UserRolesEnum
 }
-
