@@ -1,11 +1,10 @@
-import React from "react"
 import ReactDOM from "react-dom/client"
 import { ConfigProvider, message } from "antd"
 import zhCN from "antd/locale/zh_CN"
 import App from "./App"
 import "@shared/assets/styles/resect.scss"
 import "@/assets/styles/index.scss"
-import 'virtual:svg-icons-register'
+import "virtual:svg-icons-register"
 message.config({
   maxCount: 1
 })
@@ -21,9 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     会检测使用旧版本 context API 的情况并给出警告。
     所以简单来说,React.StrictMode 的作用就是帮助我们提前发现一些错误或潜在问题,这在开发阶段尤其有用。它可以帮我们规避一些 React 版本升级过程中的错误和警告。
   */
-  <React.StrictMode>
-    <ConfigProvider locale={zhCN} >
-      <App />
-    </ConfigProvider>
-  </React.StrictMode>
+  <ConfigProvider locale={zhCN}>
+    <App />
+  </ConfigProvider>
 )
