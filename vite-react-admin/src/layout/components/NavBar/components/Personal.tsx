@@ -12,19 +12,19 @@ const Personal = () => {
   const menuClick: MenuProps["onClick"] = e => {
     const { key } = e
     switch (key) {
-    // 个人中心
-    case "personal":
-      navigate("/personal", {
-        state: { test: "dashboard" }
-      })
-      break
+      // 个人中心
+      case "personal":
+        navigate("/personal", {
+          state: { test: "dashboard" }
+        })
+        break
       // 退出登录
-    case "logout":
-      clearLoginData()
-      navigate(ROUTE_PATH.LOGIN)
-      break
-    default:
-      break
+      case "logout":
+        clearLoginData()
+        navigate(ROUTE_PATH.LOGIN)
+        break
+      default:
+        break
     }
   }
 
@@ -53,7 +53,7 @@ const Personal = () => {
   ]
   return (
     <div className="personal-box">
-      <Dropdown menu={{items, onClick: menuClick}} trigger={["hover"]}>
+      <Dropdown menu={{ items, onClick: menuClick }} trigger={["hover"]}>
         <div className="personal-dropdown">
           <span className="personal-name">
             Hi~ {userStore.userInfo.nickName}

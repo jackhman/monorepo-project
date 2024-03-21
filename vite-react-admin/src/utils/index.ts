@@ -23,15 +23,14 @@ export const clearLoginData = () => {
  * token 过期，用户需要重新登录，并且清除掉部分数据
  */
 export const tokenExpired = () => {
-  logoutClearUtils()
   appStore.changeReLogin(true)
+  logoutClearUtils()
 }
 
 /** 退出登录--需要清除的数据 */
 export const logoutClearUtils = (): void => {
   removeToken()
   removeUserId()
-  console.log(appStore.reLoginFlag, "24")
 }
 
 type keyType = string | number | undefined
