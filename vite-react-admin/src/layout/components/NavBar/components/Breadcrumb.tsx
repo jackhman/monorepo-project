@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useLocation } from "react-router-dom"
 import { Breadcrumb } from "antd"
 import { HomeOutlined } from "@ant-design/icons"
-import { ROUTE_PATH } from "@/router/RouteConst"
+// import { ROUTE_PATH } from "@/router/RouteConst"
 import { IRouterList } from "@/ts/interface/router"
 const BreadcrumbDom = () => {
   const location = useLocation()
@@ -44,12 +44,17 @@ const BreadcrumbDom = () => {
     routerLoop()
     setBreadcrumbArr([...getRouters])
   }
+
+  /** 面包屑的点击事件 */
+  function breadcrumbClick(type) {
+    console.log(type, breadcrumbArr)
+  }
   return (
     <Breadcrumb
       className="breadcrumb-box"
       items={[
         {
-          href: ROUTE_PATH.DASHBOARD,
+          onClick: ()=> breadcrumbClick(123),
           title: (
             <>
               <HomeOutlined />

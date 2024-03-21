@@ -12,7 +12,6 @@ export const BaseEnv = {
 /** 判断是否是开发环境 */
 export const isDev = (): boolean => !!import.meta.env.VITE_DEV
 
-
 /** 退出登录之前, 清除保存的数据 */
 export const clearLoginData = () => {
   removeToken()
@@ -24,6 +23,7 @@ export const clearLoginData = () => {
  */
 export const tokenExpired = () => {
   logoutClearUtils()
+  // 调用函数获取当前路由信息
   // // 获取当前的路由
   // const { value } = router
   // // 在登录页面,不需要跳转
@@ -40,24 +40,22 @@ export const logoutClearUtils = (): void => {
   removeUserId()
 }
 
-
 type keyType = string | number | undefined
 /** ts中的枚举字段 转换为枚举中文字段 */
 export function EnumFieldToTransformText<
   T extends Record<string, keyType>,
   S extends Record<string, keyType>
 >(enumField: T, enumTransform: S, field: keyType) {
-  if(!field && field !== 0) return
-  let getFindKey = ''
+  if (!field && field !== 0) return
+  let getFindKey = ""
   for (const key in enumField) {
     const element = enumField[key]
-    if(element === field) {
+    if (element === field) {
       getFindKey = key
       break
     }
   }
   const getTextValue = enumTransform[getFindKey]
-  if(getTextValue) return getTextValue
-  else console.warn('错误,未匹配到')
+  if (getTextValue) return getTextValue
+  else console.warn("错误,未匹配到")
 }
-

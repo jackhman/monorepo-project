@@ -6,6 +6,7 @@ import type { MenuProps } from "antd"
 import CustomIconCom from "@/components/CustomIcon/index"
 import { routerList } from "@/router/RouteList"
 import { appStore } from "@/store/app"
+import { observer } from "mobx-react-lite"
 const { Sider } = Layout
 type MenuItem = Required<MenuProps>["items"][number]
 
@@ -25,7 +26,7 @@ function getItem(
   } as MenuItem
 }
 
-const SideBar = () => {
+const SideBar = observer(()=> {
   const navigate = useNavigate()
   const location = useLocation()
   const { sideStatus } = appStore
@@ -95,6 +96,6 @@ const SideBar = () => {
       </Menu>
     </Sider>
   )
-}
+})
 
 export default SideBar
