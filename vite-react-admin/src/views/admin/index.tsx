@@ -22,7 +22,6 @@ const AdminManagement = () => {
   const [menuList, setMenuList] = useState<MenuDto[]>([])
   const [loading] = useState(false)
   const [form] = Form.useForm<MenuAddDto>()
-
   useEffect(()=> {
     fetchFunc()
   }, [])

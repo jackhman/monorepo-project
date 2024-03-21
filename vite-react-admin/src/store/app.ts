@@ -11,12 +11,18 @@ class AppStore {
   layoutLoading: boolean = true
   /** 是否需要重新获取用户的基本信息 true 需要 */
   refreshUserInfoFlag: boolean = true
+  /** 是否需要重新登录 */
+  reLoginFlag: boolean = false
   changeMobileStatus(flag: boolean) {
     this.mobile = flag
   }
   /** 修改侧边栏状态 */
   changeSideStatus() {
     this.sideStatus = !this.sideStatus
+  }
+  /** 改变登录的状态 */
+  changeReLogin(flag: boolean) {
+    this.reLoginFlag = flag
   }
 }
 

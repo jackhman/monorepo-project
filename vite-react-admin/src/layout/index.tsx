@@ -5,7 +5,6 @@ import "./index.scss"
 import SiderDom from "./components/SideBar"
 import NavBarDom from "./components/NavBar/"
 import ContentDom from "./components/Content"
-import { TokenExpiredToLogin } from "./components/Common"
 import resizeMethods from "../utils/modules/onResize"
 import { ROUTE_PATH } from "@/router/RouteConst"
 
@@ -29,7 +28,7 @@ const LayoutDom = () => {
         {/* 内容区域 */}
         <ContentDom></ContentDom>
       </Layout>
-      <TokenExpiredToLogin></TokenExpiredToLogin>
+      {/* <TokenExpiredToLogin></TokenExpiredToLogin> */}
     </div>
   )
 }
