@@ -4,6 +4,7 @@ import { Form, Input, Button, Checkbox, message } from "antd"
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
 
 import "./index.scss"
+import styles from "../../index.module.scss"
 import { loginApi } from "@/api/modules/user"
 import { setUserIdStorage, setToken } from "@/utils/modules/commonSave"
 import { LoginUserDto } from "@shared/dto/user.dto"
@@ -61,7 +62,7 @@ const LoginFrom = () => {
           initialValues={loginForm}
           onFinish={onFinish}
         >
-          <p className="login-text">登录</p>
+          <p className={`${styles.text} login-text`}>登录</p>
           <Form.Item
             label="用户名"
             name="userName"
@@ -87,7 +88,7 @@ const LoginFrom = () => {
             <Button
               type="primary"
               htmlType="submit"
-              className="login-form-button"
+              className={styles['form-button']}
               loading={loading}
             >
               登录

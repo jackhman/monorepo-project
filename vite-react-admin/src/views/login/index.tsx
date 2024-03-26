@@ -35,7 +35,7 @@ const LoginDom = () => {
       setLoading(false)
     }
   }
-  /** 注册 */
+  /** 登录注册切换 */
   function registerClick() {
     setRegisterStatus(() => {
       return !isRegisterStatus
@@ -52,8 +52,8 @@ const LoginDom = () => {
       <LoginOrRegisterBtn
         message={
           isRegisterStatus
-            ? "还没有账号？赶紧来注册吧！！！"
-            : "已有账号？快去登录吧！！！"
+            ? "已有账号？快去登录吧！！！"
+            : "还没有账号？赶紧来注册吧！！！"
         }
         registerClick={registerClick}
       ></LoginOrRegisterBtn>

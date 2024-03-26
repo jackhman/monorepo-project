@@ -1,12 +1,14 @@
 import { useState } from "react"
 import { Form, Input, Button, } from "antd"
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
+import styles from "../../index.module.scss"
 import { RegisterUserDto } from "@shared/dto/user.dto"
 const RegisterFrom = () => {
   interface IForm {
     userName: string
     password: string
   }
+  const [loading, setLoading] = useState(false)
   /** 注册请求 */
   const onFinish = async (values: IForm) => {
     console.log(values)
@@ -18,7 +20,7 @@ const RegisterFrom = () => {
       wrapperCol={{ span: 18 }}
       onFinish={onFinish}
     >
-      <p className="login-text">注册用户</p>
+      <p className={styles.text}>注册用户</p>
       <Form.Item
         label="用户名"
         name="userName"
@@ -55,7 +57,7 @@ const RegisterFrom = () => {
         <Button
           type="primary"
           htmlType="submit"
-          className="login-form-button"
+          className={styles['form-button']}
           loading={loading}
         >
           注册
