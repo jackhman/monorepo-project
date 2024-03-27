@@ -1,44 +1,18 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { Form, Input, Button, Checkbox, message } from "antd"
+import { Form, Input, Button, Checkbox, type FormProps } from "antd"
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
 
 import "./index.scss"
 import styles from "../../index.module.scss"
-import { loginApi } from "@/api/modules/user"
-import { setUserIdStorage, setToken } from "@/utils/modules/commonSave"
 import { LoginUserDto } from "@shared/dto/user.dto"
-import { ROUTE_PATH } from "@/router/RouteConst"
-const LoginFrom = () => {
-  interface IForm {
-    userName: string
-    password: string
-  }
-  const navigate = useNavigate()
-  const [loginForm] = useState<IForm>({ userName: "admin", password: "123456" })
-  const [loading, setLoading] = useState(false)
-  const [isRegisterStatus, setRegisterStatus] = useState(false)
+
+interface IProps {
+  login: (e: LoginUserDto) => void
+}
+
+const LoginFrom = (props: IProps) => {
   /** 登录请求 */
-  const onFinish = async (values: IForm) => {
-    setLoading(true)
-    const params: LoginUserDto = {
-      userName: values.userName,
-      password: values.password
-    }
-    try {
-      const { data } = await loginApi(params)
-      message.success("登录成功")
-      setUserIdStorage(data.id!)
-      setToken(`Bearer ${data.token}`)
-      navigate(ROUTE_PATH.DASHBOARD)
-    } finally {
-      setLoading(false)
-    }
-  }
-  /** 注册 */
-  function registerClick() {
-    console.log(22222)
-    setRegisterStatus(true)
+  const onFinish: FormProps<LoginUserDto>["onFinish"] = async values => {
+    props.login(values)
   }
   /** 忘记密码 */
   function forgotPass() {
@@ -46,20 +20,12 @@ const LoginFrom = () => {
   }
   return (
     <div className="login-form">
-      <div
-        className={`${
-          isRegisterStatus ? "flip-vertical-right" : ""
-        }`}
-      >
+      <div className={`"flip-vertical-right" : ""}`}>
         <Form
           labelAlign="left"
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 18 }}
           name="normal_login"
-          style={{
-            transform: `${isRegisterStatus ? "rotateY(180deg)" : "rotateY(0)"}`
-          }}
-          initialValues={loginForm}
           onFinish={onFinish}
         >
           <p className={`${styles.text} login-text`}>登录</p>
@@ -88,8 +54,7 @@ const LoginFrom = () => {
             <Button
               type="primary"
               htmlType="submit"
-              className={styles['form-button']}
-              loading={loading}
+              className={styles["form-button"]}
             >
               登录
             </Button>

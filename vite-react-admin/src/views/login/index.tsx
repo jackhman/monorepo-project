@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Form, Input, Button, Checkbox, message } from "antd"
+import { message, Spin } from "antd"
 import styles from "./index.module.scss"
 import { loginApi } from "@/api/modules/user"
 import { setUserIdStorage, setToken } from "@/utils/modules/commonSave"
@@ -15,11 +15,10 @@ const LoginDom = () => {
     password: string
   }
   const navigate = useNavigate()
-  const [loginForm] = useState<IForm>({ userName: "admin", password: "123456" })
   const [loading, setLoading] = useState(false)
   const [isRegisterStatus, setRegisterStatus] = useState(false)
   /** 登录请求 */
-  const onFinish = async (values: IForm) => {
+  const login = async (values: IForm) => {
     setLoading(true)
     const params: LoginUserDto = {
       userName: values.userName,
@@ -35,6 +34,19 @@ const LoginDom = () => {
       setLoading(false)
     }
   }
+  /** 注册 */
+  function register(values) {
+    console.log(values)
+    try {
+      setLoading(true)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setTimeout(() => {
+        setLoading(false)
+      }, 1000)
+    }
+  }
   /** 登录注册切换 */
   function registerClick() {
     setRegisterStatus(() => {
@@ -43,20 +55,22 @@ const LoginDom = () => {
   }
   return (
     <div className={styles["login-register-box"]}>
-      {isRegisterStatus ? (
-        <RegisterFrom></RegisterFrom>
-      ) : (
-        <LoginFrom></LoginFrom>
-      )}
+      <Spin spinning={loading}>
+        {isRegisterStatus ? (
+          <RegisterFrom register={register}></RegisterFrom>
+        ) : (
+          <LoginFrom login={login}></LoginFrom>
+        )}
 
-      <LoginOrRegisterBtn
-        message={
-          isRegisterStatus
-            ? "已有账号？快去登录吧！！！"
-            : "还没有账号？赶紧来注册吧！！！"
-        }
-        registerClick={registerClick}
-      ></LoginOrRegisterBtn>
+        <LoginOrRegisterBtn
+          message={
+            isRegisterStatus
+              ? "已有账号？快去登录吧！！！"
+              : "还没有账号？赶紧来注册吧！！！"
+          }
+          registerClick={registerClick}
+        ></LoginOrRegisterBtn>
+      </Spin>
     </div>
   )
 }
