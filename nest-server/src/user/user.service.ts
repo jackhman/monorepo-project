@@ -22,6 +22,10 @@ export class UserService {
   ) {}
   /** 注册用户 */
   async register(registerUserDto: RegisterUserDto) {
+    const errors = await handleValidate(RegisterUserDto, registerUserDto)
+    if (errors.length) {
+      throw new BizException(ResultCode.ERROR, errors)
+    }
     const user = new User()
     user.userName = registerUserDto.userName
     user.password = registerUserDto.password
@@ -39,6 +43,10 @@ export class UserService {
 
   /** 登录 */
   async login(loginUserDto: LoginUserDto) {
+    const errors = await handleValidate(LoginUserDto, loginUserDto)
+    if (errors.length) {
+      throw new BizException(ResultCode.ERROR, errors)
+    }
     const userNameRes = await this.usersRepository.findOne({
       where: {
         userName: loginUserDto.userName
