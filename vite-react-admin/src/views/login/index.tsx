@@ -4,21 +4,17 @@ import { message, Spin } from "antd"
 import styles from "./index.module.scss"
 import { loginApi } from "@/api/modules/user"
 import { setUserIdStorage, setToken } from "@/utils/modules/commonSave"
-import { LoginUserDto } from "@shared/dto/user.dto"
+import { LoginUserDto, RegisterUserDto } from "@shared/dto/user.dto"
 import { ROUTE_PATH } from "@/router/RouteConst"
 import LoginFrom from "./components/LoginFrom"
 import RegisterFrom from "./components/RegisterFrom"
 import LoginOrRegisterBtn from "./components/LoginOrRegisterBtn"
 const LoginDom = () => {
-  interface IForm {
-    userName: string
-    password: string
-  }
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const [isRegisterStatus, setRegisterStatus] = useState(false)
   /** 登录请求 */
-  const login = async (values: IForm) => {
+  const login = async (values: LoginUserDto) => {
     setLoading(true)
     const params: LoginUserDto = {
       userName: values.userName,
@@ -35,7 +31,7 @@ const LoginDom = () => {
     }
   }
   /** 注册 */
-  function register(values) {
+  function register(values: RegisterUserDto) {
     console.log(values)
     try {
       setLoading(true)

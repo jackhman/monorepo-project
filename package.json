@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev:vite": "pnpm -C vite-web dev",
+    "dev:react": "pnpm -C vite-react-admin dev",
     "dev:nest": "pnpm -C nest-server start:dev"
   },
   "dependencies": {

@@ -1,5 +1,5 @@
 import { Form, Input, Button, type FormProps } from "antd"
-import { UserOutlined, LockOutlined } from "@ant-design/icons"
+import { UserOutlined, LockOutlined, SmileOutlined } from "@ant-design/icons"
 import styles from "../../index.module.scss"
 import { RegisterUserDto } from "@shared/dto/user.dto"
 
@@ -7,13 +7,28 @@ interface IProps {
   register: (e: RegisterUserDto) => void
 }
 
+interface IRegisterUser extends RegisterUserDto {
+  confirmPass: string
+}
+
 const RegisterFrom = (props: IProps) => {
   /** 注册请求 */
-  const onFinish: FormProps<RegisterUserDto>["onFinish"] = values => {
-    console.log(values)
-    props.register(values)
+  const onFinish: FormProps<IRegisterUser>["onFinish"] = values => {
+    const form: RegisterUserDto = {
+      userName: "",
+      password: ""
+    }
+    for (const key in values) {
+      if (Object.prototype.hasOwnProperty.call(values, key)) {
+        const element = values[key]
+        if (key !== "confirmPass") {
+          form[key] = element
+        }
+      }
+    }
+    props.register(form)
   }
-  const onFinishFailed: FormProps<RegisterUserDto>["onFinishFailed"] =
+  const onFinishFailed: FormProps<IRegisterUser>["onFinishFailed"] =
     errorInfo => {
       console.log("Failed:", errorInfo)
     }
@@ -34,6 +49,12 @@ const RegisterFrom = (props: IProps) => {
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
           placeholder="用户名"
+        />
+      </Form.Item>
+      <Form.Item label="昵称" name="nickName">
+        <Input
+          prefix={<SmileOutlined className="site-form-item-icon" />}
+          placeholder="昵称"
         />
       </Form.Item>
       <Form.Item
