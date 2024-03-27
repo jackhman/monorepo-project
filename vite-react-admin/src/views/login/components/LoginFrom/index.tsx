@@ -32,7 +32,7 @@ const LoginFrom = (props: IProps) => {
           <Form.Item
             label="用户名"
             name="userName"
-            rules={[{ required: false, message: "请输入用户名!" }]}
+            rules={[{ required: true, message: "请输入用户名!" }]}
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
@@ -42,7 +42,7 @@ const LoginFrom = (props: IProps) => {
           <Form.Item
             label="密码"
             name="password"
-            rules={[{ required: false, message: "请输入密码" }]}
+            rules={[{ required: true, message: "请输入密码" }]}
           >
             <Input
               prefix={<LockOutlined className="site-form-item-icon" />}

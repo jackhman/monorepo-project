@@ -7,6 +7,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  .spin-box {
+    height: 400px;
+  }
   .text {
     font-size: 20px;
     font-weight: 600;
@@ -15,5 +18,13 @@
   }
   .form-button {
     width: 100%;
+  }
+  .checkBtn {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
+  .register-box {
+    transform: rotateY(180deg);
   }
 }

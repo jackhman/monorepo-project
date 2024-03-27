@@ -11,8 +11,10 @@ import RegisterFrom from "./components/RegisterFrom"
 import LoginOrRegisterBtn from "./components/LoginOrRegisterBtn"
 const LoginDom = () => {
   const navigate = useNavigate()
+  const [firstInit, setFirstInit] = useState(true)
   const [loading, setLoading] = useState(false)
   const [isRegisterStatus, setRegisterStatus] = useState(false)
+  const [changeClassStatus, setChangeClassStatus] = useState(false)
   /** 登录请求 */
   const login = async (values: LoginUserDto) => {
     setLoading(true)
@@ -45,27 +47,47 @@ const LoginDom = () => {
   }
   /** 登录注册切换 */
   function registerClick() {
-    setRegisterStatus(() => {
-      return !isRegisterStatus
+    setFirstInit(false)
+    setChangeClassStatus(() => {
+      return !changeClassStatus
     })
+    setTimeout(() => {
+      setRegisterStatus(() => {
+        return !isRegisterStatus
+      })
+    }, 200)
   }
   return (
     <div className={styles["login-register-box"]}>
       <Spin spinning={loading}>
-        {isRegisterStatus ? (
-          <RegisterFrom register={register}></RegisterFrom>
-        ) : (
-          <LoginFrom login={login}></LoginFrom>
-        )}
+        <div className={styles["spin-box"]}>
+          <div
+            className={`${
+              changeClassStatus ? "flip-vertical-right" : (firstInit ? '' : "flip-vertical-left")
+            }`}
+          >
+            {isRegisterStatus ? (
+              <div className={styles["register-box"]}>
+                <RegisterFrom register={register}></RegisterFrom>
+              </div>
+            ) : (
+              <div className={styles["login-box"]} style={{transform: `rotateY(${firstInit ? '0deg': '-180deg'})`}}>
+                <LoginFrom login={login}></LoginFrom>
+              </div>
+            )}
+          </div>
 
-        <LoginOrRegisterBtn
-          message={
-            isRegisterStatus
-              ? "已有账号？快去登录吧！！！"
-              : "还没有账号？赶紧来注册吧！！！"
-          }
-          registerClick={registerClick}
-        ></LoginOrRegisterBtn>
+          <div className={styles["checkBtn"]}>
+            <LoginOrRegisterBtn
+              message={
+                isRegisterStatus
+                  ? "已有账号？快去登录吧！！！"
+                  : "还没有账号？赶紧来注册吧！！！"
+              }
+              registerClick={registerClick}
+            ></LoginOrRegisterBtn>
+          </div>
+        </div>
       </Spin>
     </div>
   )
