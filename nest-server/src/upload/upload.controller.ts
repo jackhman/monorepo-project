@@ -9,18 +9,19 @@ import {
 } from "@nestjs/common"
 import { FileInterceptor } from "@nestjs/platform-express"
 import { Express } from "express"
-import { UploadService } from "./upload.service"
+import { diskStorage } from "multer"
 import { UploadDto } from "@shared/dto/upload.dto"
 
-@Controller()
+@Controller("upload")
 export class UploadController {
-  constructor(private readonly appService: UploadService) {}
-  @UseInterceptors(FileInterceptor("file"))
+  constructor() {}
   @Post("file")
+  @UseInterceptors(FileInterceptor("file"))
   uploadFile(
     @Body() body: UploadDto,
     @UploadedFile() file: Express.Multer.File
   ) {
+    
     return {
       body,
       file: file.buffer.toString()

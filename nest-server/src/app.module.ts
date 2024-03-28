@@ -8,6 +8,7 @@ import { BizExceptionFilter } from "./utils/exceptionHandler/biz-exception.filte
 import { AuthModule } from "./auth/auth.module"
 import { JwtAuthGuard } from "./auth/jwt-auth.guard"
 import { PostStatusInterceptor } from "./utils/interceptorHander/post-status.interceptor"
+import { UploadModule } from "./upload/upload.module"
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { PostStatusInterceptor } from "./utils/interceptorHander/post-status.int
     }),
     AuthModule,
     UserModule,
-    MenuModule
+    MenuModule,
+    UploadModule
   ],
   providers: [
     {
