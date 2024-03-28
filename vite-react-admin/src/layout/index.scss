@@ -4,6 +4,7 @@
   .sider-box {
     max-height: 100%;
     overflow: auto;
+    transition: 0.3s;
     .ant-menu-title-content {
       user-select: none;
     }

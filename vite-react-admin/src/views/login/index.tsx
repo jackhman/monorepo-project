@@ -28,7 +28,11 @@ const LoginDom = () => {
       setUserIdStorage(data.id!)
       setToken(`Bearer ${data.token}`)
       navigate(ROUTE_PATH.DASHBOARD)
-    } finally {
+    } catch(error) {
+      console.log(error)
+      message.error(`${error}`)
+    }
+    finally {
       setLoading(false)
     }
   }
