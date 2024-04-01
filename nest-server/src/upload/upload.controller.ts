@@ -1,8 +1,6 @@
 import {
   Body,
   Controller,
-  Get,
-  ParseFilePipeBuilder,
   Post,
   UploadedFile,
   UseInterceptors
@@ -12,7 +10,6 @@ import { Express } from "express"
 import { UploadDto } from "@shared/dto/upload.dto"
 import { UploadService } from "./upload.service"
 import { R } from "../utils/R/R"
-
 @Controller("upload")
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
@@ -24,6 +21,6 @@ export class UploadController {
     @UploadedFile() file: Express.Multer.File
   ) {
     const getFilePath = await this.uploadService.uploadImgFile(file)
-    return R.success().setData({file: getFilePath})
+    return R.success().setData({ file: getFilePath })
   }
 }

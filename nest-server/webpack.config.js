@@ -39,6 +39,10 @@ module.exports = {
         {
           from: sharedDirPath,
           to: "shared"
+        },
+        {
+          from: path.resolve(__dirname, "./src/public"),
+          to: "static"
         }
       ]
     })
