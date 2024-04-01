@@ -9,62 +9,21 @@ import {
 } from "@nestjs/common"
 import { FileInterceptor } from "@nestjs/platform-express"
 import { Express } from "express"
-import { diskStorage } from "multer"
 import { UploadDto } from "@shared/dto/upload.dto"
+import { UploadService } from "./upload.service"
+import { R } from "../utils/R/R"
 
 @Controller("upload")
 export class UploadController {
-  constructor() {}
+  constructor(private readonly uploadService: UploadService) {}
+
   @Post("file")
   @UseInterceptors(FileInterceptor("file"))
-  uploadFile(
+  async uploadFile(
     @Body() body: UploadDto,
     @UploadedFile() file: Express.Multer.File
   ) {
-    
-    return {
-      body,
-      file: file.buffer.toString()
-    }
-  }
-
-  @UseInterceptors(FileInterceptor("file"))
-  @Post("file/pass-validation")
-  uploadFileAndPassValidation(
-    @Body() body: UploadDto,
-    @UploadedFile(
-      new ParseFilePipeBuilder()
-        .addFileTypeValidator({
-          fileType: "json"
-        })
-        .build({
-          fileIsRequired: false
-        })
-    )
-    file?: Express.Multer.File
-  ) {
-    return {
-      body,
-      file: file?.buffer.toString()
-    }
-  }
-
-  @UseInterceptors(FileInterceptor("file"))
-  @Post("file/fail-validation")
-  uploadFileAndFailValidation(
-    @Body() body: UploadDto,
-    @UploadedFile(
-      new ParseFilePipeBuilder()
-        .addFileTypeValidator({
-          fileType: "jpg"
-        })
-        .build()
-    )
-    file: Express.Multer.File
-  ) {
-    return {
-      body,
-      file: file.buffer.toString()
-    }
+    const getFilePath = await this.uploadService.uploadImgFile(file)
+    return R.success().setData({file: getFilePath})
   }
 }
