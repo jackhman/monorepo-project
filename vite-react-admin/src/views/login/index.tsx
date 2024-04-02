@@ -1,15 +1,17 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { observer } from "mobx-react-lite"
 import { message, Spin } from "antd"
 import styles from "./index.module.scss"
 import { loginApi } from "@/api/modules/user"
 import { setUserIdStorage, setToken } from "@/utils/modules/commonSave"
+import { userStore } from "@/store/user"
 import { LoginUserDto, RegisterUserDto } from "@shared/dto/user.dto"
 import { ROUTE_PATH } from "@/router/RouteConst"
 import LoginFrom from "./components/LoginFrom"
 import RegisterFrom from "./components/RegisterFrom"
 import LoginOrRegisterBtn from "./components/LoginOrRegisterBtn"
-const LoginDom = () => {
+const LoginDom = observer(() => {
   const navigate = useNavigate()
   const [firstInit, setFirstInit] = useState(true)
   const [loading, setLoading] = useState(false)
@@ -24,15 +26,15 @@ const LoginDom = () => {
     }
     try {
       const { data } = await loginApi(params)
+      userStore.saveUserInfo(data)
       message.success("登录成功")
       setUserIdStorage(data.id!)
       setToken(`Bearer ${data.token}`)
       navigate(ROUTE_PATH.DASHBOARD)
-    } catch(error) {
+    } catch (error) {
       console.log(error)
       message.error(`${error}`)
-    }
-    finally {
+    } finally {
       setLoading(false)
     }
   }
@@ -67,7 +69,11 @@ const LoginDom = () => {
         <div className={styles["spin-box"]}>
           <div
             className={`${
-              changeClassStatus ? "flip-vertical-right" : (firstInit ? '' : "flip-vertical-left")
+              changeClassStatus
+                ? "flip-vertical-right"
+                : firstInit
+                  ? ""
+                  : "flip-vertical-left"
             }`}
           >
             {isRegisterStatus ? (
@@ -75,7 +81,12 @@ const LoginDom = () => {
                 <RegisterFrom register={register}></RegisterFrom>
               </div>
             ) : (
-              <div className={styles["login-box"]} style={{transform: `rotateY(${firstInit ? '0deg': '-180deg'})`}}>
+              <div
+                className={styles["login-box"]}
+                style={{
+                  transform: `rotateY(${firstInit ? "0deg" : "-180deg"})`
+                }}
+              >
                 <LoginFrom login={login}></LoginFrom>
               </div>
             )}
@@ -95,6 +106,6 @@ const LoginDom = () => {
       </Spin>
     </div>
   )
-}
+})
 
 export default LoginDom

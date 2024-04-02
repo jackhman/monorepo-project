@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom"
 import { clearLoginData } from "@/utils"
 import { userStore } from "@/store/user"
 import { ROUTE_PATH } from "@/router/RouteConst"
+import { observer } from "mobx-react-lite"
 
-const Personal = () => {
+const Personal = observer(() => {
   const navigate = useNavigate()
   // 点击 菜单项
   const menuClick: MenuProps["onClick"] = e => {
@@ -54,7 +55,10 @@ const Personal = () => {
   return (
     <div className="personal-box">
       <Dropdown menu={{ items, onClick: menuClick }} trigger={["hover"]}>
-        <div className="personal-dropdown">
+        <div
+          className="personal-dropdown"
+          style={{ display: "flex", alignItems: "center" }}
+        >
           <span className="personal-name">
             Hi~ {userStore.userInfo.nickName}
           </span>
@@ -68,6 +72,6 @@ const Personal = () => {
       </Dropdown>
     </div>
   )
-}
+})
 
 export default Personal

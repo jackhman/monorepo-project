@@ -1,3 +1,10 @@
+.layout-spin {
+  >div {
+    .ant-spin-spinning {
+      max-height: 100%;
+    }
+  }
+}
 .layout-box {
   display: flex;
   height: 100vh;

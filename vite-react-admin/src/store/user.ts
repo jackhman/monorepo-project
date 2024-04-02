@@ -5,7 +5,14 @@ class UserStore {
     makeAutoObservable(this)
   }
   userInfo: UserInfoDto = {
-    userName: ""
+    userName: "",
+    nickName: "",
+    avatar: ""
+  }
+  /** 存储用户的信息 */
+  saveUserInfo(userInfo: UserInfoDto) {
+    this.userInfo = userInfo
+    console.log(this.userInfo)
   }
 }
 
