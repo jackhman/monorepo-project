@@ -3,6 +3,7 @@ const webpack = require("webpack")
 const CopyPlugin = require("copy-webpack-plugin")
 
 const sharedDirPath = path.resolve(__dirname, "../shared")
+
 module.exports = {
   entry: "./src/main.ts",
   target: "node",
@@ -41,8 +42,9 @@ module.exports = {
           to: "shared"
         },
         {
-          from: path.resolve(__dirname, "./src/public"),
-          to: "static"
+          from: path.resolve(__dirname, "./public"),
+          to: "static",
+          noErrorOnMissing: true,
         }
       ]
     })

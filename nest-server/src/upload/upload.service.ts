@@ -8,14 +8,19 @@ export class UploadService {
   async uploadImgFile(file: Express.Multer.File) {
     console.log(file)
     const dir = dayjs().format("YYYYMMDD")
-    const dirPath = `../src/public/${dir}`
-    const _stat = fs.statSync(join(__dirname, dirPath))
+    const dateDirPath = join(__dirname, `../public`)
     // 判断是否已经存在了文件夹
-    if (_stat && !_stat.isDirectory()) {
-      // 用来创建文件夹
-      fs.mkdirSync(join(__dirname, dirPath))
+    if (!fs.existsSync(dateDirPath)) {
+      // 用来创建 public 文件夹
+      fs.mkdirSync(dateDirPath)
     }
-    const path = join(__dirname, `../src/public/${dir}/${file.originalname}`)
+    const dirPath = join(__dirname, `../public/${dir}`)
+    if (!fs.existsSync(dirPath)) {
+      console.log(123)
+      // 用来创建文件夹
+      fs.mkdirSync(dirPath)
+    }
+    const path = join(__dirname, `../public/${dir}/${file.originalname}`)
     const writeStream = fs.createWriteStream(path)
     writeStream.write(file.buffer)
     return `http://localhost:6789/uploads/${file.originalname}`
