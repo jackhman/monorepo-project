@@ -1,7 +1,7 @@
 import { defineConfig } from "vite"
 import { resolve } from "path"
 import react from "@vitejs/plugin-react"
-import { ViteOptions } from "../shared/common/index"
+import { ViteOptions, PortNumber } from "../shared/common/index"
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons"
 // https://vitejs.dev/config/
 export default defineConfig(() => {
@@ -10,7 +10,7 @@ export default defineConfig(() => {
       alias: ViteOptions.alias(__dirname)
     },
     server: {
-      port: 5432,
+      port: PortNumber.React,
       host: true,
       proxy: ViteOptions.proxy
     },

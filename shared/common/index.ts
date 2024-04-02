@@ -1,5 +1,12 @@
 import { resolve } from "path"
 import { viteStaticCopy } from "vite-plugin-static-copy"
+
+/** 端口号 */
+export const PortNumber = {
+  NestJs: 6789,
+  React: 5678,
+  Vue: 4567
+}
 export const ViteOptions = {
   alias: (__dirname: string) => {
     return {
@@ -9,7 +16,7 @@ export const ViteOptions = {
   },
   proxy: {
     "/api": {
-      target: "http://127.0.0.1:6789",
+      target: `http://127.0.0.1:${PortNumber.NestJs}`,
       changeOrigin: true
     }
   },
