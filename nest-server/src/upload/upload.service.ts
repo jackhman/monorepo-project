@@ -1,11 +1,16 @@
-import { Injectable } from "@nestjs/common"
+import {
+  Injectable,
+  Optional,
+  Req,
+  Request
+} from "@nestjs/common"
 import * as fs from "fs"
 import { join } from "path"
 import * as dayjs from "dayjs"
 @Injectable()
 export class UploadService {
   constructor() {}
-  async uploadImgFile(file: Express.Multer.File) {
+  async uploadImgFile(file: Express.Multer.File, ip: string) {
     const dir = dayjs().format("YYYYMMDD")
     const dateDirPath = join(__dirname, `../public`)
     // 判断是否已经存在了文件夹
@@ -21,20 +26,6 @@ export class UploadService {
     const path = join(__dirname, `../public/${dir}/${file.originalname}`)
     const writeStream = fs.createWriteStream(path)
     writeStream.write(file.buffer)
-    return `http://localhost:6789/static/${dir}/${file.originalname}`
-  }
-
-  async moveFile(sourcePath: string, destPath: any) {
-    try {
-      // 确保目标文件夹存在
-      // await fs.promises.mkdir(destPath, { recursive: true })
-
-      // 移动文件
-      await fs.promises.rename(sourcePath, destPath)
-
-      console.log("文件移动成功")
-    } catch (err) {
-      console.error("文件移动失败:", err)
-    }
+    return `http://${ip}/static/${dir}/${file.originalname}`
   }
 }

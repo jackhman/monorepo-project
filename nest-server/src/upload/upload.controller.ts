@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Post,
+  Req,
   UploadedFile,
   UseInterceptors
 } from "@nestjs/common"
@@ -18,9 +19,10 @@ export class UploadController {
   @UseInterceptors(FileInterceptor("file"))
   async uploadFile(
     @Body() body: UploadDto,
+    @Req() request: Request,
     @UploadedFile() file: Express.Multer.File
   ) {
-    const getFilePath = await this.uploadService.uploadImgFile(file)
-    return R.success().setData({ file: getFilePath })
+    const getFilePath = await this.uploadService.uploadImgFile(file, request.headers["host"])
+    return R.success().setData(getFilePath)
   }
 }

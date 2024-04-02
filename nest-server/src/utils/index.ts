@@ -5,6 +5,7 @@ import {
   ClassTransformOptions
 } from "class-transformer"
 import { ValidationError, validate } from "class-validator"
+import { Req } from "@nestjs/common"
 /** 自定义数据库字段 */
 export class CustomNamingStrategy extends DefaultNamingStrategy {
   tableName(targetName: string, userSpecifiedName: string): string {

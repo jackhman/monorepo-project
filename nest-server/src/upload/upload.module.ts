@@ -4,9 +4,7 @@ import { UploadService } from "./upload.service"
 import { AuthModule } from "../auth/auth.module"
 
 @Module({
-  imports: [
-    AuthModule
-  ],
+  imports: [AuthModule],
   controllers: [UploadController],
   providers: [UploadService],
   exports: [UploadService]
