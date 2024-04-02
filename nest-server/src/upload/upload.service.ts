@@ -6,7 +6,6 @@ import * as dayjs from "dayjs"
 export class UploadService {
   constructor() {}
   async uploadImgFile(file: Express.Multer.File) {
-    console.log(file)
     const dir = dayjs().format("YYYYMMDD")
     const dateDirPath = join(__dirname, `../public`)
     // 判断是否已经存在了文件夹
@@ -16,14 +15,13 @@ export class UploadService {
     }
     const dirPath = join(__dirname, `../public/${dir}`)
     if (!fs.existsSync(dirPath)) {
-      console.log(123)
       // 用来创建文件夹
       fs.mkdirSync(dirPath)
     }
     const path = join(__dirname, `../public/${dir}/${file.originalname}`)
     const writeStream = fs.createWriteStream(path)
     writeStream.write(file.buffer)
-    return `http://localhost:6789/uploads/${file.originalname}`
+    return `http://localhost:6789/static/${dir}/${file.originalname}`
   }
 
   async moveFile(sourcePath: string, destPath: any) {
