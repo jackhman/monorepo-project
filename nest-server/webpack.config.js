@@ -44,7 +44,7 @@ module.exports = {
         {
           from: path.resolve(__dirname, "./public"),
           to: "static",
-          noErrorOnMissing: true,
+          noErrorOnMissing: true
         }
       ]
     })

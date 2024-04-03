@@ -43,6 +43,8 @@ export enum ResultMsg {
 
   REGISTER_SUCCESS = "注册成功",
 
+  NOT_EMPTY = "不能为空",
+
   REGISTER_FAIL = "注册失败",
 
   ID_FAIL = "id不正确",

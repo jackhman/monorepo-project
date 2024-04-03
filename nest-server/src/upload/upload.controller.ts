@@ -8,7 +8,6 @@ import {
 } from "@nestjs/common"
 import { FileInterceptor } from "@nestjs/platform-express"
 import { Express } from "express"
-import { UploadDto } from "@shared/dto/upload.dto"
 import { UploadService } from "./upload.service"
 import { R } from "../utils/R/R"
 @Controller("upload")
@@ -18,7 +17,6 @@ export class UploadController {
   @Post("file")
   @UseInterceptors(FileInterceptor("file"))
   async uploadFile(
-    @Body() body: UploadDto,
     @Req() request: Request,
     @UploadedFile() file: Express.Multer.File
   ) {

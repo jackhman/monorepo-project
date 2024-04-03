@@ -78,6 +78,9 @@ export class UserService {
 
   /** 通过用户id查询用户数据 */
   async getUserById(id: string) {
+    if (!id) {
+      throw new BizException(ResultCode.ERROR, ResultMsg.ID_FAIL)
+    }
     const res: UserInfoDto = await this.usersRepository.findOne({
       where: {
         id
@@ -116,5 +119,15 @@ export class UserService {
       throw new BizException(ResultCode.ERROR, ResultMsg.REQUEST_FAIL)
     }
     return { res, total }
+  }
+
+  /** 更新用户的数据 */
+  async updateUserInfo(userInfo: UserInfoDto, id:string) {
+    await this.getUserById(id)
+    const errors = await handleValidate(UserInfoDto, userInfo)
+    if (errors.length) {
+      throw new BizException(ResultCode.ERROR, errors)
+    }
+    await this.usersRepository.update(id, userInfo)
   }
 }

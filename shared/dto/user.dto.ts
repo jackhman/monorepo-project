@@ -24,7 +24,7 @@ export class FindUserDto {
 /** 返回给用户基本信息 */
 export class UserInfoDto {
   /** 用户 id */
-  id?: string | number
+  id?: string
   /** 用户的权限 */
   roleId?: UserRolesEnum
   /** 当前权限的中文说明 */
@@ -40,3 +40,6 @@ export class UserInfoDto {
   /** 头像 */
   avatar?: string
 }
+
+/** 更新用户数据 */
+export type UpdateUserInfoDto = Partial<UserInfoDto>

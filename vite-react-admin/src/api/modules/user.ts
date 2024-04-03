@@ -1,6 +1,6 @@
 import axios from "../axiosConfig"
 import { ResultModel } from "@shared/model"
-import { LoginUserDto, RegisterUserDto, UserInfoDto } from "@shared/dto/user.dto"
+import { LoginUserDto, RegisterUserDto, UpdateUserInfoDto, UserInfoDto } from "@shared/dto/user.dto"
 /** 用户登录 */
 export const loginApi = (
   params: LoginUserDto
@@ -29,10 +29,8 @@ export const getUserInfoApi = (
 //   id: string
 // ): Promise<ResultModel<IUserChannel[]>> => axios.get(`user/channel/${id}`)
 
-
-
-// /** 更新用户信息 */
-// export const uploadUserInfoApi = (
-//   id: string | number,
-//   params: IUploadUserInfo
-// ): Promise<ResultModel<IUserBaseInfo>> => axios.put(`user/${id}`, params)
+/** 更新用户信息 */
+export const updateUserInfoApi = (
+  id: string,
+  params: UpdateUserInfoDto
+): Promise<ResultModel<[]>> => axios.post(`user/${id}`, params)

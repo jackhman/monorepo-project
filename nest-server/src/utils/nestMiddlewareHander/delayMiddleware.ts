@@ -6,6 +6,6 @@ export async function delayMiddleware(
   res: Response,
   next: NextFunction
 ) {
-  await new Promise(resolve => setTimeout(resolve, 2000))
+  await new Promise(resolve => setTimeout(resolve, 1000))
   next()
 }

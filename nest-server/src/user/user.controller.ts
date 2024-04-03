@@ -1,7 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post, Req, Request } from "@nestjs/common"
+import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common"
 import { UserService } from "./user.service"
 
-import { LoginUserDto, RegisterUserDto } from "@shared/dto/user.dto"
+import {
+  LoginUserDto,
+  RegisterUserDto,
+  UserInfoDto
+} from "@shared/dto/user.dto"
 import { UserPageDto } from "@shared/dto/page.dto"
 import { R } from "../utils/R/R"
 import { ResultMsg } from "@shared/enum/result-enum"
@@ -54,5 +58,15 @@ export class UserController {
   async findAllUser(@Body() userPageDto: UserPageDto) {
     const { res: row, total } = await this.userService.findAllUser(userPageDto)
     return R.success().setRow({ row, total })
+  }
+
+  /** 更新用户的数据 */
+  @Post("/update/:id")
+  async updateUserInfo(
+    @Body() userInfo: UserInfoDto,
+    @Param("id") id: string
+  ) {
+    await this.userService.updateUserInfo(userInfo, id)
+    return R.success().setMsg(ResultMsg.UPDATE_SUCCESS)
   }
 }
