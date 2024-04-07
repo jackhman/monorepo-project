@@ -12,6 +12,7 @@ import { Table, TableColumnsType, Tag } from "antd"
 import { ReactNode } from "react"
 interface Props {
   list: MenuDto[]
+  loading: boolean
 }
 
 const columns: TableColumnsType<MenuDto> = [
@@ -85,11 +86,12 @@ const MenuList = (props: Props) => {
   function handleExpandIcon({ expanded, onExpand, record }): ReactNode {
     if (record.children && record.children.length) {
       return (
-        <span style={{marginRight: "6px"}}>
+        <span style={{ marginRight: "6px" }}>
           {expanded ? (
             <MinusCircleTwoTone onClick={e => onExpand(record, e)} />
           ) : (
-            <PlusCircleTwoTone onClick={e => onExpand(record, e)} />)}
+            <PlusCircleTwoTone onClick={e => onExpand(record, e)} />
+          )}
         </span>
       )
     }
@@ -100,6 +102,7 @@ const MenuList = (props: Props) => {
       bordered
       rowKey="id"
       columns={columns}
+      loading={props.loading}
       dataSource={props.list}
       expandable={{
         expandIcon: handleExpandIcon

@@ -1,13 +1,5 @@
 import { useState, useEffect } from "react"
-import {
-  Button,
-  Form,
-  Input,
-  Modal,
-  Radio,
-  Space,
-  TreeSelect
-} from "antd"
+import { Button, Form, Input, Modal, Radio, Space, TreeSelect, message } from "antd"
 import "./index.scss"
 import { MenuVisibleEnum, MenuStatusEnum } from "@shared/enum/menu-enum"
 import { menuAddApi, menuListApi } from "@/api/modules/menu"
@@ -15,28 +7,35 @@ import { MenuAddDto, MenuDto } from "@shared/dto/menu.dto"
 import { MenuPageDto } from "@shared/dto/page.dto"
 import FormSelectIcon from "./components/FormSelectIcon"
 import MenuList from "./components/MenuList"
-import { ResultCode } from "@shared/enum/result-enum"
+import { ResultCode, ResultMsg } from "@shared/enum/result-enum"
 const AdminManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalTitle, setModalTitle] = useState("新增菜单")
   const [menuList, setMenuList] = useState<MenuDto[]>([])
+  const [menuLoading, setMenuLoading] = useState(true)
   const [loading] = useState(false)
   const [form] = Form.useForm<MenuAddDto>()
-  useEffect(()=> {
+  useEffect(() => {
     fetchFunc()
   }, [])
 
   async function fetchFunc() {
-    const params:MenuPageDto = {
+    const params: MenuPageDto = {
       pageSize: 10,
       current: 1
     }
-    const data = await menuListApi(params)
-    if(data.code === ResultCode.SUCCESS) {
-      setMenuList(data.data)
+    try {
+      setMenuLoading(true)
+      const data = await menuListApi(params)
+      if (data.code === ResultCode.SUCCESS) {
+        setMenuList(data.data)
+      }
+    } catch (error) {
+      message.error(ResultMsg.REQUEST_FAIL)
+    } finally {
+      setMenuLoading(false)
     }
   }
-
 
   const initialValues = {
     visible: MenuVisibleEnum.show,
@@ -77,7 +76,7 @@ const AdminManagement = () => {
         </Button>
       </Space>
 
-      <MenuList list={menuList}></MenuList>
+      <MenuList list={menuList} loading={menuLoading}></MenuList>
 
       <Modal
         title={modalTitle}
