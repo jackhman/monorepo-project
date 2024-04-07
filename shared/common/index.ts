@@ -31,17 +31,17 @@ export const ViteOptions = {
 
 /** 深拷贝 */
 export function deepCopy<T>(obj: T): T {
-  if (typeof obj !== 'object' || obj === null) {
-    return obj;
+  if (typeof obj !== "object" || obj === null) {
+    return obj
   }
 
   if (Array.isArray(obj)) {
-    return obj.map((item) => deepCopy(item)) as T;
+    return obj.map(item => deepCopy(item)) as T
   }
 
-  const newObj = {} as T;
+  const newObj = {} as T
   for (const key in obj) {
-    newObj[key] = deepCopy(obj[key]);
+    newObj[key] = deepCopy(obj[key])
   }
-  return newObj;
+  return newObj
 }
