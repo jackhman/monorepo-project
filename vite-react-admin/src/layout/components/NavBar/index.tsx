@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite"
 import { appStore } from "@/store/app"
 import Breadcrumb from "./components/Breadcrumb"
 import Personal from "./components/Personal"
-
+import "./index.scss"
 const { Header } = Layout
 const NavBar = observer(() => {
   return (

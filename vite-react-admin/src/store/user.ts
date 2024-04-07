@@ -12,7 +12,6 @@ class UserStore {
   /** 存储用户的信息 */
   saveUserInfo(userInfo: UserInfoDto) {
     this.userInfo = userInfo
-    console.log(this.userInfo)
   }
 }
 

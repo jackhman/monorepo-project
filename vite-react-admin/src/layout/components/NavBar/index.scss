@@ -1,0 +1,8 @@
+.breadcrumb-box {
+  .breadcrumb-child-item {
+    cursor: pointer;
+    &:hover {
+      color: #000;
+    }
+  }
+}
