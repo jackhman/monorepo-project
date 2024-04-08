@@ -27,6 +27,10 @@ const LoginFrom = (props: IProps) => {
           wrapperCol={{ span: 18 }}
           name="normal_login"
           onFinish={onFinish}
+          initialValues={{
+            userName: "admin",
+            password: "123456"
+          }}
         >
           <p className={`${styles.text} login-text`}>登录</p>
           <Form.Item

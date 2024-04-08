@@ -13,6 +13,7 @@ export const TokenExpiredToLogin = observer(() => {
   const navigate = useNavigate()
   useEffect(() => {
     if (appStore.reLoginFlag) {
+      appStore.changeReLogin(false)
       navigate(ROUTE_PATH.LOGIN)
     }
   }, [appStore.reLoginFlag])
