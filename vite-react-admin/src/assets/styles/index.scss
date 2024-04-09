@@ -1,7 +1,19 @@
 @import "./animation.scss";
 .icon {
-  width: 1em; height: 1em;
+  width: 1em;
+  height: 1em;
   vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;
+}
+/** 滑块样式 */
+::-webkit-scrollbar {
+  width: 7px; /** 纵向滚动条*/
+  height: 7px; /** 横向滚动条 */
+}
+
+/*定义滑块 内阴影*/
+::-webkit-scrollbar-thumb {
+  background-color: #0777a7;
+  border-radius: 4px;
 }

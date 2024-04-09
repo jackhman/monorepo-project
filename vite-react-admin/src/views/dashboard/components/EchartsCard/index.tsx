@@ -45,6 +45,7 @@ const lineOptions: EChartsOption = {
     {
       type: "bar",
       showBackground: true,
+      barWidth: 50,
       itemStyle: {
         color: new graphic.LinearGradient(0, 0, 0, 1, [
           { offset: 0, color: "#83bff6" },
@@ -154,6 +155,14 @@ const autoPlayBarEchartsUtils = (myEchart: ECharts): EChartsOption => {
       {
         name: "Bar",
         type: "bar",
+        itemStyle: {
+          color: new graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: "#83bff6" },
+            { offset: 0.5, color: "#188df0" },
+            { offset: 1, color: "#188df0" }
+          ])
+        },
+        barWidth: 50,
         data: barSeriesData
       },
       {
