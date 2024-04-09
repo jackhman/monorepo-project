@@ -1,8 +1,14 @@
 import { Row, Col } from "antd"
-import type { EChartsOption, ECharts } from "echarts"
+import { EChartsOption, ECharts } from "echarts"
 import EchartsCom from "@/components/EchartsCom"
-import { useEffect, useRef } from "react"
+import { useEffect, useState } from "react"
 const lineOptions: EChartsOption = {
+  grid: {
+    right: "8%",
+    top: "8%",
+    left: "8%",
+    bottom: "8%"
+  },
   xAxis: {
     type: "category",
     data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
@@ -77,6 +83,11 @@ const autoPlayBarEchartsUtils = (myEchart: ECharts): EChartsOption => {
     title: {
       text: "自动播放的 echart 图表"
     },
+    grid: {
+      right: "8%",
+      left: "8%",
+      bottom: "8%"
+    },
     tooltip: {
       trigger: "axis",
       axisPointer: {
@@ -113,28 +124,42 @@ const autoPlayBarEchartsUtils = (myEchart: ECharts): EChartsOption => {
   }
 }
 const EchartsCard = () => {
-  const autoPlayEchartRef = useRef(null)
+  const [autoPlayEchartOptions, setAutoPlayEchartOptions] =
+    useState<EChartsOption>({})
 
+  function tranEChart(echart: ECharts) {
+    if (echart) {
+      setAutoPlayEchartOptions(autoPlayBarEchartsUtils(echart))
+    }
+  }
+
+  /** 用来清除自动播放的echart定时器 */
   useEffect(() => {
-    console.log(autoPlayEchartRef.current)
+    return () => {
+      clearEchartsInterval()
+    }
   }, [])
   return (
     <div className="echart-component">
+      <Row className="echart-component-main">
+        <Col xl={{ span: 24 }} xs={{ span: 24 }} className="echart-item-col">
+          <div className="echart-item-div">
+            <EchartsCom
+              options={autoPlayEchartOptions}
+              tranEChart={tranEChart}
+              height="400px"
+            ></EchartsCom>
+          </div>
+        </Col>
+      </Row>
       <Row className="echart-component-main" gutter={10}>
-        <Col xs={{ span: 24 }} xl={{ span: 8 }} className="echart-item-col">
+        <Col xs={{ span: 24 }} xl={{ span: 12 }} className="echart-item-col">
           <div className="echart-item-div">
             <EchartsCom options={lineOptions}></EchartsCom>
           </div>
         </Col>
-        <Col xs={{ span: 24 }} xl={{ span: 8 }} className="echart-item-col">
-          <div className="echart-item-div">
-            <EchartsCom
-              ref={autoPlayEchartRef}
-              options={lineOptions}
-            ></EchartsCom>
-          </div>
-        </Col>
-        <Col xs={{ span: 24 }} xl={{ span: 8 }} className="echart-item-col">
+
+        <Col xs={{ span: 24 }} xl={{ span: 12 }} className="echart-item-col">
           <div className="echart-item-div">
             <EchartsCom options={lineOptions}></EchartsCom>
           </div>
