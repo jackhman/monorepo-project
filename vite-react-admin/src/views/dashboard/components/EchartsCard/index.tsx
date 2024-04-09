@@ -1,7 +1,13 @@
 import { Row, Col } from "antd"
-import { EChartsOption, ECharts } from "echarts"
+import { EChartsOption, ECharts, graphic } from "echarts"
 import EchartsCom from "@/components/EchartsCom"
 import { useEffect, useState } from "react"
+import dayjs from "dayjs"
+// 获取从今天往前的七天日期
+const xData: string[] = []
+for (let i = 0; i < 7; i++) {
+  xData.push(dayjs().subtract(i, "day").format("YYYY-MM-DD"))
+}
 const lineOptions: EChartsOption = {
   grid: {
     right: "8%",
@@ -10,17 +16,52 @@ const lineOptions: EChartsOption = {
     bottom: "8%"
   },
   xAxis: {
-    type: "category",
-    data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    data: xData,
+    axisTick: {
+      show: false
+    },
+    axisLine: {
+      show: false
+    },
+    z: 10
   },
   yAxis: {
-    type: "value"
+    axisLine: {
+      show: false
+    },
+    axisTick: {
+      show: false
+    },
+    axisLabel: {
+      color: "#999"
+    }
   },
+  dataZoom: [
+    {
+      type: "inside"
+    }
+  ],
   series: [
     {
-      data: [820, 932, 901, 934, 1290, 1330, 1320],
-      type: "line",
-      smooth: true
+      type: "bar",
+      showBackground: true,
+      itemStyle: {
+        color: new graphic.LinearGradient(0, 0, 0, 1, [
+          { offset: 0, color: "#83bff6" },
+          { offset: 0.5, color: "#188df0" },
+          { offset: 1, color: "#188df0" }
+        ])
+      },
+      emphasis: {
+        itemStyle: {
+          color: new graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: "#2378f7" },
+            { offset: 0.7, color: "#2378f7" },
+            { offset: 1, color: "#83bff6" }
+          ])
+        }
+      },
+      data: [220, 182, 191, 234, 290, 900, 400]
     }
   ]
 }
@@ -141,27 +182,23 @@ const EchartsCard = () => {
   }, [])
   return (
     <div className="echart-component">
-      <Row className="echart-component-main">
-        <Col xl={{ span: 24 }} xs={{ span: 24 }} className="echart-item-col">
-          <div className="echart-item-div">
-            <EchartsCom
-              options={autoPlayEchartOptions}
-              tranEChart={tranEChart}
-              height="400px"
-            ></EchartsCom>
-          </div>
-        </Col>
-      </Row>
+      <div className="echart-item-div">
+        <EchartsCom
+          options={autoPlayEchartOptions}
+          tranEChart={tranEChart}
+          height="450px"
+        ></EchartsCom>
+      </div>
       <Row className="echart-component-main" gutter={10}>
         <Col xs={{ span: 24 }} xl={{ span: 12 }} className="echart-item-col">
           <div className="echart-item-div">
-            <EchartsCom options={lineOptions}></EchartsCom>
+            <EchartsCom options={lineOptions} height="450px"></EchartsCom>
           </div>
         </Col>
 
         <Col xs={{ span: 24 }} xl={{ span: 12 }} className="echart-item-col">
           <div className="echart-item-div">
-            <EchartsCom options={lineOptions}></EchartsCom>
+            <EchartsCom options={lineOptions} height="450px"></EchartsCom>
           </div>
         </Col>
       </Row>
