@@ -6,3 +6,13 @@
     }
   }
 }
+.personal-box {
+  display: flex;
+  .icon-box {
+    margin-right: 10px;
+    .icon-tip {
+      cursor: pointer;
+      animation: animation-swing 0.4s linear infinite;
+    }
+  }
+}

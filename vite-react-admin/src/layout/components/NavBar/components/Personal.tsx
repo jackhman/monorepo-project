@@ -1,6 +1,11 @@
-import { Dropdown } from "antd"
+import { Badge, Dropdown } from "antd"
 import type { MenuProps } from "antd"
-import { DownOutlined, UserOutlined, ExportOutlined } from "@ant-design/icons"
+import {
+  DownOutlined,
+  UserOutlined,
+  ExportOutlined,
+  BellOutlined
+} from "@ant-design/icons"
 import { useNavigate } from "react-router-dom"
 import { clearLoginData } from "@/utils"
 import { userStore } from "@/store/user"
@@ -54,14 +59,20 @@ const Personal = observer(() => {
   ]
   return (
     <div className="personal-box">
+      <div className="icon-box">
+        <div className="icon-tip">
+          <Badge size="small" count={5} overflowCount={10}>
+            <BellOutlined />
+          </Badge>
+        </div>
+      </div>
       <Dropdown menu={{ items, onClick: menuClick }} trigger={["hover"]}>
         <div
           className="personal-dropdown"
           style={{ display: "flex", alignItems: "center" }}
         >
-          <span className="personal-name">
-            Hi~ {userStore.userInfo.nickName}
-          </span>
+          <span className="personal-name">Hi~</span>
+
           <img
             className="personal-img"
             src={userStore.userInfo.avatar}
