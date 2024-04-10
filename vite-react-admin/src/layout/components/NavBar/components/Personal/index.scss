@@ -1,0 +1,48 @@
+.personal-box {
+  display: flex;
+  #personal-box-icon {
+    margin-right: 10px;
+    .icon-tip {
+      cursor: pointer;
+      &.message-animation {
+        animation: animation-swing 1s linear infinite;
+      }
+    }
+    .message-dropdown-box {
+      background-color: #fff;
+      width: 300px;
+      height: 300px;
+      overflow: auto;
+      box-shadow: 0px 0px 5px 1px #ccc;
+      border-radius: 5px;
+      padding: 6px;
+      .message-dropdown-list {
+        &-item {
+          display: flex;
+          margin-bottom: 10px;
+          &-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+          }
+          &-center {
+            flex: 1;
+            margin: 0 10px;
+            display: flex;
+            flex-direction: column;
+            font-size: 12px;
+            &-name {
+              color: #5a5a5a;
+            }
+          }
+          &-slt {
+            width: 80px;
+            height: 50px;
+            border-radius: 6px;
+            object-fit: contain; 
+          }
+        }
+      }
+    }
+  }
+}

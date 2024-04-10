@@ -11,7 +11,9 @@ import { clearLoginData } from "@/utils"
 import { userStore } from "@/store/user"
 import { ROUTE_PATH } from "@/router/RouteConst"
 import { observer } from "mobx-react-lite"
-
+import MessageDropdown from "./MessageDropdown"
+import { appStore } from "@/store/app"
+import "./index.scss"
 const Personal = observer(() => {
   const navigate = useNavigate()
   // 点击 菜单项
@@ -57,13 +59,35 @@ const Personal = observer(() => {
       )
     }
   ]
+  /** 消息下拉框的改变事件 */
+  function messageDropOpen(flag: boolean) {
+    if (flag) {
+      setTimeout(() => {
+        appStore.changeMessageCount(0)
+      }, 500)
+    }
+  }
   return (
     <div className="personal-box">
-      <div className="icon-box">
-        <div className="icon-tip">
-          <Badge size="small" count={5} overflowCount={10}>
-            <BellOutlined />
-          </Badge>
+      <div id="personal-box-icon">
+        <div
+          className={`icon-tip ${appStore.messageCount && "message-animation"}`}
+        >
+          <Dropdown
+            placement="bottom"
+            arrow
+            dropdownRender={MessageDropdown}
+            onOpenChange={messageDropOpen}
+            getPopupContainer={()=> document.getElementById('personal-box-icon') as HTMLElement}
+          >
+            <Badge
+              size="small"
+              count={appStore.messageCount}
+              overflowCount={10}
+            >
+              <BellOutlined />
+            </Badge>
+          </Dropdown>
         </div>
       </div>
       <Dropdown menu={{ items, onClick: menuClick }} trigger={["hover"]}>
@@ -72,7 +96,6 @@ const Personal = observer(() => {
           style={{ display: "flex", alignItems: "center" }}
         >
           <span className="personal-name">Hi~</span>
-
           <img
             className="personal-img"
             src={userStore.userInfo.avatar}

@@ -13,6 +13,8 @@ class AppStore {
   refreshUserInfoFlag: boolean = true
   /** 是否需要重新登录 */
   reLoginFlag: boolean = false
+  /** 动态消息 */
+  messageCount: number = 1
   changeMobileStatus(flag: boolean) {
     this.mobile = flag
   }
@@ -23,6 +25,10 @@ class AppStore {
   /** 改变登录的状态 */
   changeReLogin(flag: boolean) {
     this.reLoginFlag = flag
+  }
+  /** 修改动态消息个数 */
+  changeMessageCount(count: number) {
+    this.messageCount = count
   }
 }
 
