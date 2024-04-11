@@ -36,11 +36,6 @@ const lineOptions: EChartsOption = {
       color: "#999"
     }
   },
-  dataZoom: [
-    {
-      type: "inside"
-    }
-  ],
   series: [
     {
       type: "bar",

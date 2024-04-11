@@ -4,6 +4,7 @@ import zhCN from "antd/locale/zh_CN"
 import App from "./App"
 import "@shared/assets/styles/resect.scss"
 import "@/assets/styles/index.scss"
+import "@shared/assets/styles/common.scss"
 import "virtual:svg-icons-register"
 message.config({
   maxCount: 1

@@ -75,7 +75,6 @@ const Personal = observer(() => {
         >
           <Dropdown
             placement="bottom"
-            arrow
             dropdownRender={MessageDropdown}
             onOpenChange={messageDropOpen}
             getPopupContainer={()=> document.getElementById('personal-box-icon') as HTMLElement}
