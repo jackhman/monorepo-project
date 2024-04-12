@@ -1,67 +1,13 @@
-import { Row, Col } from "antd"
 import { EChartsOption, ECharts, graphic } from "echarts"
 import EchartsCom from "@/components/EchartsCom"
 import { useEffect, useState } from "react"
 import dayjs from "dayjs"
+import { radarEchartOption } from "./echartOptions"
 // 获取从今天往前的七天日期
 const xData: string[] = []
 for (let i = 0; i < 7; i++) {
   xData.push(dayjs().subtract(i, "day").format("YYYY-MM-DD"))
 }
-const lineOptions: EChartsOption = {
-  grid: {
-    right: "8%",
-    top: "8%",
-    left: "8%",
-    bottom: "8%"
-  },
-  xAxis: {
-    data: xData,
-    axisTick: {
-      show: false
-    },
-    axisLine: {
-      show: false
-    },
-    z: 10
-  },
-  yAxis: {
-    axisLine: {
-      show: false
-    },
-    axisTick: {
-      show: false
-    },
-    axisLabel: {
-      color: "#999"
-    }
-  },
-  series: [
-    {
-      type: "bar",
-      showBackground: true,
-      barWidth: 50,
-      itemStyle: {
-        color: new graphic.LinearGradient(0, 0, 0, 1, [
-          { offset: 0, color: "#83bff6" },
-          { offset: 0.5, color: "#188df0" },
-          { offset: 1, color: "#188df0" }
-        ])
-      },
-      emphasis: {
-        itemStyle: {
-          color: new graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: "#2378f7" },
-            { offset: 0.7, color: "#2378f7" },
-            { offset: 1, color: "#83bff6" }
-          ])
-        }
-      },
-      data: [220, 182, 191, 234, 290, 900, 400]
-    }
-  ]
-}
-
 let echartsInterval: any = null
 
 /** 清除 echarts 的定时器 */
@@ -193,19 +139,9 @@ const EchartsCard = () => {
           height="450px"
         ></EchartsCom>
       </div>
-      <Row className="echart-component-main" gutter={10}>
-        <Col xs={{ span: 24 }} xl={{ span: 12 }} className="echart-item-col">
-          <div className="echart-item-div">
-            <EchartsCom options={lineOptions} height="450px"></EchartsCom>
-          </div>
-        </Col>
-
-        <Col xs={{ span: 24 }} xl={{ span: 12 }} className="echart-item-col">
-          <div className="echart-item-div">
-            <EchartsCom options={lineOptions} height="450px"></EchartsCom>
-          </div>
-        </Col>
-      </Row>
+      <div className="echart-item-div">
+        <EchartsCom options={radarEchartOption()} height="450px"></EchartsCom>
+      </div>
     </div>
   )
 }
