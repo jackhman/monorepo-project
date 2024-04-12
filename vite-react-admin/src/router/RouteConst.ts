@@ -10,6 +10,8 @@ export const ROUTE_PATH = {
   DOCUMENT: '/document',
   /** 权限 */
   ADMIN_MANAGEMENT: '/admin',
+  /** 颜色表大全 */
+  COLOR_LIST: "/color-list",
   /** 文章 */
   ARTICLE: '/article',
   /** 文章分类 */
@@ -47,6 +49,8 @@ export const ROUTE_TITLE = {
   DOCUMENT: '文档',
   /** 权限 */
   ADMIN_MANAGEMENT: '权限',
+  /** 颜色表大全 */
+  COLOR_LIST: "颜色表大全",
   /** 文章 */
   ARTICLE: '文章',
   /** 文章分类 */

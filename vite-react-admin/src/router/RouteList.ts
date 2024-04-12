@@ -4,7 +4,8 @@ import {
   FileAddOutlined,
   BarsOutlined,
   GroupOutlined,
-  UserSwitchOutlined
+  UserSwitchOutlined,
+  BgColorsOutlined
 } from "@ant-design/icons"
 
 import { IRouterList } from "@/ts/interface/router"
@@ -20,6 +21,7 @@ import FirstMenu from "@/views/multilevel-menu/first-menu"
 import SecondMenu from "@/views/multilevel-menu/second-menu"
 import ThirdMenu from "@/views/multilevel-menu/third-menu"
 import AdminManagement from "@/views/admin"
+import ColorList from "@/views/colorList"
 
 /** 路由的保存数组*/
 export const routerList: Array<IRouterList> = [
@@ -45,6 +47,12 @@ export const routerList: Array<IRouterList> = [
     path: ROUTE_PATH.ADMIN_MANAGEMENT,
     meta: { icon: UserSwitchOutlined, title: ROUTE_TITLE.ADMIN_MANAGEMENT },
     Component: AdminManagement
+  },
+  // 颜色表大全
+  {
+    path: ROUTE_PATH.COLOR_LIST,
+    meta: { icon: BgColorsOutlined, title: ROUTE_TITLE.COLOR_LIST },
+    Component: ColorList
   },
   // 文章
   // {

@@ -19,6 +19,10 @@ const InfoCom = (props: InfoComInter) => {
         <span className="value">{userInfo.nickName}</span>
       </div>
       <div className="info-item">
+        <span className="label">用户权限</span>
+        <span className="value">{userInfo.roleName}</span>
+      </div>
+      {/* <div className="info-item">
         <span className="label">性别</span>
         <span className="value">{userInfo.gender ? "男" : "女"}</span>
       </div>
@@ -29,7 +33,7 @@ const InfoCom = (props: InfoComInter) => {
       <div className="info-item">
         <span className="label">邮箱</span>
         <span className="value">{userInfo.email}</span>
-      </div>
+      </div> */}
     </div>
   )
 }
