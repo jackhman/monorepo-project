@@ -1,0 +1,19 @@
+.color-item {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 10px 0 #ccc;
+  padding: 6px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.2s;
+  &:hover {
+    box-shadow: 0 0 10px 6px #ccc;
+  }
+  .color {
+    margin-top: 4px;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+  }
+}
