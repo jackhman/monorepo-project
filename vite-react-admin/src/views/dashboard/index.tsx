@@ -14,7 +14,7 @@ const HomeDom = () => {
             {/* Echarts 组件 */}
             <EchartsCard></EchartsCard>
           </Col>
-          <Col xl={12} sm={24}>
+          <Col xl={6} sm={24}>
             {/* todolist 组件 */}
             <TodoList/>
           </Col>

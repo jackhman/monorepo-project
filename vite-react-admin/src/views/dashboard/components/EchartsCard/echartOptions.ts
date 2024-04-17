@@ -7,23 +7,23 @@ export const autoPlayBarEchartOption = () => {}
 export const radarEchartOption = (): EChartsOption => {
   const indicator = [
     {
-      text: "A",
+      name: "A",
       max: 100
     },
     {
-      text: "B",
+      name: "B",
       max: 100
     },
     {
-      text: "C",
+      name: "C",
       max: 100
     },
     {
-      text: "D",
+      name: "D",
       max: 100
     },
     {
-      text: "E",
+      name: "E",
       max: 100
     }
   ]

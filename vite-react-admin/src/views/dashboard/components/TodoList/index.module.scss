@@ -3,4 +3,18 @@
     display: flex;
     margin-bottom: 10px;
   }
+  .header {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .todo-item {
+    width: 100%;
+    padding: 6px 0;
+    cursor: pointer;
+    display: flex;
+    user-select: none;
+    .title {
+      margin-left: 2px;
+    }
+  }
 }
