@@ -4,23 +4,22 @@ import TodoList from "./components/TodoList"
 import EchartsCard from "./components/EchartsCard"
 import { Row, Col } from "antd"
 const HomeDom = () => {
-  function insertTodoList(v) {
-    console.log(v)
-  }
   return (
     <div>
       {/* 头部分块 */}
       <HomeCard />
       <div className="middle-box">
-        <Row>
+        <Row gutter={10}>
           <Col xl={12} sm={24}>
             {/* Echarts 组件 */}
             <EchartsCard></EchartsCard>
           </Col>
+          <Col xl={12} sm={24}>
+            {/* todolist 组件 */}
+            <TodoList/>
+          </Col>
         </Row>
       </div>
-      {/* todolist 组件 */}
-      <TodoList insertTodoList={insertTodoList} />
     </div>
   )
 }
