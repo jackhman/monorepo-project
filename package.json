@@ -6,7 +6,8 @@
   "scripts": {
     "dev:vite": "pnpm -C vite-web dev",
     "dev:react": "pnpm -C vite-react-admin dev",
-    "dev:nest": "pnpm -C nest-server start:dev"
+    "dev:nest": "pnpm -C nest-server start:dev",
+    "switch-node-version": "powershell -ExecutionPolicy Bypass -File ./nvmrc_use.ps1"
   },
   "dependencies": {
     "axios": "^1.5.1",
