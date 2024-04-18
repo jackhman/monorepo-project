@@ -18,6 +18,10 @@ const HomeDom = () => {
             {/* todolist 组件 */}
             <TodoList/>
           </Col>
+          <Col xl={6} sm={24}>
+            {/* todolist 组件 */}
+            <TodoList/>
+          </Col>
         </Row>
       </div>
     </div>
