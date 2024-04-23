@@ -91,8 +91,7 @@ watch(
 
         nextTick(() => {
           if (layoutRef.value)
-            layoutRef.value.scrollTop =
-              store.routeScroll[currentRouteName]
+            layoutRef.value.scrollTop = store.routeScroll[currentRouteName]
         })
       }
     }

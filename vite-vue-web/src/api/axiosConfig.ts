@@ -1,5 +1,5 @@
 import axios from "axios"
-import { showNotify } from 'vant';
+import { showNotify } from "vant"
 import { getToken } from "@/utils/modules/commonSave"
 import { ResultCode, ResultMsg } from "@shared/enum/result-enum"
 import { ResultModel } from "@shared/model/index"
@@ -66,10 +66,10 @@ axiosConfig.interceptors.response.use(
       return Promise.reject(error)
     }
 
-    // 请求发出,但是不在2xx的范围 
+    // 请求发出,但是不在2xx的范围
     if (error.response.status) {
       // 对返回状态码进行处理
-      return Promise.reject(error);
+      return Promise.reject(error)
     }
 
     // 全部请求都在2xx的范围内都会进入这里

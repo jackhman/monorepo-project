@@ -3,8 +3,6 @@ import vue from "@vitejs/plugin-vue"
 // 配置 vant的 按需引入组件样式
 import Components from "unplugin-vue-components/vite"
 import { VantResolver } from "@vant/auto-import-resolver"
-import { viteStaticCopy } from "vite-plugin-static-copy"
-import path from "node:path"
 import { ViteOptions, PortNumber } from "../shared/common"
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -28,10 +26,6 @@ export default defineConfig({
     Components({
       resolvers: [VantResolver()]
     }),
-    viteStaticCopy({
-      targets: [
-        { src: path.resolve(__dirname, "../shared"), dest: "dist/shared" }
-      ]
-    })
+    ViteOptions.plugins.viteStaticCopy(__dirname)
   ]
 })

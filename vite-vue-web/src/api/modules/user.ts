@@ -1,6 +1,10 @@
 import axios from "../axiosConfig"
 import { ResultModel } from "@shared/model"
-import { LoginUserDto, RegisterUserDto, UserInfoDto } from "@shared/dto/user.dto"
+import {
+  LoginUserDto,
+  RegisterUserDto,
+  UserInfoDto
+} from "@shared/dto/user.dto"
 /** 用户登录 */
 export const loginApi = (
   params: LoginUserDto
@@ -13,14 +17,13 @@ export const registerApi = (
   params: RegisterUserDto
 ): Promise<ResultModel<UserInfoDto>> => axios.post("user/register", params)
 
-
 /** 退出登录 */
-export const logoutApi = (): Promise<ResultModel<[]>>=> axios.get("user/logout")
+export const logoutApi = (): Promise<ResultModel<[]>> =>
+  axios.get("user/logout")
 
 /** 获取用户的信息 */
-export const getUserInfoApi = (
-  id: string
-): Promise<ResultModel<UserInfoDto>> => axios.get(`user/${id}`)
+export const getUserInfoApi = (id: string): Promise<ResultModel<UserInfoDto>> =>
+  axios.get(`user/${id}`)
 
 // /**
 //  * 获取用户的频道信息
@@ -28,8 +31,6 @@ export const getUserInfoApi = (
 // export const channelListApi = (
 //   id: string
 // ): Promise<ResultModel<IUserChannel[]>> => axios.get(`user/channel/${id}`)
-
-
 
 // /** 更新用户信息 */
 // export const uploadUserInfoApi = (
