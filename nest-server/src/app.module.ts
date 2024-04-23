@@ -9,6 +9,7 @@ import { AuthModule } from "./auth/auth.module"
 import { JwtAuthGuard } from "./auth/jwt-auth.guard"
 import { PostStatusInterceptor } from "./utils/interceptorHander/post-status.interceptor"
 import { UploadModule } from "./upload/upload.module"
+import { ArticleModule } from './article/article.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -26,7 +27,8 @@ import { UploadModule } from "./upload/upload.module"
     AuthModule,
     UserModule,
     MenuModule,
-    UploadModule
+    UploadModule,
+    ArticleModule
   ],
   providers: [
     {
