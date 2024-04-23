@@ -2,8 +2,8 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
 import {
   UserRolesEnum,
   UserRolesTextEnum,
-  UserIsDeletedEnum
 } from "@shared/enum/user-enum"
+import { DataBaseDeletedEnum } from "@shared/enum/index"
 @Entity("User")
 export class User {
   @PrimaryGeneratedColumn("uuid")
@@ -45,9 +45,9 @@ export class User {
 
   // 是否删除
   @Column({
-    default: UserIsDeletedEnum.noDelete,
+    default: DataBaseDeletedEnum.noDelete,
     select: false,
     comment: "是否删除"
   })
-  isDelete: UserIsDeletedEnum
+  isDelete: DataBaseDeletedEnum
 }

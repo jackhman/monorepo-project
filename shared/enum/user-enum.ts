@@ -16,12 +16,6 @@ export enum UserRolesTextEnum {
 }
 
 
-/** 用户是否被删除 */
-export enum UserIsDeletedEnum {
-  noDelete = 0,
-  isDelete = 1
-}
-
 /** 用户是否被删除中文字段 */
 export enum UserIsDeletedTextEnum {
   noDelete = "未删除",

@@ -16,3 +16,10 @@ export enum ResultTypeEnum {
   DELETE = "delete",
   PUTCH = "putch"
 }
+
+
+/** 数据库的数据 是否被删除 */
+export enum DataBaseDeletedEnum {
+  noDelete = 0,
+  isDelete = 1
+}
