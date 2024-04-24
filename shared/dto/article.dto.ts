@@ -1,5 +1,5 @@
 import { IsNotEmpty } from "class-validator"
-import { ArticleStatusEnum } from "../enum/article-enum"
+import { ArticleCategoryLevelEnum, ArticleStatusEnum } from "../enum/article-enum"
 
 export class ArticleDto {
   id: string
@@ -47,4 +47,19 @@ export class ArticleDto {
 
   /** 是否删除 */
   isDeleted: number
+}
+
+export class ArticleCategoryInsertOrUpdateDto {
+  id: string
+
+  @IsNotEmpty()
+  categoryName: string
+
+  /** 分类的级别 1 代表一级 2 代表二级 */
+  @IsNotEmpty()
+  level: ArticleCategoryLevelEnum
+
+  /** 父级的id，为null说明是顶级 */
+  parentId: string
+
 }

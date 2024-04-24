@@ -19,3 +19,9 @@ export enum ArticleISCoverEnum {
   /** 是封面 */
   isCover = 1
 }
+
+/** 文章分类级别 */
+export enum ArticleCategoryLevelEnum {
+  first = 1,
+  second = 2
+}
