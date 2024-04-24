@@ -81,5 +81,7 @@ export enum ResultMsg {
 
   UPLOAD_SUCCESS = "上传成功",
 
-  UPLOAD_IMG_FAIL = "图片上传失败"
+  UPLOAD_IMG_FAIL = "图片上传失败",
+
+  INSERT_FAIL_IS_CATEGORY = "新增失败，分类名称已经存在"
 }

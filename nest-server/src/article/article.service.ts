@@ -53,23 +53,55 @@ export class ArticleService {
     if (errors.length) {
       throw new BizException(ResultCode.ERROR, errors)
     }
+    const { id, categoryName, parentId } = articleCategoryInsertOrUpdateDto
+    const level = Number(articleCategoryInsertOrUpdateDto.level)
     // 说明是编辑
-    if (articleCategoryInsertOrUpdateDto.id) {
-      // await this.articleCategoryRepository.update()
+    if (id) {
+      const params = {
+        categoryName,
+        parentId: null
+      }
+      if (level === ArticleCategoryLevelEnum.second) {
+        params.parentId = parentId
+      }
+      const res = await this.articleCategoryRepository.update(id, params)
+      if (res.affected === 0) {
+        throw new BizException(ResultCode.ERROR, ResultMsg.UPDATE_FAIL)
+      }
+      return
     }
+
+    const res = await this.articleCategoryRepository.find({
+      where: {
+        categoryName
+      }
+    })
+    if(res.length) {
+      throw new BizException(ResultCode.ERROR, ResultMsg.INSERT_FAIL_IS_CATEGORY)
+    }
+
     // 说明是新增的一级分类数据
-    if (
-      articleCategoryInsertOrUpdateDto.level === ArticleCategoryLevelEnum.first
-    ) {
-      await this.articleCategoryRepository.insert(
-        articleCategoryInsertOrUpdateDto
-      )
-    } else if (
-      articleCategoryInsertOrUpdateDto.level === ArticleCategoryLevelEnum.second
-    ) {
-      await this.articleCategoryRepository.insert(
-        articleCategoryInsertOrUpdateDto
-      )
+    if (level === ArticleCategoryLevelEnum.first) {
+      try {
+        await this.articleCategoryRepository.insert(
+          articleCategoryInsertOrUpdateDto
+        )
+      } catch (error) {
+        throw new BizException(ResultCode.ERROR, ResultMsg.INSERT_FAIL)
+      }
+    } else if (level === ArticleCategoryLevelEnum.second) {
+      if (!parentId) {
+        throw new BizException(ResultCode.ERROR, ResultMsg.PARENT_ID_EMPTY)
+      }
+      const params = {
+        categoryName,
+        parentId
+      }
+      try {
+        await this.articleCategoryRepository.insert(params)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
