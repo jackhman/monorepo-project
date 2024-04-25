@@ -56,7 +56,7 @@ module.exports = {
 ```
 同理，`vite` 项目要想获取到 `shared` 文件夹的数据，也需要在 `vite.config.ts` 中添加配置
 ```ts
-import { viteStaticCopy } from "vite-plugin-static-copy"
+import { pluginsCopy } from "vite-plugin-static-copy"
 export default defineConfig({
   resolve: {
     alias: {
@@ -66,7 +66,7 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    viteStaticCopy({
+    pluginsCopy({
       targets: [
         { src: path.resolve(__dirname, "../shared"), dest: "dist/shared" }
       ]

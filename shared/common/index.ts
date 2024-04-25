@@ -1,6 +1,5 @@
 import { resolve } from "path"
-import { viteStaticCopy } from "vite-plugin-static-copy"
-
+import copy from "rollup-plugin-copy"
 /** 端口号 */
 export const PortNumber = {
   NestJs: 6789,
@@ -22,8 +21,8 @@ export const ViteOptions = {
   },
   plugins: {
     // 用来处理同一个typescript的类型校验
-    viteStaticCopy: (__dirname: string) =>
-      viteStaticCopy({
+    pluginsCopy: (__dirname: string) =>
+      copy({
         targets: [{ src: resolve(__dirname, "../shared"), dest: "dist/shared" }]
       })
   }

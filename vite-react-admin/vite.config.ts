@@ -28,7 +28,7 @@ export default defineConfig(() => {
         // 指定symbolId格式
         symbolId: "icon-[name]"
       }),
-      ViteOptions.plugins.viteStaticCopy(__dirname),
+      ViteOptions.plugins.pluginsCopy(__dirname),
     ],
   }
 })

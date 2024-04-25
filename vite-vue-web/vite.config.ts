@@ -26,6 +26,6 @@ export default defineConfig({
     Components({
       resolvers: [VantResolver()]
     }),
-    ViteOptions.plugins.viteStaticCopy(__dirname)
+    ViteOptions.plugins.pluginsCopy(__dirname)
   ]
 })
