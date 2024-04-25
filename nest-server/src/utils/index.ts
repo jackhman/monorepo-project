@@ -1,4 +1,4 @@
-import { DefaultNamingStrategy } from "typeorm"
+import { DefaultNamingStrategy, Repository } from "typeorm"
 import {
   plainToInstance,
   ClassConstructor,
@@ -7,6 +7,7 @@ import {
 import { ValidationError, validate } from "class-validator"
 import { BizException } from "./exceptionHandler/biz-exception.filter"
 import { ResultCode, ResultMsg } from "@shared/enum/result-enum"
+import { BasePageDto } from "@shared/dto/page.dto"
 /** 自定义数据库字段 */
 export class CustomNamingStrategy extends DefaultNamingStrategy {
   tableName(targetName: string, userSpecifiedName: string): string {
@@ -42,4 +43,35 @@ export async function handleValidate<T extends object, V>(
     throw new BizException(ResultCode.ERROR, ResultMsg.NOT_EMPTY)
   }
   return validate(plainToInstance(cls, plain, options))
+}
+
+/** 封装分页器
+ * @param {Repository} repository 是 typeorm 链接数据库
+ * @param {ClassDTO} ClassDTO 定义的 dto 实例
+ * @param {DTO} paramsDTO 定义的 dto
+ */
+export async function Pagination<
+  R,
+  ClassDTO extends object,
+  ParamsDTO extends BasePageDto
+>(
+  repository: Repository<R>,
+  ClassDTO: ClassConstructor<ClassDTO>,
+  paramsDTO: ParamsDTO
+) {
+  const errors = await handleValidate(ClassDTO, paramsDTO)
+  if (errors.length) {
+    throw new BizException(ResultCode.ERROR, errors)
+  }
+  const { current, pageSize } = paramsDTO
+  const skip = (current - 1) * pageSize
+  const res = await repository.find({
+    take: pageSize,
+    skip
+  })
+  const total = await repository.count()
+  if (!res) {
+    throw new BizException(ResultCode.ERROR, ResultMsg.REQUEST_FAIL)
+  }
+  return { res, total }
 }

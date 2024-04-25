@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev:vite": "pnpm -C vite-web dev",
+    "dev:vite": "pnpm -C vite-vue-web dev",
     "dev:react": "pnpm -C vite-react-admin dev",
     "dev:nest": "pnpm -C nest-server start:dev",
     "switch-node-version": "powershell -ExecutionPolicy Bypass -File ./nvmrc_use.ps1"

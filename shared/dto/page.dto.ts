@@ -1,12 +1,16 @@
-import { IsNotEmpty, IsNumber } from "class-validator"
+import { IsNotEmpty, IsNumber, Min } from "class-validator"
 import { ArticleStatusEnum } from "../enum/article-enum"
 
 /** 分页需要的 dto */
 export class BasePageDto {
   @IsNotEmpty()
   @IsNumber()
+  @Min(1)
   pageSize: number
+
+  @IsNotEmpty()
   @IsNumber()
+  @Min(1)
   current: number
   total?: number
 }

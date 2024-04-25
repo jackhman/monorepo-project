@@ -6,7 +6,7 @@ import { ArticleList } from "./article-list.entity"
 import { Repository } from "typeorm"
 import { ArticleCategory } from "./article-category.entity"
 import { ArticleCategoryLevelEnum } from "@shared/enum/article-enum"
-import { handleValidate } from "../utils"
+import { Pagination, handleValidate } from "../utils"
 import { BizException } from "../utils/exceptionHandler/biz-exception.filter"
 import { ResultCode, ResultMsg } from "@shared/enum/result-enum"
 
@@ -20,21 +20,11 @@ export class ArticleService {
   ) {}
   /** 文章列表 */
   async articleList(articleListPageDto: ArticleListPageDto) {
-    const errors = await handleValidate(ArticleListPageDto, articleListPageDto)
-    if (errors.length) {
-      throw new BizException(ResultCode.ERROR, errors)
-    }
-    const { current, pageSize } = articleListPageDto
-    const skip = (current - 1) * pageSize
-    const res = await this.articleListRepository.find({
-      take: pageSize,
-      skip
-    })
-    const total = await this.articleListRepository.count()
-    if (!res) {
-      throw new BizException(ResultCode.ERROR, ResultMsg.REQUEST_FAIL)
-    }
-    return { res, total }
+    return Pagination(
+      this.articleListRepository,
+      ArticleListPageDto,
+      articleListPageDto
+    )
   }
 
   /** 查询所有的分类数据 */
@@ -76,8 +66,11 @@ export class ArticleService {
         categoryName
       }
     })
-    if(res.length) {
-      throw new BizException(ResultCode.ERROR, ResultMsg.INSERT_FAIL_IS_CATEGORY)
+    if (res.length) {
+      throw new BizException(
+        ResultCode.ERROR,
+        ResultMsg.INSERT_FAIL_IS_CATEGORY
+      )
     }
 
     // 说明是新增的一级分类数据
