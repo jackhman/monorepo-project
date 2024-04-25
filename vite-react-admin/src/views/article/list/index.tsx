@@ -1,24 +1,24 @@
-import React, { useState, useCallback } from 'react'
-import { useHistory } from 'react-router-dom'
-import { Table, Space, Button, Popconfirm, message, Pagination } from 'antd'
-import { CloseOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons'
-import './index.scss'
-import { ROUTE_PATH } from '@/routes/RouteConst'
+import React, { useState, useCallback } from "react"
+import { useNavigate } from "react-router-dom"
+import { Table, Space, Button, Popconfirm, message, Pagination } from "antd"
+import { CloseOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons"
+import "./index.scss"
+import { ROUTE_PATH } from "@/router/RouteConst"
 
-import { articleListApi, articleDeleteApi } from '@/api/modules/article'
+import { articleListApi, articleDeleteApi } from "@/api/modules/article"
 
-import { ITimeType, formateNormalTime } from '@/utils/modules/time-utils'
-import { ResultCodeEnum } from '@/typescript/shared/enum'
+import { ITimeType, formateNormalTime } from "@/utils/modules/time-utils"
+import { ResultCode } from "@shared/enum/result-enum"
 
-import SelectBoxCom from './components/SelectBox'
-import { useTableHooks } from '@/utils/hooks'
-import ArticleStatusCom from '../components/ArticleStatus'
-import Permission from '@/components/Permission'
-import { ColumnType } from 'antd/lib/table/interface'
-import { getUserIdStorage } from '@/utils/modules/commonSave'
-import { ArticleListParamsModel } from '@/typescript/shared/model/article'
-import { IArticleBasic } from '@/typescript/shared/interface/article'
-import { EArticleStatus } from '@/typescript/shared/enum/article'
+import SelectBoxCom from "./components/SelectBox"
+import { useTableHooks } from "@/utils/hooks"
+import ArticleStatusCom from "../components/ArticleStatus"
+import Permission from "@/components/Permission"
+import { ColumnType } from "antd/lib/table/interface"
+import { getUserIdStorage } from "@/utils/modules/commonSave"
+import { ArticleListParamsModel } from "@/typescript/shared/model/article"
+import { ArticleDto } from "@shared/dto/article.dto"
+import { ArticleStatusEnum } from "@shared/enum/article-enum"
 
 const articleOperation = {
   /** 预览 */
@@ -28,7 +28,7 @@ const articleOperation = {
 }
 
 const ArticleList: React.FC<any> = () => {
-  const history = useHistory()
+  const history = useNavigate()
 
   const [params, setParams] = useState<ArticleListParamsModel>(
     () => new ArticleListParamsModel()
@@ -36,17 +36,17 @@ const ArticleList: React.FC<any> = () => {
 
   // 表格的数据
   const [tableData, pageParams, tableLoading, setReloadFlag] = useTableHooks<
-    IArticleBasic,
+  ArticleDto,
     ArticleListParamsModel
   >(articleListApi, params)
 
   /** 文章删除 */
   const deteleClick = useCallback(
-    async (text, record: IArticleBasic) => {
+    async (record: ArticleDto) => {
       const { id } = record
       const data = await articleDeleteApi(id)
-      if (data.code === ResultCodeEnum.SUCCESS) {
-        message.success('删除成功')
+      if (data.code === ResultCode.SUCCESS) {
+        message.success("删除成功")
         setReloadFlag(true)
       }
     },
@@ -54,60 +54,59 @@ const ArticleList: React.FC<any> = () => {
   )
 
   /** 按钮点击 跳转页面 */
-  const clickLink = useCallback((record: IArticleBasic, pathname: string) => {
+  const clickLink = useCallback((record: ArticleDto, pathname: string) => {
     const { id } = record
-    history.push({
-      pathname,
+    history(pathname, {
       state: id
     })
   }, [])
 
-  const columns: ColumnType<IArticleBasic>[] = [
+  const columns: ColumnType<ArticleDto>[] = [
     {
-      title: '序号',
-      dataIndex: 'index',
-      render: (text, record, index) => {
+      title: "序号",
+      dataIndex: "index",
+      render: (index) => {
         return (pageParams.current - 1) * pageParams.size + index + 1
       }
     },
     {
-      title: '文章标题',
-      dataIndex: 'title',
+      title: "文章标题",
+      dataIndex: "title",
       width: 200
     },
     {
-      title: '一级分类',
-      dataIndex: 'categoryParentName'
+      title: "一级分类",
+      dataIndex: "categoryParentName"
     },
     {
-      title: '二级分类',
-      dataIndex: 'categoryName'
+      title: "二级分类",
+      dataIndex: "categoryName"
     },
     {
-      title: '创建人',
-      dataIndex: 'nickName'
+      title: "创建人",
+      dataIndex: "nickName"
     },
     {
-      title: '创建时间',
-      dataIndex: 'createTime',
+      title: "创建时间",
+      dataIndex: "createTime",
       render: text => <span>{formateNormalTime(text, ITimeType.NYRSFM)}</span>
     },
     {
-      title: '更新时间',
-      dataIndex: 'updateTime',
+      title: "更新时间",
+      dataIndex: "updateTime",
       render: text => <span>{formateNormalTime(text, ITimeType.NYRSFM)}</span>
     },
     {
-      title: '文章状态',
-      dataIndex: 'status',
+      title: "文章状态",
+      dataIndex: "status",
       width: 100,
-      render: (text: EArticleStatus) => <ArticleStatusCom status={text} />
+      render: (text: ArticleStatusEnum) => <ArticleStatusCom status={text} />
     },
     {
-      title: '操作',
-      key: 'action',
+      title: "操作",
+      key: "action",
       width: 100,
-      render: (text, record: IArticleBasic) => (
+      render: (record: ArticleDto) => (
         <Space size="small">
           <Button
             title="预览"
@@ -129,7 +128,7 @@ const ArticleList: React.FC<any> = () => {
           </Permission>
           <Popconfirm
             title="确定删除该文章吗？"
-            onConfirm={() => deteleClick(text, record)}
+            onConfirm={() => deteleClick(record)}
             okText="确定"
             cancelText="取消"
           >
@@ -155,7 +154,7 @@ const ArticleList: React.FC<any> = () => {
 
   /** 查询按钮 */
   const selectBtnParams = (): void => {
-    console.log(params, 'params')
+    console.log(params, "params")
     setReloadFlag(() => true)
   }
 

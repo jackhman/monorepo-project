@@ -25,3 +25,11 @@ export enum ArticleCategoryLevelEnum {
   first = 1,
   second = 2
 }
+
+/** 编辑 新增文章时，保存为草稿还是 提交 */
+export enum ArticleSaveTypeEnum {
+  /** 提交 审核 */
+  comfirm = 0,
+  /** 保存为草稿 */
+  draft = 1
+}
