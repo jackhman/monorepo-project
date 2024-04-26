@@ -1,7 +1,6 @@
 import {
   Column,
   DeleteDateColumn,
-  DeleteResult,
   Entity,
   PrimaryGeneratedColumn
 } from "typeorm"
@@ -20,6 +19,6 @@ export class ArticleCategory {
   })
   parentId: string
 
-  @DeleteDateColumn({ name: "deleted_at" })
+  @DeleteDateColumn({ name: "deleted_at", select: false })
   deletedAt: Date
 }

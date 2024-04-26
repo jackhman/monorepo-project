@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react"
+import { useState, useCallback } from "react"
 import { useNavigate } from "react-router-dom"
 import { Table, Space, Button, Popconfirm, message, Pagination } from "antd"
 import { CloseOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons"
@@ -7,18 +7,18 @@ import { ROUTE_PATH } from "@/router/RouteConst"
 
 import { articleListApi, articleDeleteApi } from "@/api/modules/article"
 
-import { ITimeType, formateNormalTime } from "@/utils/modules/time-utils"
+import { ITimeType, formateNormalTime } from "@/utils/modules/timeUtils"
 import { ResultCode } from "@shared/enum/result-enum"
 
 import SelectBoxCom from "./components/SelectBox"
-import { useTableHooks } from "@/utils/hooks"
 import ArticleStatusCom from "../components/ArticleStatus"
 import Permission from "@/components/Permission"
 import { ColumnType } from "antd/lib/table/interface"
 import { getUserIdStorage } from "@/utils/modules/commonSave"
-import { ArticleListParamsModel } from "@/typescript/shared/model/article"
 import { ArticleDto } from "@shared/dto/article.dto"
 import { ArticleStatusEnum } from "@shared/enum/article-enum"
+import { ArticleListPageDto } from "@shared/dto/page.dto"
+import { useTableHooks } from "@/utils/hooks/useStateHooks"
 
 const articleOperation = {
   /** 预览 */
@@ -27,17 +27,17 @@ const articleOperation = {
   edit: ROUTE_PATH.ARTICLE_EDIT
 }
 
-const ArticleList: React.FC<any> = () => {
+const ArticleList = () => {
   const history = useNavigate()
 
-  const [params, setParams] = useState<ArticleListParamsModel>(
-    () => new ArticleListParamsModel()
+  const [params, setParams] = useState<ArticleListPageDto>(
+    () => new ArticleListPageDto()
   )
 
   // 表格的数据
   const [tableData, pageParams, tableLoading, setReloadFlag] = useTableHooks<
-  ArticleDto,
-    ArticleListParamsModel
+    ArticleDto,
+    ArticleListPageDto
   >(articleListApi, params)
 
   /** 文章删除 */
@@ -65,8 +65,8 @@ const ArticleList: React.FC<any> = () => {
     {
       title: "序号",
       dataIndex: "index",
-      render: (index) => {
-        return (pageParams.current - 1) * pageParams.size + index + 1
+      render: index => {
+        return (pageParams.current - 1) * pageParams.pageSize + index + 1
       }
     },
     {
@@ -160,7 +160,7 @@ const ArticleList: React.FC<any> = () => {
 
   /** 重置按钮 */
   const resetBtn = useCallback(() => {
-    setParams(() => new ArticleListParamsModel())
+    setParams(() => new ArticleListPageDto())
     setReloadFlag(true)
   }, [])
 
@@ -189,7 +189,7 @@ const ArticleList: React.FC<any> = () => {
       <div className="page-box">
         <Pagination
           total={pageParams.total}
-          pageSize={pageParams.size}
+          pageSize={pageParams.pageSize}
           current={pageParams.current}
           onChange={onPageChange}
           showSizeChanger

@@ -15,6 +15,15 @@ export class BasePageDto {
   total?: number
 }
 
+/**
+ * 表格统一的返回参数格式
+ */
+export class TableListResultDto<T> extends BasePageDto {
+  /** 数据存放 */
+  records: Array<T> = []
+}
+
+
 /** 用户分页 */
 export class UserPageDto extends BasePageDto {
   /** 用户名 */
@@ -26,7 +35,7 @@ export class MenuPageDto extends BasePageDto {
   menuName?: string
 }
 
-/** 文章分页 */
+/** 文章列表分页 */
 export class ArticleListPageDto extends BasePageDto {
   /**
     文章关键字
@@ -44,4 +53,10 @@ export class ArticleListPageDto extends BasePageDto {
    * 文章更新时间
    */
   time: Date
+}
+
+/** 文章分类分页 */
+export class ArticleCategoryPageDto extends BasePageDto {
+  /** 级别 */
+  level?: number = 1
 }

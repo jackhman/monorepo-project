@@ -1,4 +1,3 @@
-import { Component } from "vue"
 import { EColumnType, EOperationType, ESearchType, ESelectType } from "../../enum/table-enum"
 import { FilterConditionModel } from "../../model/tableModel/filter-condition.model"
 

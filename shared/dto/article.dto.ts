@@ -1,6 +1,17 @@
 import { IsNotEmpty } from "class-validator"
-import { ArticleCategoryLevelEnum, ArticleStatusEnum } from "../enum/article-enum"
+import {
+  ArticleCategoryLevelEnum,
+  ArticleSaveTypeEnum,
+  ArticleStatusEnum
+} from "../enum/article-enum"
 
+/** 文章封面 */
+export interface ArticleCoverDto {
+  size: number
+  images: string[]
+}
+
+/** 文章列表 */
 export class ArticleDto {
   id: string
   /** 文章标题 */
@@ -43,23 +54,51 @@ export class ArticleDto {
   /**
    * 文章封面
    */
-  coverImages: string
+  coverImages: ArticleCoverDto
 
   /** 是否删除 */
   isDeleted: number
 }
 
-export class ArticleCategoryInsertOrUpdateDto {
+/** 文章新增 编辑 */
+export class ArticleInsertOrEditDto {
+  /** 文章id */
+  id?: string
+  /** 用户id */
+  userId: ArticleDto["userId"]
+  /** 文章标题 */
+  title: ArticleDto["title"]
+  /** 文章内容 */
+  content: ArticleDto["content"]
+  /** 文章类别 id */
+  categoryId: ArticleDto["categoryId"]
+  /** 文章封面 */
+  coverImages: ArticleDto["coverImages"]
+  /** 文章状态 新增的时候只有两种状态,草稿和审核 */
+  status: ArticleSaveTypeEnum
+}
+
+/** 文章分类-按照列表方式 */
+export class ArticleCategoryDto {
   id: string
 
   @IsNotEmpty()
   categoryName: string
 
+  /** 父级的id，为null说明是顶级 */
+  parentId: string
+}
+
+/** 文章分类-按照懒加载形式 */
+export interface ArticleCategoryByLazyDto {
+  /** 分类的级别 */
+  level: number
+  /** 二级分类中,一级分类的id */
+  parentId: ArticleCategoryDto["parentId"]
+}
+
+export class ArticleCategoryInsertOrUpdateDto extends ArticleCategoryDto {
   /** 分类的级别 1 代表一级 2 代表二级 */
   @IsNotEmpty()
   level: ArticleCategoryLevelEnum
-
-  /** 父级的id，为null说明是顶级 */
-  parentId: string
-
 }
