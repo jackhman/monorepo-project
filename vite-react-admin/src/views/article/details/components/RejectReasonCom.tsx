@@ -1,10 +1,10 @@
-import React, { useReducer, useImperativeHandle, forwardRef } from 'react'
-import { Modal, Input, message } from 'antd'
-import { EArticleStatus } from '@/typescript/shared/enum/article'
+import  { useReducer, useImperativeHandle, forwardRef } from "react"
+import { Modal, Input, message } from "antd"
+import { ArticleStatusEnum } from "@shared/enum/article-enum"
 
-interface ICom {
+interface IProps {
   // ref:any
-  tranReason: (status: EArticleStatus,reason: string) => void
+  tranReason: (status: ArticleStatusEnum, reason: string) => void
 }
 
 interface IState {
@@ -16,32 +16,33 @@ const initState: IState = {
   /** 弹出框的显示隐藏 */
   visible: false,
   /** 拒绝理由 */
-  reason: ''
+  reason: ""
 }
 
 const ACTIONS_TYPE = {
   /** 弹出框的显示隐藏 */
-  VISIBLE: 'visible',
+  VISIBLE: "visible",
   /** 拒绝理由 */
-  REASON: 'reason'
+  REASON: "reason"
 }
 
 function reducer(state, action: { type: string; data: any }) {
   switch (action.type) {
-  case ACTIONS_TYPE.VISIBLE:
-    return {
-      ...state,
-      visible: action.data
-    }
-  case ACTIONS_TYPE.REASON:
-    return {
-      ...state,
-      reason: action.data
-    }
+    case ACTIONS_TYPE.VISIBLE:
+      return {
+        ...state,
+        visible: action.data
+      }
+    case ACTIONS_TYPE.REASON:
+      return {
+        ...state,
+        reason: action.data
+      }
   }
 }
 
-const RejectReasonCom = (props: ICom, ref) => {
+// eslint-disable-next-line react-refresh/only-export-components
+const RejectReasonCom = (props: IProps, ref) => {
   const { tranReason } = props
   const [state, dispatch] = useReducer(reducer, initState)
 
@@ -58,15 +59,15 @@ const RejectReasonCom = (props: ICom, ref) => {
   /** 关闭弹出框 */
   const modelCancel = () => {
     dispatch({ type: ACTIONS_TYPE.VISIBLE, data: false })
-    dispatch({ type: ACTIONS_TYPE.REASON, data: '' })
+    dispatch({ type: ACTIONS_TYPE.REASON, data: "" })
   }
   /** 弹出框点击确定 */
   const modelOk = () => {
-    if(!state.reason) {
+    if (!state.reason) {
       return message.warning("驳回理由必填")
     }
     modelCancel()
-    tranReason(EArticleStatus.REJECT,state.reason)
+    tranReason(ArticleStatusEnum.reject, state.reason)
   }
   return (
     <Modal
@@ -88,4 +89,6 @@ const RejectReasonCom = (props: ICom, ref) => {
   )
 }
 
-export default forwardRef(RejectReasonCom)
+const r = forwardRef(RejectReasonCom)
+
+export default r

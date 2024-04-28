@@ -1,32 +1,31 @@
-import React, { useState, useEffect, useCallback, useReducer } from 'react'
-import { useHistory } from 'react-router-dom'
-import { Input, Button, message } from 'antd'
-import E from 'wangeditor'
-import hljs from 'highlight.js'
-import 'highlight.js/styles/monokai-sublime.css'
+import { useState, useEffect, useCallback, useReducer } from "react"
+import { useNavigate, useParams } from "react-router-dom"
+import { Input, Button, message } from "antd"
+import E from "wangeditor"
+import hljs from "highlight.js"
+import "highlight.js/styles/monokai-sublime.css"
 
-import './index.scss'
-import PreviewModalCom from './components/PreviewModal'
+import "./index.scss"
+import PreviewModalCom from "./components/PreviewModal"
 
 import {
   articleSaveOrUpdateApi,
   getArticleCategoryByLevelApi,
   getArticleDetailsByIdApi
-} from '@/api/modules/article'
-import { ResultCodeEnum } from '@/typescript/shared/enum'
-import { ArticleInsertOrEditModel } from '@/typescript/shared/model/article'
-import { IArticleCategory } from '@/typescript/shared/interface/article'
-import { EArticleSaveType } from '@/typescript/shared/enum/article'
+} from "@/api/modules/article"
+import { ResultCode } from "@shared/enum/result-enum"
+import { ArticleInsertOrEditDto, ArticleCategoryDto } from "@shared/dto/article.dto"
+import { ArticleSaveTypeEnum } from "@shared/enum/article-enum"
 
 const ACTIONS_TYPE = {
   /** 编辑器 */
-  EDITOR: 'editor',
+  EDITOR: "editor",
   /** 用来设置 modal 的显示隐藏 */
-  PREVIEWMODEL: 'previewModal',
+  PREVIEWMODEL: "previewModal",
   /** 监听预览按钮的状态 */
-  REVIEWDISABLED: 'reviewDisabled',
+  REVIEWDISABLED: "reviewDisabled",
   /** 弹出框页面加载状态 */
-  MODAL_LOADING: 'modalLoading'
+  MODAL_LOADING: "modalLoading"
 }
 
 class InitialState {
@@ -45,59 +44,59 @@ function reducers(
   action: { type: string; data: any }
 ): any {
   switch (action.type) {
-  case ACTIONS_TYPE.EDITOR:
-    return {
-      ...state,
-      editor: action.data
-    }
-  case ACTIONS_TYPE.PREVIEWMODEL:
-    return {
-      ...state,
-      isPreviewModal: action.data
-    }
-  case ACTIONS_TYPE.REVIEWDISABLED:
-    return {
-      ...state,
-      reviewBtnDisabled: action.data
-    }
-  case ACTIONS_TYPE.MODAL_LOADING:
-    return {
-      ...state,
-      modalLoading: action.data
-    }
+    case ACTIONS_TYPE.EDITOR:
+      return {
+        ...state,
+        editor: action.data
+      }
+    case ACTIONS_TYPE.PREVIEWMODEL:
+      return {
+        ...state,
+        isPreviewModal: action.data
+      }
+    case ACTIONS_TYPE.REVIEWDISABLED:
+      return {
+        ...state,
+        reviewBtnDisabled: action.data
+      }
+    case ACTIONS_TYPE.MODAL_LOADING:
+      return {
+        ...state,
+        modalLoading: action.data
+      }
   }
 }
 
 const ArticleCreate = () => {
-  const history = useHistory()
+  const history = useNavigate()
 
   const [state, dispatch] = useReducer(reducers, new InitialState())
   // 获取 文章分类的数据
-  const [articleCate, setArticleCate] = useState<IArticleCategory[]>([])
+  const [articleCate, setArticleCate] = useState<ArticleCategoryDto[]>([])
 
   /** 新增 和编辑 数据 实例化 */
-  const [articleParams, setArticleParams] = useState<ArticleInsertOrEditModel>(
-    () => new ArticleInsertOrEditModel()
+  const [articleParams, setArticleParams] = useState<ArticleInsertOrEditDto>(
+    () => new ArticleInsertOrEditDto()
   )
 
   // 初始化 编辑器 、 获取文章分类数据
   useEffect(() => {
     (async function () {
       const data = await getArticleCategoryByLevelApi(2)
-      if (data.code === ResultCodeEnum.SUCCESS) {
+      if (data.code === ResultCode.SUCCESS) {
         setArticleCate(data.data)
       } else setArticleCate([])
     })()
 
     // setEditor(new E('#content'))
-    dispatch({ type: ACTIONS_TYPE.EDITOR, data: new E('#content') })
+    dispatch({ type: ACTIONS_TYPE.EDITOR, data: new E("#content") })
   }, [])
 
   // 初始化编辑器的配置
   useEffect(() => {
     const { editor } = state
-    if(editor === null) return
-    console.log(editor, '2134')
+    if (editor === null) return
+    console.log(editor, "2134")
     // 配置 zindex
     editor.config.zIndex = 500
     // 图片上传的格式为 base64
@@ -114,7 +113,7 @@ const ArticleCreate = () => {
     if (getId) {
       (async function () {
         const data = await getArticleDetailsByIdApi(getId as string)
-        if (data.code === ResultCodeEnum.SUCCESS) {
+        if (data.code === ResultCode.SUCCESS) {
           const getData = data.data
           for (const key in articleParams) {
             if (Object.prototype.hasOwnProperty.call(articleParams, key)) {
@@ -140,7 +139,7 @@ const ArticleCreate = () => {
   /** 预览按钮 */
   const previewBtn = useCallback(() => {
     if (!state.editor.txt.text()) {
-      return message.warning('请输入正确的内容', 1)
+      return message.warning("请输入正确的内容", 1)
     }
     setArticleParams(prev => {
       return {
@@ -160,32 +159,34 @@ const ArticleCreate = () => {
 
   /** 保存为草稿 或者 提交 */
   const handleConfirm = useCallback(
-    async (type: EArticleSaveType) => {
+    async (type: ArticleSaveTypeEnum) => {
       const resultObj = articleParams
       // 未提交封面
-      if(articleParams.coverImages.size === 0) {
+      if (articleParams.coverImages.size === 0) {
         resultObj.coverImages.images = []
       }
       // 提交单封面
-      else if(articleParams.coverImages.size === 1) {
-        if(!articleParams.coverImages.images[0]) return message.warning('必须上传一张封面')
+      else if (articleParams.coverImages.size === 1) {
+        if (!articleParams.coverImages.images[0])
+          return message.warning("必须上传一张封面")
         resultObj.coverImages.images = [articleParams.coverImages.images[0]]
       }
       // 提交三封面
-      else if(articleParams.coverImages.size === 3) {
-        if(articleParams.coverImages.images.length !== 3) return message.warning('必须上传三张封面')
+      else if (articleParams.coverImages.size === 3) {
+        if (articleParams.coverImages.images.length !== 3)
+          return message.warning("必须上传三张封面")
       }
 
       resultObj.status = type
-      console.log(resultObj, 'resultObj')
+      console.log(resultObj, "resultObj")
       // return
-      setArticleParams(()=> resultObj)
+      setArticleParams(() => resultObj)
       dispatch({ type: ACTIONS_TYPE.MODAL_LOADING, data: true })
       try {
         const data = await articleSaveOrUpdateApi(articleParams)
-        if (data.code === ResultCodeEnum.SUCCESS) {
+        if (data.code === ResultCode.SUCCESS) {
           message.success(data.msg)
-          setArticleParams((prev)=> {
+          setArticleParams(prev => {
             return {
               ...prev,
               id: data.data.id,
@@ -247,16 +248,14 @@ const ArticleCreate = () => {
             }
           })
         }}
-        setArticleCoverImage={
-          coverImages => {
-            setArticleParams(prev => {
-              return {
-                ...prev,
-                coverImages
-              }
-            })
-          }
-        }
+        setArticleCoverImage={coverImages => {
+          setArticleParams(prev => {
+            return {
+              ...prev,
+              coverImages
+            }
+          })
+        }}
       ></PreviewModalCom>
     </div>
   )

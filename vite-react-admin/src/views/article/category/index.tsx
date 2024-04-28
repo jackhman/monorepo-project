@@ -1,50 +1,50 @@
-import React, { useState } from 'react'
-import { Table, Pagination, Spin } from 'antd'
-import './index.scss'
+import { useState } from "react"
+import { Table, Pagination, Spin } from "antd"
+import "./index.scss"
 
-import { getArticleCategoryListApi } from '@/api/modules/article'
-import { ArticleCategoryModel } from '@/typescript/shared/model/article'
-import { IArticleCategory } from '@/typescript/shared/interface/article'
+import { getArticleCategoryListApi } from "@/api/modules/article"
+import { ArticleCategoryDto } from "@shared/dto/article.dto"
 
-import { useTableHooks } from '@/utils/hooks'
+import { useTableHooks } from "@/utils/hooks/useStateHooks"
+import { ArticleCategoryPageDto } from "@shared/dto/page.dto"
 
 /** 文章分类列表组件 */
 const CategoryCom = () => {
-  const [params, setParams] = useState<ArticleCategoryModel>(
-    () => new ArticleCategoryModel()
+  const [params, setParams] = useState<ArticleCategoryPageDto>(
+    () => new ArticleCategoryPageDto()
   )
 
   const [tableList, pageParams, tableLoading] = useTableHooks<
-    IArticleCategory,
-    ArticleCategoryModel
+    ArticleCategoryDto,
+    ArticleCategoryPageDto
   >(getArticleCategoryListApi, params)
 
   // 页码改变事件
-  const pageChange = (page: number, pageSize) => {
-    const params: ArticleCategoryModel = {
-      pageNum: page,
-      pageSize: pageSize
+  const pageChange = (page: number, pageSize: number) => {
+    const params: ArticleCategoryPageDto = {
+      current: page,
+      pageSize
     }
     setParams(params)
   }
 
   const columns = [
     {
-      title: '分类名称',
-      dataIndex: 'categoryName',
-      key: 'categoryName',
-      width: '50%'
+      title: "分类名称",
+      dataIndex: "categoryName",
+      key: "categoryName",
+      width: "50%"
     },
     {
-      title: '分类级别',
-      dataIndex: 'level',
-      key: 'level',
-      width: '20%'
+      title: "分类级别",
+      dataIndex: "level",
+      key: "level",
+      width: "20%"
     },
     {
-      title: '编辑',
-      dataIndex: 'action',
-      key: 'action',
+      title: "编辑",
+      dataIndex: "action",
+      key: "action",
       render: () => (
         <div className="article-category-com-table-action">
           <span className="article-category-com-table-action-btn">

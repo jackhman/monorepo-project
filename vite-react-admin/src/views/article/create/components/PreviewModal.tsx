@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo } from "react"
 import {
   Modal,
   Button,
@@ -7,35 +7,35 @@ import {
   Col,
   RadioChangeEvent,
   Spin,
-  Upload,
-  message
-} from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
-import { connect } from 'react-redux'
-import { getUserIdStorage } from '@/utils/modules/commonSave'
+  Upload
+} from "antd"
+import { PlusOutlined } from "@ant-design/icons"
+import { getUserIdStorage } from "@/utils/modules/commonSave"
 
-
-import { uploadPictureApi } from '@/api/modules/common'
-import { ResultCodeEnum } from '@/typescript/shared/enum'
-import { IArticleCategory, IArticleCover } from '@/typescript/shared/interface/article'
-import { ArticleInsertOrEditModel } from '@/typescript/shared/model/article'
-import { EArticleSaveType } from '@/typescript/shared/enum/article'
+// import { uploadPictureApi } from "@/api/modules/common"
+// import { ResultCode } from "@shared/enum/result-enum"
+import {
+  ArticleInsertOrEditDto,
+  ArticleCategoryDto,
+  ArticleCoverDto
+} from "@shared/dto/article.dto"
+import { ArticleSaveTypeEnum } from "@shared/enum/article-enum"
 
 interface IPreviewModal {
   /** 弹出框的 visible */
   isModalVisible: boolean
   /** 文章分类list */
-  articleCateList: IArticleCategory[]
+  articleCateList: ArticleCategoryDto[]
   /** 文章的参数 */
-  articleParams: ArticleInsertOrEditModel
+  articleParams: ArticleInsertOrEditDto
   /** 弹出框页面加载状态 */
   modalLoading: boolean
   /** 关闭 弹出框 */
   closeModal: () => void
   /** 保存为草稿 或者 提交 */
-  handleConfirm: (type: EArticleSaveType) => void
+  handleConfirm: (type: ArticleSaveTypeEnum) => void
   /** 文章封面的改变事件 */
-  setArticleCoverImage: (type: IArticleCover) => void
+  setArticleCoverImage: (type: ArticleCoverDto) => void
   /** 文章分类改变事件 */
   setArticleCateValue: (type: string) => void
 }
@@ -73,23 +73,23 @@ const PreviewModalCom = (props: IPreviewModal) => {
     // return
     try {
       const params = new FormData()
-      params.append('file', file)
-      params.append('uploadByUserId', getUserIdStorage())
-      const data = await uploadPictureApi(params)
-      if (data.code === ResultCodeEnum.SUCCESS) {
-        message.success('上传成功')
-        const url = data.data
-        console.log(url)
-        const getImagesList = JSON.parse(
-          JSON.stringify(articleParams.coverImages.images)
-        )
-        const coverImagesList: IArticleCover = {
-          size: articleParams.coverImages.size,
-          images: getImagesList
-        }
-        coverImagesList.images[index] = url
-        setArticleCoverImage(coverImagesList)
-      }
+      params.append("file", file)
+      params.append("uploadByUserId", getUserIdStorage())
+      // const data = await uploadPictureApi(params)
+      // if (data.code === ResultCode.SUCCESS) {
+      //   message.success("上传成功")
+      //   const url = data.data
+      //   console.log(url)
+      //   const getImagesList = JSON.parse(
+      //     JSON.stringify(articleParams.coverImages.images)
+      //   )
+      //   const coverImagesList: ArticleCoverDto = {
+      //     size: articleParams.coverImages.size,
+      //     images: getImagesList
+      //   }
+      //   coverImagesList.images[index] = url
+      //   setArticleCoverImage(coverImagesList)
+      // }
     } catch (error) {
       console.log(error)
     }
@@ -121,7 +121,7 @@ const PreviewModalCom = (props: IPreviewModal) => {
         onCancel={handleCancel}
         wrapClassName="modal-box"
         getContainer={() =>
-          document.querySelector('.preview-modal-box') as HTMLElement
+          document.querySelector(".preview-modal-box") as HTMLElement
         }
         footer={null}
       >
@@ -153,7 +153,7 @@ const PreviewModalCom = (props: IPreviewModal) => {
                   className="right-box-images-upload"
                   style={{
                     display:
-                      articleParams.coverImages.size !== 0 ? 'block' : 'none'
+                      articleParams.coverImages.size !== 0 ? "block" : "none"
                   }}
                 >
                   {/* 说明是单图片上传 */}
@@ -213,7 +213,7 @@ const PreviewModalCom = (props: IPreviewModal) => {
           {/* 文章分类选择 */}
           <div className="article-categroy">
             <Radio.Group
-              style={{ width: '100%' }}
+              style={{ width: "100%" }}
               onChange={changeArticleCate}
               value={articleParams.categoryId}
             >
@@ -237,7 +237,7 @@ const PreviewModalCom = (props: IPreviewModal) => {
               key="draft"
               type="primary"
               disabled={articleConfirmDisabled}
-              onClick={() => handleConfirm(EArticleSaveType.draft)}
+              onClick={() => handleConfirm(ArticleSaveTypeEnum.draft)}
             >
               保存为草稿
             </Button>
@@ -245,7 +245,7 @@ const PreviewModalCom = (props: IPreviewModal) => {
               key="comfirm"
               type="primary"
               disabled={articleConfirmDisabled}
-              onClick={() => handleConfirm(EArticleSaveType.comfirm)}
+              onClick={() => handleConfirm(ArticleSaveTypeEnum.comfirm)}
             >
               提交
             </Button>
@@ -258,4 +258,4 @@ const PreviewModalCom = (props: IPreviewModal) => {
 
 /** 获取用户的基本信息 */
 
-export default connect()(PreviewModalCom)
+export default PreviewModalCom

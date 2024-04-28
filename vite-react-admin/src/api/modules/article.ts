@@ -19,7 +19,7 @@ export const articleListApi = (
 /** 获取 文章的分类数据-按照表格类型 */
 export const getArticleCategoryListApi = (
   params: ArticleCategoryPageDto
-): Promise<ResultModel<ArticleCategoryDto[]>> =>
+): Promise<ResultModel<TableListResultDto<ArticleCategoryDto>>> =>
   axios.post(`/article-category/list`, params)
 
 /** 获取 查询文章分类数据-按照level */

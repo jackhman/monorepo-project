@@ -1,37 +1,36 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
-import { message, Popconfirm, Spin } from 'antd'
+import { useEffect, useState, useCallback, useRef } from "react"
+import { useNavigate } from "react-router-dom"
+import { message, Popconfirm, Spin } from "antd"
 
-import './index.scss'
+import "./index.scss"
 
 import {
   articleSaveOrUpdateApi,
   getArticleDetailsByIdApi
-} from '@/api/modules/article'
-import { ResultCodeEnum } from '@/typescript/shared/enum'
-import ArticleStatusCom from '../components/ArticleStatus'
-import { ROUTE_PATH } from '@/routes/RouteConst'
-import Permission from '@/components/Permission'
-import RejectReasonCom from './components/RejectReasonCom'
-import { getUserIdStorage } from '@/utils/modules/commonSave'
-import { IArticleBasic } from '@/typescript/shared/interface/article'
-import { EArticleStatus } from '@/typescript/shared/enum/article'
-import { UserRolesEnum } from '@/typescript/shared/enum/user'
+} from "@/api/modules/article"
+import { ResultCode } from "@shared/enum/result-enum"
+import ArticleStatusCom from "../components/ArticleStatus"
+import { ROUTE_PATH } from "@/router/RouteConst"
+import Permission from "@/components/Permission"
+import RejectReasonCom from "./components/RejectReasonCom"
+import { getUserIdStorage } from "@/utils/modules/commonSave"
+import { ArticleDto } from "@shared/dto/article.dto"
+import { ArticleStatusEnum } from "@shared/enum/article-enum"
+import { UserRolesEnum } from "@shared/enum/user-enum"
 
 const ArticleDetails = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const childrenRef = useRef<any>(null)
 
   const [loading, setLoading] = useState<boolean>(false)
 
-
-  const [articleDetails, setArticleDetails] = useState<IArticleBasic>()
+  const [articleDetails, setArticleDetails] = useState<ArticleDto>()
 
   useEffect(() => {
     (async function () {
-      const id = history.location.state
+      const id = navigate.location.state
       const data = await getArticleDetailsByIdApi(id as string)
-      if (data.code === ResultCodeEnum.SUCCESS) {
+      if (data.code === ResultCode.SUCCESS) {
         setArticleDetails(data.data)
       }
     })()
@@ -39,15 +38,14 @@ const ArticleDetails = () => {
 
   /** 编辑按钮 */
   const editArticle = useCallback(() => {
-    history.push({
-      pathname: ROUTE_PATH.ARTICLE_EDIT,
+    navigate(ROUTE_PATH.ARTICLE_EDIT, {
       state: articleDetails?.id
     })
   }, [articleDetails?.id])
 
   /** 文章通过审核 */
   const articleConfirm = () => {
-    updateArticle(EArticleStatus.PUBLISHED)
+    updateArticle(ArticleStatusEnum.published)
   }
 
   /** 拒绝审核 开启弹出框 */
@@ -56,11 +54,9 @@ const ArticleDetails = () => {
   }
 
   /** 更新文章状态 */
-  const updateArticle = async (status: EArticleStatus, reason?: string) => {
+  const updateArticle = async (status: ArticleStatusEnum, reason?: string) => {
     if (articleDetails) {
-      const getParams: IArticleBasic = JSON.parse(
-        JSON.stringify(articleDetails)
-      )
+      const getParams: ArticleDto = JSON.parse(JSON.stringify(articleDetails))
       getParams.status = status
       if (reason) {
         getParams.rejectReason = reason
@@ -68,14 +64,12 @@ const ArticleDetails = () => {
       setLoading(() => true)
       try {
         const data = await articleSaveOrUpdateApi(getParams)
-        if(data.code === ResultCodeEnum.SUCCESS) {
+        if (data.code === ResultCode.SUCCESS) {
           message.success(data.msg)
           setArticleDetails(() => data.data)
-        }
-        else {
+        } else {
           message.error(data.msg)
         }
-      } catch (error) {
       } finally {
         setLoading(() => false)
       }
@@ -96,7 +90,7 @@ const ArticleDetails = () => {
                   {articleDetails?.nickName}
                 </div>
                 <div className="article-details-com-header-main-left-top-update-time">
-                  {articleDetails?.updateTime}
+                  <span>{articleDetails?.updateTime as unknown as string}</span>
                 </div>
               </div>
               <div className="article-details-com-header-main-left-bottom mt10">
@@ -124,7 +118,9 @@ const ArticleDetails = () => {
                   <ArticleStatusCom status={articleDetails?.status} />
                 )}
               </div>
-              <Permission permissionFlag={articleDetails?.userId === getUserIdStorage()}>
+              <Permission
+                permissionFlag={articleDetails?.userId === getUserIdStorage()}
+              >
                 <div
                   className="article-details-com-header-main-right-edit iconfont icon-bianji"
                   onClick={editArticle}
@@ -141,12 +137,19 @@ const ArticleDetails = () => {
                   onCancel={articleReject}
                   okText="通过"
                   cancelText="拒绝"
-                  disabled={articleDetails?.status !== EArticleStatus.REVIEWED}
+                  disabled={
+                    articleDetails?.status !== ArticleStatusEnum.reviewed
+                  }
                 >
                   <div
                     className="article-details-com-header-main-right-review iconfont icon-zhinengshenheshenchashenhe"
                     title="审核"
-                    style={{cursor: articleDetails?.status !== EArticleStatus.REVIEWED ? 'not-allowed' : 'pointer'}}
+                    style={{
+                      cursor:
+                        articleDetails?.status !== ArticleStatusEnum.reviewed
+                          ? "not-allowed"
+                          : "pointer"
+                    }}
                   ></div>
                 </Popconfirm>
               </Permission>
