@@ -2,7 +2,10 @@ import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common"
 import { R } from "../utils/R/R"
 import { ArticleService } from "./article.service"
 import { ArticleListPageDto } from "@shared/dto/page.dto"
-import { ArticleCategoryInsertOrUpdateDto } from "@shared/dto/article.dto"
+import {
+  ArticleCategoryByLazyDto,
+  ArticleCategoryInsertOrUpdateDto
+} from "@shared/dto/article.dto"
 import { ResultMsg } from "@shared/enum/result-enum"
 
 @Controller("article")
@@ -44,8 +47,11 @@ export class ArticleController {
 
   /** 懒加载获取分类数据 */
   @Post("/category/lazy-tree")
-  async articleCategoryLazyList() {
-    return R.success()
+  async articleCategoryLazyList(
+    @Body() articleCategoryByLazyDto: ArticleCategoryByLazyDto
+  ) {
+    const res = await this.articleService.articleCategoryLazyList(articleCategoryByLazyDto)
+    return R.success().setData(res)
   }
 
   /** 删除分类数据 */

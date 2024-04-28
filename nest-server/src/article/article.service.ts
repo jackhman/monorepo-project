@@ -1,6 +1,9 @@
 import { Injectable } from "@nestjs/common"
 import { ArticleListPageDto } from "@shared/dto/page.dto"
-import { ArticleCategoryInsertOrUpdateDto } from "@shared/dto/article.dto"
+import {
+  ArticleCategoryByLazyDto,
+  ArticleCategoryInsertOrUpdateDto
+} from "@shared/dto/article.dto"
 import { InjectRepository } from "@nestjs/typeorm"
 import { ArticleList } from "./article-list.entity"
 import { Repository } from "typeorm"
@@ -96,6 +99,19 @@ export class ArticleService {
         console.log(error)
       }
     }
+  }
+
+  /** 文章分类-懒加载形式 */
+  async articleCategoryLazyList(
+    articleCategoryByLazyDto: ArticleCategoryByLazyDto
+  ) {
+    const { level, parentId } = articleCategoryByLazyDto
+    const res = await this.articleCategoryRepository.find({
+      where: {
+        parentId
+      }
+    })
+    return res
   }
 
   /** 删除分类数据 */

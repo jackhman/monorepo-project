@@ -20,19 +20,19 @@ export const articleListApi = (
 export const getArticleCategoryListApi = (
   params: ArticleCategoryPageDto
 ): Promise<ResultModel<TableListResultDto<ArticleCategoryDto>>> =>
-  axios.post(`/article-category/list`, params)
+  axios.post(`article/category/list`, params)
 
 /** 获取 查询文章分类数据-按照level */
 export const getArticleCategoryByLevelApi = (
   level: number
 ): Promise<ResultModel<Array<ArticleCategoryDto>>> =>
-  axios.get(`/article-category/${level}`)
+  axios.get(`article/category/${level}`)
 
 /** 懒加载的形式   获取文章的数据 */
 export const getArticleCategoryByLazyApi = (
   params: ArticleCategoryByLazyDto
 ): Promise<ResultModel<ArticleCategoryDto[]>> =>
-  axios.post("/article-category/lazy-tree", params)
+  axios.post("article/category/lazy-tree", params)
 
 /** 文章新增\编辑 */
 export const articleSaveOrUpdateApi = (

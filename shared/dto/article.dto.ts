@@ -94,7 +94,7 @@ export interface ArticleCategoryByLazyDto {
   /** 分类的级别 */
   level: number
   /** 二级分类中,一级分类的id */
-  parentId: ArticleCategoryDto["parentId"]
+  parentId?: ArticleCategoryDto["parentId"]
 }
 
 export class ArticleCategoryInsertOrUpdateDto extends ArticleCategoryDto {
