@@ -6,11 +6,12 @@ import {
   Dispatch,
   SetStateAction,
   useCallback
-} from 'react'
+} from "react"
 
-import { ResultCode } from '@shared/enum/result-enum'
+import { ResultCode } from "@shared/enum/result-enum"
 import { ResultModel } from "@shared/model"
-import { BasePageDto, TableListResultDto } from '@shared/dto/page.dto'
+import { BasePageDto } from "@shared/dto/page.dto"
+import { ResultPageModel } from "@shared/model"
 
 /** 自定义设置 useState */
 export const useStateHooks = <T>(initState) => {
@@ -19,7 +20,7 @@ export const useStateHooks = <T>(initState) => {
   const setUseState = (state, cb) => {
     setState(prev => {
       isUpdate.current = cb
-      return typeof state === 'function' ? state(prev) : state
+      return typeof state === "function" ? state(prev) : state
     })
   }
   useEffect(() => {
@@ -45,34 +46,43 @@ type ToupleTable<T> = [
 
 /** 用来统一处理表格的 自定义 hooks */
 export const useTableHooks = <T, E extends BasePageDto>(
-  callback: (params: E) => Promise<ResultModel<TableListResultDto<T>>>,
+  callback: (params: E) => Promise<ResultModel<ResultPageModel<T>>>,
   params: E
 ): ToupleTable<T> => {
   // 表格的数据
   const [tableList, setTableList] = useState<Array<T>>(() => [])
   // 分页器的实例
-  const [pageParams, setPageParams] = useState<BasePageDto>(() => new BasePageDto())
+  const [pageParams, setPageParams] = useState<BasePageDto>(
+    () => new BasePageDto()
+  )
   // 表格的加载状态
   const [loading, setLoading] = useState<boolean>(() => false)
   // 表格是否需要重新加载
   const [reloadFlag, setReloadFlag] = useState<boolean>(() => false)
 
-  const getTableList = useCallback(async function () {
-    setLoading(() => true)
-    try {
-      const data = await callback(params)
-      if (data.code === ResultCode.SUCCESS) {
-        setTableList(data.data.records)
-        setPageParams(data.data)
+  const getTableList = useCallback(
+    async function () {
+      setLoading(() => true)
+      try {
+        const data = await callback(params)
+        if (data.code === ResultCode.SUCCESS) {
+          console.log(data.data.records)
+          setTableList(data.data.records)
+          setPageParams({
+            pageSize: data.data.pageSize,
+            current: data.data.current
+          })
+        }
+      } catch (error) {
+        console.log(error, "")
+      } finally {
+        setLoading(() => false)
+        setReloadFlag(() => false)
       }
-    } catch (error) {
-      console.log(error, '')
-    } finally {
-      setLoading(() => false)
-      setReloadFlag(() => false)
-    }
-    // 当 传递的参数变化的时候,需要更新 useCallback
-  }, [params])
+      // 当 传递的参数变化的时候,需要更新 useCallback
+    },
+    [params]
+  )
 
   // 用来监听页码和页数的改变,用来调取数据
   useEffect(() => {

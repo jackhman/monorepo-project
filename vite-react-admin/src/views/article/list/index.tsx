@@ -30,9 +30,9 @@ const articleOperation = {
 const ArticleList = () => {
   const history = useNavigate()
 
-  const [params, setParams] = useState<ArticleListPageDto>(
-    () => new ArticleListPageDto()
-  )
+  const [params, setParams] = useState<ArticleListPageDto>(new ArticleListPageDto())
+
+  
 
   // 表格的数据
   const [tableData, pageParams, tableLoading, setReloadFlag] = useTableHooks<

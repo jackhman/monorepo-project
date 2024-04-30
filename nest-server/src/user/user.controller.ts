@@ -56,8 +56,8 @@ export class UserController {
   /** 查找所有用户信息 */
   @Post("list")
   async findAllUser(@Body() userPageDto: UserPageDto) {
-    const { res: row, total } = await this.userService.findAllUser(userPageDto)
-    return R.success().setRow({ row, total })
+    const res = await this.userService.findAllUser(userPageDto)
+    return R.success().setPage(res)
   }
 
   /** 更新用户的数据 */

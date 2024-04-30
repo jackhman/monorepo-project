@@ -10,12 +10,16 @@ export class ResultModel<T> {
   public msg!: string
   /** 返回的数据 T 可能是数组、对象 */
   public data!: T
-  /** 如果是列表 返回有分页页码 */
-  public pageNum?: number
-  /** 如果是列表 返回有分页每页条数 */
-  public size?: number
-  /** 如果是列表 返回总数据条数 */
-  public totalCount?: number
-  /** 如果是列表 返回有分页总条数 */
-  public totalPage?: number
+}
+
+/** 分页数据返回 */
+export class ResultPageModel<T> {
+  /** 数据 */
+  records: T[]
+  /** 每页数据条数 */
+  pageSize: number
+  /** 当前页码 */
+  current: number
+  /** 总页数 */
+  total: number
 }

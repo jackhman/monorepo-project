@@ -1,5 +1,5 @@
 import axios from "../axiosConfig"
-import { ResultModel } from "@shared/model"
+import { ResultModel, ResultPageModel } from "@shared/model"
 import {
   ArticleDto,
   ArticleCategoryDto,
@@ -9,17 +9,16 @@ import {
 import {
   ArticleCategoryPageDto,
   ArticleListPageDto,
-  TableListResultDto
 } from "@shared/dto/page.dto"
 /** 获取文章列表数据 */
 export const articleListApi = (
   params: ArticleListPageDto
-): Promise<ResultModel<TableListResultDto<ArticleDto>>> => axios.post("/article/list", params)
+): Promise<ResultModel<ResultPageModel<ArticleDto>>> => axios.post("/article/list", params)
 
 /** 获取 文章的分类数据-按照表格类型 */
 export const getArticleCategoryListApi = (
   params: ArticleCategoryPageDto
-): Promise<ResultModel<TableListResultDto<ArticleCategoryDto>>> =>
+): Promise<ResultModel<ResultPageModel<ArticleCategoryDto>>> =>
   axios.post(`article/category/list`, params)
 
 /** 获取 查询文章分类数据-按照level */

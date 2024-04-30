@@ -8,6 +8,7 @@ import { ValidationError, validate } from "class-validator"
 import { BizException } from "./exceptionHandler/biz-exception.filter"
 import { ResultCode, ResultMsg } from "@shared/enum/result-enum"
 import { BasePageDto } from "@shared/dto/page.dto"
+import { ResultPageModel } from "@shared/model"
 /** 自定义数据库字段 */
 export class CustomNamingStrategy extends DefaultNamingStrategy {
   tableName(targetName: string, userSpecifiedName: string): string {
@@ -58,7 +59,7 @@ export async function Pagination<
   repository: Repository<R>,
   ClassDTO: ClassConstructor<ClassDTO>,
   paramsDTO: ParamsDTO
-) {
+): Promise<ResultPageModel<R>>{
   const errors = await handleValidate(ClassDTO, paramsDTO)
   if (errors.length) {
     throw new BizException(ResultCode.ERROR, errors)
@@ -73,5 +74,5 @@ export async function Pagination<
   if (!res) {
     throw new BizException(ResultCode.ERROR, ResultMsg.REQUEST_FAIL)
   }
-  return { res, total }
+  return { records: res, total, pageSize, current }
 }

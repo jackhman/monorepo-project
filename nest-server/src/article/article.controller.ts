@@ -15,10 +15,10 @@ export class ArticleController {
   /** 文章列表 */
   @Post("/list")
   async articleList(@Body() articleListPageDto: ArticleListPageDto) {
-    const { res: row, total } = await this.articleService.articleList(
+    const res = await this.articleService.articleList(
       articleListPageDto
     )
-    return R.success().setRow({ row, total })
+    return R.success().setData(res)
   }
 
   /** 新增 编辑 文章分类 */

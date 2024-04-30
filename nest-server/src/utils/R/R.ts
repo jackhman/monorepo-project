@@ -1,4 +1,5 @@
 import { ResultCode, ResultMsg } from "@shared/enum/result-enum"
+import { ResultPageModel } from "@shared/model/index"
 /**
  * 返回的数据格式
  */
@@ -58,6 +59,12 @@ export class R {
   public setRow(v: { total: number; row: any }): R {
     this.data = v.row
     this.total = v.total
+    return this
+  }
+
+  /** 专门处理列表分页的数据 */
+  public setPage<T>(pageRes: ResultPageModel<T>): R {
+    this.data = pageRes
     return this
   }
 

@@ -13,16 +13,12 @@ export class BasePageDto {
   @Min(1)
   current: number
   total?: number
-}
 
-/**
- * 表格统一的返回参数格式
- */
-export class TableListResultDto<T> extends BasePageDto {
-  /** 数据存放 */
-  records: Array<T> = []
+  constructor() {
+    this.pageSize = 10
+    this.current = 1
+  }
 }
-
 
 /** 用户分页 */
 export class UserPageDto extends BasePageDto {
@@ -37,22 +33,25 @@ export class MenuPageDto extends BasePageDto {
 
 /** 文章列表分页 */
 export class ArticleListPageDto extends BasePageDto {
+  constructor() {
+    super()
+  }
   /**
     文章关键字
      */
-  title: string
+  title?: string
   /**
     文章状态
      */
-  status: ArticleStatusEnum
+  status?: ArticleStatusEnum
   /**
    * 文章分类
    */
-  categoryId: string
+  categoryId?: string
   /**
    * 文章更新时间
    */
-  time: Date
+  time?: Date
 }
 
 /** 文章分类分页 */

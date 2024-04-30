@@ -11,7 +11,7 @@ import {
   UserInfoDto
 } from "@shared/dto/user.dto"
 import { UserPageDto } from "@shared/dto/page.dto"
-import { handleValidate } from "../utils"
+import { Pagination, handleValidate } from "../utils"
 
 @Injectable()
 export class UserService {
@@ -104,25 +104,11 @@ export class UserService {
 
   /** 查找所有用户信息 */
   async findAllUser(userPageDto: UserPageDto) {
-    const errors = await handleValidate(UserPageDto, userPageDto)
-    if (errors.length) {
-      throw new BizException(ResultCode.ERROR, errors)
-    }
-    const { current, pageSize } = userPageDto
-    const skip = (current - 1) * pageSize
-    const res = await this.usersRepository.find({
-      take: pageSize,
-      skip
-    })
-    const total = await this.usersRepository.count()
-    if (!res) {
-      throw new BizException(ResultCode.ERROR, ResultMsg.REQUEST_FAIL)
-    }
-    return { res, total }
+    return Pagination(this.usersRepository, UserPageDto, userPageDto)
   }
 
   /** 更新用户的数据 */
-  async updateUserInfo(userInfo: UserInfoDto, id:string) {
+  async updateUserInfo(userInfo: UserInfoDto, id: string) {
     await this.getUserById(id)
     const errors = await handleValidate(UserInfoDto, userInfo)
     if (errors.length) {
