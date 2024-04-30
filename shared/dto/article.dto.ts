@@ -86,13 +86,13 @@ export class ArticleCategoryDto {
   categoryName: string
 
   /** 父级的id，为null说明是顶级 */
-  parentId: string
+  parentId: string | null
 }
 
 /** 文章分类-按照懒加载形式 */
 export interface ArticleCategoryByLazyDto {
   /** 分类的级别 */
-  level: number
+  level?: number
   /** 二级分类中,一级分类的id */
   parentId?: ArticleCategoryDto["parentId"]
 }

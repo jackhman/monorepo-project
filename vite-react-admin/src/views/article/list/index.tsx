@@ -154,7 +154,6 @@ const ArticleList = () => {
 
   /** 查询按钮 */
   const selectBtnParams = (): void => {
-    console.log(params, "params")
     setReloadFlag(() => true)
   }
 

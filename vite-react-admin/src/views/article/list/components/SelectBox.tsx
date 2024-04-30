@@ -35,8 +35,7 @@ const SelectBoxCom = (props: IProps) => {
   const { params, setParams, selectBtnParams, resetBtn } = props
   // 分类数据传递的参数
   let cascaderParams: ArticleCategoryByLazyDto = {
-    level: 1,
-    parentId: ""
+    parentId: null
   }
   // 获取分类数据
   const [articleCategroyList, setCategoryList] = useState<CascaderOption[]>(
@@ -58,21 +57,20 @@ const SelectBoxCom = (props: IProps) => {
   const [cascaderCategory, setCategoryValue] = useState<(string | number)[]>([])
 
   useEffect(() => {
-    // loadArticleData()
+    loadArticleData()
   }, [])
 
   /** 动态获取文章分类的数据 */
-  const loadArticleData = async (selectedOptions: CascaderOption[]) => {
-    const targetOption = selectedOptions[selectedOptions.length - 1]
+  const loadArticleData = async (selectedOptions?: CascaderOption[]) => {
     if (selectedOptions) {
       cascaderParams = {
-        level: cascaderParams.level + 1,
         parentId: selectedOptions[0].value as string
       }
     }
+
     const data = await getArticleCategoryByLazyApi(cascaderParams)
     if (data.code === ResultCode.SUCCESS) {
-      if (cascaderParams.level === 1) {
+      if (!cascaderParams.parentId) {
         setCategoryList(() => {
           return data.data.map(item => {
             return {
@@ -83,14 +81,23 @@ const SelectBoxCom = (props: IProps) => {
           })
         })
       } else {
-        targetOption.children = data.data.map(item => {
-          return {
-            label: item.categoryName,
-            value: item.id,
-            isLeaf: true
+        if (selectedOptions) {
+          const targetOption = selectedOptions[selectedOptions.length - 1]
+          console.log(targetOption)
+          if (data.data.length) {
+            targetOption.children = data.data.map(item => {
+              return {
+                label: item.categoryName,
+                value: item.id,
+                isLeaf: true
+              }
+            })
+          } else {
+            targetOption.isLeaf = true
+            targetOption.children = []
           }
-        })
-        setCategoryList([...articleCategroyList])
+          setCategoryList([...articleCategroyList])
+        }
       }
     }
   }
@@ -110,14 +117,13 @@ const SelectBoxCom = (props: IProps) => {
   }, [])
 
   /** 文章分类选择器 */
-  const categoryChange = (
-    value: (string | number)[],
-    selectedOptions: CascaderOption[]
-  ) => {
-    console.log(value, selectedOptions)
+  const categoryChange = (value: (string | number)[]) => {
     setCategoryValue(value)
     setParams(prev => {
-      return { ...prev, categoryId: value[value.length - 1] as string }
+      return {
+        ...prev,
+        categoryId: value ? (value[value.length - 1] as string) : ""
+      }
     })
   }
 
