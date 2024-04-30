@@ -4,16 +4,18 @@ import {
   ArticleDto,
   ArticleCategoryDto,
   ArticleCategoryByLazyDto,
-  ArticleInsertOrEditDto
+  ArticleInsertOrEditDto,
+  ArticleCategoryLevelDto
 } from "@shared/dto/article.dto"
 import {
   ArticleCategoryPageDto,
-  ArticleListPageDto,
+  ArticleListPageDto
 } from "@shared/dto/page.dto"
 /** 获取文章列表数据 */
 export const articleListApi = (
   params: ArticleListPageDto
-): Promise<ResultModel<ResultPageModel<ArticleDto>>> => axios.post("/article/list", params)
+): Promise<ResultModel<ResultPageModel<ArticleDto>>> =>
+  axios.post("/article/list", params)
 
 /** 获取 文章的分类数据-按照表格类型 */
 export const getArticleCategoryListApi = (
@@ -21,11 +23,13 @@ export const getArticleCategoryListApi = (
 ): Promise<ResultModel<ResultPageModel<ArticleCategoryDto>>> =>
   axios.post(`article/category/list`, params)
 
-/** 获取 查询文章分类数据-按照level */
-export const getArticleCategoryByLevelApi = (
-  level: number
+/** 获取 查询文章分类数据 */
+export const getArticleCategoryApi = (
+  params: ArticleCategoryLevelDto
 ): Promise<ResultModel<Array<ArticleCategoryDto>>> =>
-  axios.get(`article/category/${level}`)
+  axios.get(`article/category/all`, {
+    params
+  })
 
 /** 懒加载的形式   获取文章的数据 */
 export const getArticleCategoryByLazyApi = (

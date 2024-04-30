@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common"
+import { Body, Controller, Delete, Get, Param, Post, Query } from "@nestjs/common"
 import { R } from "../utils/R/R"
 import { ArticleService } from "./article.service"
 import { ArticleListPageDto } from "@shared/dto/page.dto"
 import {
   ArticleCategoryByLazyDto,
-  ArticleCategoryInsertOrUpdateDto
+  ArticleCategoryInsertOrUpdateDto,
+  ArticleCategoryLevelDto
 } from "@shared/dto/article.dto"
 import { ResultMsg } from "@shared/enum/result-enum"
 
@@ -40,8 +41,8 @@ export class ArticleController {
 
   /** 查询所有的分类数据 */
   @Get("/category/all")
-  async articleCategoryGetAll() {
-    const data = await this.articleService.articleCategoryGetAll()
+  async articleCategoryGetAll(@Query() params: ArticleCategoryLevelDto) {
+    const data = await this.articleService.articleCategoryGetAll(params)
     return R.success().setData(data)
   }
 

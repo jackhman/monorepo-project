@@ -116,7 +116,7 @@ const PreviewModalCom = (props: IPreviewModal) => {
     <div className="preview-modal-box">
       <Modal
         title="文章预览"
-        visible={isModalVisible}
+        open={isModalVisible}
         width="60%"
         onCancel={handleCancel}
         wrapClassName="modal-box"

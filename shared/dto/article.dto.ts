@@ -11,6 +11,11 @@ export interface ArticleCoverDto {
   images: string[]
 }
 
+/** 文章级别 */
+export class ArticleCategoryLevelDto {
+  level: ArticleCategoryLevelEnum
+}
+
 /** 文章列表 */
 export class ArticleDto {
   id: string
@@ -62,6 +67,12 @@ export class ArticleDto {
 
 /** 文章新增 编辑 */
 export class ArticleInsertOrEditDto {
+  constructor() {
+    this.coverImages = {
+      size: 0,
+      images: []
+    }
+  }
   /** 文章id */
   id?: string
   /** 用户id */

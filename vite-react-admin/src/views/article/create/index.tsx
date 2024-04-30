@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useReducer } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { Input, Button, message } from "antd"
 import E from "wangeditor"
 import hljs from "highlight.js"
@@ -10,12 +10,18 @@ import PreviewModalCom from "./components/PreviewModal"
 
 import {
   articleSaveOrUpdateApi,
-  getArticleCategoryByLevelApi,
+  getArticleCategoryApi,
   getArticleDetailsByIdApi
 } from "@/api/modules/article"
 import { ResultCode } from "@shared/enum/result-enum"
-import { ArticleInsertOrEditDto, ArticleCategoryDto } from "@shared/dto/article.dto"
-import { ArticleSaveTypeEnum } from "@shared/enum/article-enum"
+import {
+  ArticleInsertOrEditDto,
+  ArticleCategoryDto
+} from "@shared/dto/article.dto"
+import {
+  ArticleCategoryLevelEnum,
+  ArticleSaveTypeEnum
+} from "@shared/enum/article-enum"
 
 const ACTIONS_TYPE = {
   /** 编辑器 */
@@ -68,8 +74,8 @@ function reducers(
 }
 
 const ArticleCreate = () => {
-  const history = useNavigate()
-
+  // 初始化 用来获取 url 地址栏的数据
+  const { id: getId } = useParams()
   const [state, dispatch] = useReducer(reducers, new InitialState())
   // 获取 文章分类的数据
   const [articleCate, setArticleCate] = useState<ArticleCategoryDto[]>([])
@@ -78,11 +84,12 @@ const ArticleCreate = () => {
   const [articleParams, setArticleParams] = useState<ArticleInsertOrEditDto>(
     () => new ArticleInsertOrEditDto()
   )
-
   // 初始化 编辑器 、 获取文章分类数据
   useEffect(() => {
     (async function () {
-      const data = await getArticleCategoryByLevelApi(2)
+      const data = await getArticleCategoryApi({
+        level: ArticleCategoryLevelEnum.second
+      })
       if (data.code === ResultCode.SUCCESS) {
         setArticleCate(data.data)
       } else setArticleCate([])
@@ -96,7 +103,6 @@ const ArticleCreate = () => {
   useEffect(() => {
     const { editor } = state
     if (editor === null) return
-    console.log(editor, "2134")
     // 配置 zindex
     editor.config.zIndex = 500
     // 图片上传的格式为 base64
@@ -107,8 +113,6 @@ const ArticleCreate = () => {
     editor.highlight = hljs
     editor.create()
 
-    // 初始化 用来获取 url 地址栏的数据
-    const getId = history.location.state
     // 说明 是编辑
     if (getId) {
       (async function () {

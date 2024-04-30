@@ -2,7 +2,8 @@ import { Injectable } from "@nestjs/common"
 import { ArticleListPageDto } from "@shared/dto/page.dto"
 import {
   ArticleCategoryByLazyDto,
-  ArticleCategoryInsertOrUpdateDto
+  ArticleCategoryInsertOrUpdateDto,
+  ArticleCategoryLevelDto
 } from "@shared/dto/article.dto"
 import { InjectRepository } from "@nestjs/typeorm"
 import { ArticleList } from "./article-list.entity"
@@ -31,8 +32,16 @@ export class ArticleService {
   }
 
   /** 查询所有的分类数据 */
-  async articleCategoryGetAll() {
-    return await this.articleCategoryRepository.find()
+  async articleCategoryGetAll(params: ArticleCategoryLevelDto) {
+    let query =
+      "SELECT id,parent_id AS parentId,category_name AS categoryName FROM article_category WHERE deleted_at IS NULL AND "
+    if (+params.level === ArticleCategoryLevelEnum.first) {
+      query += "parent_id IS NULL"
+    } else {
+      query += "parent_id IS NOT NULL"
+    }
+
+    return await this.articleCategoryRepository.query(query)
   }
 
   /** 新增 编辑 文章分类 */
