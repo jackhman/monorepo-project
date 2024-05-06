@@ -3,7 +3,8 @@ import { ArticleListPageDto } from "@shared/dto/page.dto"
 import {
   ArticleCategoryByLazyDto,
   ArticleCategoryInsertOrUpdateDto,
-  ArticleCategoryLevelDto
+  ArticleCategoryLevelDto,
+  ArticleSaveOrEditDto
 } from "@shared/dto/article.dto"
 import { InjectRepository } from "@nestjs/typeorm"
 import { ArticleList } from "./article-list.entity"
@@ -22,6 +23,10 @@ export class ArticleService {
     @InjectRepository(ArticleCategory)
     private readonly articleCategoryRepository: Repository<ArticleCategory>
   ) {}
+
+  /** 文章新增、编辑 */
+  async articleSaveOrUpdate(articleSaveOrEditDto: ArticleSaveOrEditDto) {}
+
   /** 文章列表 */
   async articleList(articleListPageDto: ArticleListPageDto) {
     return Pagination(

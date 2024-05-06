@@ -5,13 +5,21 @@ import { ArticleListPageDto } from "@shared/dto/page.dto"
 import {
   ArticleCategoryByLazyDto,
   ArticleCategoryInsertOrUpdateDto,
-  ArticleCategoryLevelDto
+  ArticleCategoryLevelDto,
+  ArticleSaveOrEditDto
 } from "@shared/dto/article.dto"
 import { ResultMsg } from "@shared/enum/result-enum"
 
 @Controller("article")
 export class ArticleController {
   constructor(private articleService: ArticleService) {}
+
+  /** 文章新增、编辑 */
+  @Post("/saveOrUpdate")
+  async articleSaveOrUpdate(@Body() articleSaveOrEditDto :ArticleSaveOrEditDto) {
+    await this.articleService.articleSaveOrUpdate(articleSaveOrEditDto)
+    return R.success().setMsg(ResultMsg.INSERT_SUCCESS)
+  }
 
   /** 文章列表 */
   @Post("/list")

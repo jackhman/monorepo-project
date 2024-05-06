@@ -15,7 +15,7 @@ import { getUserIdStorage } from "@/utils/modules/commonSave"
 // import { uploadPictureApi } from "@/api/modules/common"
 // import { ResultCode } from "@shared/enum/result-enum"
 import {
-  ArticleInsertOrEditDto,
+  ArticleSaveOrEditDto,
   ArticleCategoryDto,
   ArticleCoverDto
 } from "@shared/dto/article.dto"
@@ -27,7 +27,7 @@ interface IPreviewModal {
   /** 文章分类list */
   articleCateList: ArticleCategoryDto[]
   /** 文章的参数 */
-  articleParams: ArticleInsertOrEditDto
+  articleParams: ArticleSaveOrEditDto
   /** 弹出框页面加载状态 */
   modalLoading: boolean
   /** 关闭 弹出框 */

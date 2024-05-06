@@ -66,7 +66,7 @@ export class ArticleDto {
 }
 
 /** 文章新增 编辑 */
-export class ArticleInsertOrEditDto {
+export class ArticleSaveOrEditDto {
   constructor() {
     this.coverImages = {
       size: 0,

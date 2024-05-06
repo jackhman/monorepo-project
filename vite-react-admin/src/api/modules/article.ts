@@ -4,7 +4,7 @@ import {
   ArticleDto,
   ArticleCategoryDto,
   ArticleCategoryByLazyDto,
-  ArticleInsertOrEditDto,
+  ArticleSaveOrEditDto,
   ArticleCategoryLevelDto
 } from "@shared/dto/article.dto"
 import {
@@ -39,7 +39,7 @@ export const getArticleCategoryByLazyApi = (
 
 /** 文章新增\编辑 */
 export const articleSaveOrUpdateApi = (
-  params: ArticleInsertOrEditDto | ArticleDto
+  params: ArticleSaveOrEditDto | ArticleDto
 ): Promise<ResultModel<any>> => axios.post(`/article/saveOrUpdate`, params)
 
 /** 文章删除 */

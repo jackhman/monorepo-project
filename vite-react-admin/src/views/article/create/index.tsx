@@ -15,7 +15,7 @@ import {
 } from "@/api/modules/article"
 import { ResultCode } from "@shared/enum/result-enum"
 import {
-  ArticleInsertOrEditDto,
+  ArticleSaveOrEditDto,
   ArticleCategoryDto
 } from "@shared/dto/article.dto"
 import {
@@ -81,8 +81,8 @@ const ArticleCreate = () => {
   const [articleCate, setArticleCate] = useState<ArticleCategoryDto[]>([])
 
   /** 新增 和编辑 数据 实例化 */
-  const [articleParams, setArticleParams] = useState<ArticleInsertOrEditDto>(
-    () => new ArticleInsertOrEditDto()
+  const [articleParams, setArticleParams] = useState<ArticleSaveOrEditDto>(
+    () => new ArticleSaveOrEditDto()
   )
   // 初始化 编辑器 、 获取文章分类数据
   useEffect(() => {
