@@ -59,7 +59,7 @@ export class ArticleDto {
   /**
    * 文章封面
    */
-  coverImages: string
+  coverImages: ArticleCoverDto
 
   /** 是否删除 */
   isDeleted: number

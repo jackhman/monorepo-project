@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 import { ArticleStatusEnum } from "@shared/enum/article-enum"
 import { DataBaseDeletedEnum } from "@shared/enum"
+import { ArticleCoverDto } from "@shared/dto/article.dto"
 @Entity("ArticleList")
 export class ArticleList {
   @PrimaryGeneratedColumn("uuid")
@@ -56,9 +57,10 @@ export class ArticleList {
 
   /** 文章封面 */
   @Column({
-    nullable: true
+    nullable: true,
+    type: "varchar"
   })
-  coverImages: string
+  coverImages: ArticleCoverDto
 
   /** 文章的拒绝原因 */
   @Column({

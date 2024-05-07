@@ -64,8 +64,7 @@ export class ArticleService {
     article.categoryParentName = getArticleCategory.parentCategoryName
     // @ts-ignore
     article.status = status
-    article.coverImages = JSON.stringify(coverImages)
-
+    article.coverImages = coverImages
     await this.articleListRepository.save(article)
   }
 
