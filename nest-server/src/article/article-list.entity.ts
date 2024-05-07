@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 import { ArticleStatusEnum } from "@shared/enum/article-enum"
 import { DataBaseDeletedEnum } from "@shared/enum"
 @Entity("ArticleList")
@@ -11,15 +11,17 @@ export class ArticleList {
   title: string
 
   /** 文章内容 */
-  @Column()
+  @Column({
+    type: "text"
+  })
   content: string
 
   /** 文章创建时间 */
-  @Column()
+  @CreateDateColumn()
   createTime: Date
 
   /** 文章更新时间 */
-  @Column()
+  @UpdateDateColumn()
   updateTime: Date
 
   /** 创建该文章的用户id */
@@ -53,11 +55,15 @@ export class ArticleList {
   status: ArticleStatusEnum
 
   /** 文章封面 */
-  @Column()
+  @Column({
+    nullable: true
+  })
   coverImages: string
 
   /** 文章的拒绝原因 */
-  @Column()
+  @Column({
+    nullable: true
+  })
   rejectReason: string
 
   // 是否删除

@@ -4,6 +4,7 @@ import {
   ArticleCategoryByLazyDto,
   ArticleCategoryInsertOrUpdateDto,
   ArticleCategoryLevelDto,
+  ArticleDto,
   ArticleSaveOrEditDto
 } from "@shared/dto/article.dto"
 import { InjectRepository } from "@nestjs/typeorm"
@@ -14,6 +15,7 @@ import { ArticleCategoryLevelEnum } from "@shared/enum/article-enum"
 import { Pagination, handleValidate } from "../utils"
 import { BizException } from "../utils/exceptionHandler/biz-exception.filter"
 import { ResultCode, ResultMsg } from "@shared/enum/result-enum"
+import { User } from "../user/user.entity"
 
 @Injectable()
 export class ArticleService {
@@ -21,11 +23,51 @@ export class ArticleService {
     @InjectRepository(ArticleList)
     private readonly articleListRepository: Repository<ArticleList>,
     @InjectRepository(ArticleCategory)
-    private readonly articleCategoryRepository: Repository<ArticleCategory>
+    private readonly articleCategoryRepository: Repository<ArticleCategory>,
+    @InjectRepository(User) private readonly userRepository: Repository<User>
   ) {}
 
   /** 文章新增、编辑 */
-  async articleSaveOrUpdate(articleSaveOrEditDto: ArticleSaveOrEditDto) {}
+  async articleSaveOrUpdate(articleSaveOrEditDto: ArticleSaveOrEditDto) {
+    const errors = await handleValidate(
+      ArticleSaveOrEditDto,
+      articleSaveOrEditDto
+    )
+    if (errors.length) {
+      throw new BizException(ResultCode.ERROR, errors)
+    }
+    const { categoryId, title, content, userId, status , coverImages} = articleSaveOrEditDto
+    // 获取文章分类
+    const getArticleCategory = await this.articleCategoryRepository.findOne({
+      where: {
+        id: categoryId
+      }
+    })
+    if (getArticleCategory === null) {
+      throw new BizException(ResultCode.ERROR, `${categoryId} 不存在`)
+    }
+
+    // 获取用户 nickname
+    const getUser = await this.userRepository.findOne({
+      where: {
+        id: userId
+      }
+    })
+    const article = new ArticleDto()
+    article.title = title
+    article.content = content
+    article.userId = userId
+    article.nickName = getUser.nickName
+    article.categoryName = getArticleCategory.categoryName
+    article.categoryId = getArticleCategory.id
+    article.categoryParentId = getArticleCategory.parentId
+    article.categoryParentName = getArticleCategory.parentCategoryName
+    // @ts-ignore
+    article.status = status
+    article.coverImages = JSON.stringify(coverImages)
+
+    await this.articleListRepository.save(article)
+  }
 
   /** 文章列表 */
   async articleList(articleListPageDto: ArticleListPageDto) {
@@ -100,12 +142,19 @@ export class ArticleService {
         throw new BizException(ResultCode.ERROR, ResultMsg.INSERT_FAIL)
       }
     } else if (level === ArticleCategoryLevelEnum.second) {
+      // 说明是新增的二级分类数据
       if (!parentId) {
         throw new BizException(ResultCode.ERROR, ResultMsg.PARENT_ID_EMPTY)
       }
+      const getParentCategory = await this.articleCategoryRepository.findOne({
+        where: {
+          parentId
+        }
+      })
       const params = {
         categoryName,
-        parentId
+        parentId,
+        parentCategoryName: getParentCategory.parentCategoryName
       }
       try {
         await this.articleCategoryRepository.insert(params)

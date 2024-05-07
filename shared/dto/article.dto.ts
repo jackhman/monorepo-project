@@ -59,7 +59,7 @@ export class ArticleDto {
   /**
    * 文章封面
    */
-  coverImages: ArticleCoverDto
+  coverImages: string
 
   /** 是否删除 */
   isDeleted: number
@@ -67,25 +67,30 @@ export class ArticleDto {
 
 /** 文章新增 编辑 */
 export class ArticleSaveOrEditDto {
-  constructor() {
-    this.coverImages = {
-      size: 0,
-      images: []
-    }
-  }
   /** 文章id */
   id?: string
+
   /** 用户id */
+  @IsNotEmpty()
   userId: ArticleDto["userId"]
+
   /** 文章标题 */
+  @IsNotEmpty()
   title: ArticleDto["title"]
+
   /** 文章内容 */
+  @IsNotEmpty()
   content: ArticleDto["content"]
+
   /** 文章类别 id */
+  @IsNotEmpty()
   categoryId: ArticleDto["categoryId"]
+
   /** 文章封面 */
   coverImages: ArticleDto["coverImages"]
+  
   /** 文章状态 新增的时候只有两种状态,草稿和审核 */
+  @IsNotEmpty()
   status: ArticleSaveTypeEnum
 }
 

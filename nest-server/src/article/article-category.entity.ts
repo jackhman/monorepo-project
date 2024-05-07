@@ -19,6 +19,12 @@ export class ArticleCategory {
   })
   parentId: string
 
+  @Column({
+    nullable: true,
+    comment: "父级的名称，为null说明是顶级"
+  })
+  parentCategoryName: string
+
   @DeleteDateColumn({ name: "deleted_at", select: false })
   deletedAt: Date
 }
