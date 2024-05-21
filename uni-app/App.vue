@@ -1,7 +1,7 @@
 <script>
 	export default {
 		onLaunch: function() {
-			console.log('App Launch')
+			console.log('App Launch1111')
 		},
 		onShow: function() {
 			console.log('App Show')
@@ -12,6 +12,7 @@
 	}
 </script>
 
-<style>
-	/*每个页面公共css */
+<style lang="scss">
+/*每个页面公共css */
+@import "@/uni_modules/uview-ui/index.scss";
 </style>
