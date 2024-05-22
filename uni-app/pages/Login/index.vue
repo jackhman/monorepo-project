@@ -30,8 +30,10 @@
 			<text class="agreement-file" @click="argeementFileClick(ARGEEMENT_TYPE_COM.User)">《用户协议》</text>
 			<text class="agreement-file" @click="argeementFileClick(ARGEEMENT_TYPE_COM.Privacy)">《隐私协议》</text>
 		</view>
-		<!-- 弹出框 -->
+		<!-- 协议弹出框 -->
 		<AgreementPopup :argeementType="argeementType" :argeementTimeStamp="argeementTimeStamp" />
+		<!-- 加载弹出框 -->
+		<LoadingCom :loading="loading"></LoadingCom>
 	</view>
 </template>
 
@@ -40,7 +42,9 @@
 		ARGEEMENT_TYPE
 	} from "./type"
 	import AgreementPopup from "./components/AgreementPopup.vue"
-	import { loginApi } from "@/api/modules/user.js"
+	import {
+		loginApi
+	} from "@/api/modules/user.js"
 	export default {
 		name: "LoginPage",
 		components: {
@@ -67,7 +71,8 @@
 				},
 				loginFlag: true,
 				argeementType: ARGEEMENT_TYPE.User,
-				argeementTimeStamp: null
+				argeementTimeStamp: null,
+				loading: false
 			}
 		},
 		computed: {
@@ -86,10 +91,14 @@
 					.then(res => {
 						// 登录
 						if (this.loginFlag) {
-							loginApi(this.formData).then(res=> {
+							this.loading = true
+							loginApi(this.formData).then(res => {
 								console.log(res);
-								if(res.code === 0) {
+								if (res.code === 0) {
 									uni.setStorageSync("token", `Bearer ${res.data.token}`)
+									// uni.switchTab({
+									// 	url: "/pages/Layout/Home/index"
+									// })
 								}
 							})
 						} else {
@@ -170,6 +179,7 @@
 			}
 		}
 
+		
 		.agreement-box {
 			position: absolute;
 			font-size: 16rpx;
@@ -177,10 +187,17 @@
 			left: 50%;
 			transform: translateX(-50%);
 			width: 100%;
+			font-size: 16px;
 
 			.agreement-file {
 				color: $uni-color-primary;
 			}
+		}
+		.loading-view {
+			width: 100px;
+			height: 100px;
+			line-height: 100px;
+			text-align: center;
 		}
 	}
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<u-popup ref="popup" style="margin: 0 30px;background-color: transparent;">
+	<u-popup :show="show" style="margin: 0 30px;background-color: transparent;">
 		<view class="popup-content">
 			<view class="content-box">
 				<view class="popue-title">
@@ -121,17 +121,17 @@
 		},
 		data() {
 			return {
-
+				show: false
 			};
 		},
 		methods: {
 			// 弹出框开启
 			open() {
-				this.$refs.popup.open()
+				this.show = true
 			},
 			// 弹出框关闭
 			confirmBtn() {
-				this.$refs.popup.close()
+				this.show = false
 			}
 
 		},
