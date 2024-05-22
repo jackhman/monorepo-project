@@ -5,8 +5,8 @@
 		</view>
 		<view class="form-box">
 			<u--form ref="uForm" :model="formData" :rules="rules">
-				<u-form-item label="用户名" name="username" required prop="username">
-					<u--input type="text" v-model="formData.username" placeholder="请输入用户名" />
+				<u-form-item label="用户名" name="userName" required prop="userName">
+					<u--input type="text" v-model="formData.userName" placeholder="请输入用户名" />
 				</u-form-item>
 				<u-form-item label="密码" name="password" required prop="password">
 					<u--input type="password" v-model="formData.password" placeholder="请输入密码" />
@@ -50,11 +50,11 @@
 			return {
 				// 表单数据
 				formData: {
-					username: "admin",
-					password: "admin"
+					userName: "admin",
+					password: "123456"
 				},
 				rules: {
-					username: [{
+					userName: [{
 						required: true,
 						message: "请输入用户名",
 						trigger: "blur"
@@ -88,6 +88,9 @@
 						if (this.loginFlag) {
 							loginApi(this.formData).then(res=> {
 								console.log(res);
+								if(res.code === 0) {
+									uni.setStorageSync("token", `Bearer ${res.data.token}`)
+								}
 							})
 						} else {
 							// 注册
