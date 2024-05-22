@@ -86,7 +86,6 @@
 					.then(res => {
 						// 登录
 						if (this.loginFlag) {
-							console.log("ssss");
 							loginApi(this.formData).then(res=> {
 								console.log(res);
 							})

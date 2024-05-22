@@ -1,19 +1,18 @@
 const METHODS = ["GET", "POST", "PUT", "DELETE", "CONNECT", "HEAD", "OPTIONS", "TRACE"]
 
+const baseUrl = '/api/'
 
 function handle(method, url, data) {
-	const setUrl = '/api/' + url
-	console.log(setUrl);
 	return new Promise((reslove, reject) => {
 		uni.request({
 			method,
-			url: setUrl,
+			url: baseUrl + url,
 			data,
-			success: (...rest) => {
-				reslove(rest)
+			success: (res) => {
+				reslove(res)
 			},
-			fail: (...rest) => {
-				reject(rest)
+			fail: (error) => {
+				reject(error)
 			}
 		})
 	})
