@@ -1,6 +1,8 @@
 const METHODS = ["GET", "POST", "PUT", "DELETE", "CONNECT", "HEAD", "OPTIONS", "TRACE"]
 
-let baseUrl = 'http://127.0.0.1:6789/api/'
+// let baseUrl = 'http://127.0.0.1:6789/api/'
+let baseUrl = 'http://192.168.13.73:6789/api/'
+
 // #ifdef H5
 baseUrl = '/api/'
 // #endif

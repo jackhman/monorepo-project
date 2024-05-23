@@ -1,8 +1,11 @@
 <template>
 	<view class="modal-com">
-		<u-modal :show="show" @confirm="confirm" ref="uModal">
-			<view class="loader"></view>
-		</u-modal>
+		<u-popup :show="show" @open="loadingOpen" @close="loadingClose" :round="10" mode="center" :safeAreaInsetBottom="false">
+			<view class="loader-box">
+				<view class="loader"></view>
+				<text class="loader-text">{{text}}</text>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
@@ -14,6 +17,11 @@
 				type: Boolean,
 				required: true,
 				default: false
+			},
+			text: {
+				type: String,
+				required: false,
+				default: "加载中..."
 			}
 		},
 		data() {
@@ -22,8 +30,13 @@
 			}
 		},
 		methods: {
-			confirm() {
-				this.$emit("confirm")
+			// 开启
+			loadingOpen() {
+				this.$emit("loadingOpen")
+			},
+			// 关闭
+			loadingClose() {
+				this.$emit("update:loading", false)
 			}
 		},
 		watch: {
@@ -35,6 +48,23 @@
 </script>
 
 <style lang="scss" scoped>
+	.modal-com {
+		.loader-box {
+			width: 250rpx !important;
+			height: 260rpx;
+			position: relative;
+
+			.loader-text {
+				position: absolute;
+				bottom: 10px;
+				left: 0;
+				right: 0;
+				text-align: center;
+			}
+			
+		}
+	}
+
 	.loader {
 		position: relative;
 		width: 2.5em;

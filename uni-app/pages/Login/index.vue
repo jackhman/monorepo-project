@@ -33,7 +33,9 @@
 		<!-- 协议弹出框 -->
 		<AgreementPopup :argeementType="argeementType" :argeementTimeStamp="argeementTimeStamp" />
 		<!-- 加载弹出框 -->
-		<LoadingCom :loading="loading"></LoadingCom>
+		<LoadingCom :loading="loading" text="登录中..."></LoadingCom>
+
+		<u-notify ref="uNotify"></u-notify>
 	</view>
 </template>
 
@@ -96,10 +98,18 @@
 								console.log(res);
 								if (res.code === 0) {
 									uni.setStorageSync("token", `Bearer ${res.data.token}`)
-									// uni.switchTab({
-									// 	url: "/pages/Layout/Home/index"
-									// })
+									uni.switchTab({
+										url: "/pages/Layout/Home/index"
+									})
+								} else {
+									this.$refs.uNotify.show({
+										type: 'error',
+										message: res.msg,
+										duration: 1000 * 3
+									})
 								}
+							}).finally(() => {
+								this.loading = false
 							})
 						} else {
 							// 注册
@@ -179,7 +189,7 @@
 			}
 		}
 
-		
+
 		.agreement-box {
 			position: absolute;
 			font-size: 16rpx;
@@ -193,6 +203,7 @@
 				color: $uni-color-primary;
 			}
 		}
+
 		.loading-view {
 			width: 100px;
 			height: 100px;
