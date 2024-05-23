@@ -7,6 +7,21 @@ export class LoginUserDto {
   password: string
 }
 
+/** 微信登录的 code */
+export class WxLoginDto {
+  @IsNotEmpty()
+  code: string
+}
+
+/** 微信登录 存入数据库 */
+export class WxLoginRegisterDto {
+  openid: string
+  avatar: string
+  nickName: string
+  userName: string
+  password: string
+}
+
 export class RegisterUserDto {
   @IsNotEmpty()
   userName: string

@@ -103,7 +103,7 @@
 <script>
 	import {
 		ARGEEMENT_TYPE
-	} from '../type'
+	} from './type'
 	export default {
 		props: {
 			argeementType: {

@@ -4,7 +4,8 @@ import { UserService } from "./user.service"
 import {
   LoginUserDto,
   RegisterUserDto,
-  UserInfoDto
+  UserInfoDto,
+  WxLoginDto
 } from "@shared/dto/user.dto"
 import { UserPageDto } from "@shared/dto/page.dto"
 import { R } from "../utils/R/R"
@@ -30,6 +31,13 @@ export class UserController {
   async login(@Body() loginUserDto: LoginUserDto) {
     const getUserInfo = await this.userService.login(loginUserDto)
     return R.success().setMsg(ResultMsg.LOGIN_SUCCESS).setData(getUserInfo)
+  }
+
+  @Public()
+  @Post("wxLogin")
+  async wxLogin(@Body() wxLoginDto: WxLoginDto) {
+    const res = await this.userService.wxLogin(wxLoginDto)
+    return R.success().setMsg(ResultMsg.LOGIN_SUCCESS).setData(res)
   }
 
   /** 退出登录 */

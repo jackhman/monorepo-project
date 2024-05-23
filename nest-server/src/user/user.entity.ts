@@ -1,8 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
-import {
-  UserRolesEnum,
-  UserRolesTextEnum,
-} from "@shared/enum/user-enum"
+import { UserRolesEnum, UserRolesTextEnum } from "@shared/enum/user-enum"
 import { DataBaseDeletedEnum } from "@shared/enum/index"
 @Entity("User")
 export class User {
@@ -42,6 +39,19 @@ export class User {
     comment: "权限中文名"
   })
   roleName: string
+
+  // 手机号--后续开发使用
+  @Column({
+    type: "int",
+    nullable: true
+  })
+  phone: number
+
+  // 微信登录的 openid
+  @Column({
+    comment: "微信登录的 openid"
+  })
+  openid: string
 
   // 是否删除
   @Column({

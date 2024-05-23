@@ -8,7 +8,9 @@ import { AuthService } from "../auth/auth.service"
 import {
   LoginUserDto,
   RegisterUserDto,
-  UserInfoDto
+  UserInfoDto,
+  WxLoginDto,
+  WxLoginRegisterDto
 } from "@shared/dto/user.dto"
 import { UserPageDto } from "@shared/dto/page.dto"
 import { Pagination, handleValidate } from "../utils"
@@ -74,6 +76,47 @@ export class UserService {
     const userInfo: UserInfoDto = userRes
     userInfo.token = jwtRes.token
     return userInfo
+  }
+
+  /** 微信登录 */
+  async wxLogin(wxLoginDto: WxLoginDto) {
+    const errors = await handleValidate(WxLoginDto, wxLoginDto)
+    if (errors.length) {
+      throw new BizException(ResultCode.ERROR, errors)
+    }
+    const params = {
+      appid: "wx1e28ae8315a2f9a2",
+      secret: "e328c5ade1fa8c4bf6a46a4f1cce6119",
+      js_code: wxLoginDto.code,
+      grant_type: "authorization_code"
+    }
+    const url = new URL("https://api.weixin.qq.com/sns/jscode2session")
+    Object.keys(params).forEach(key =>
+      url.searchParams.append(key, params[key])
+    )
+    const response = await fetch(url.toString())
+    const data = await response.json()
+    const { openid } = data
+    // 说明登录成功
+    if (openid) {
+      const res = await this.usersRepository.findOne({
+        where: {
+          openid
+        }
+      })
+      // 说明是新增的微信用户
+      if (!res) {
+        const newUser = new WxLoginRegisterDto()
+        newUser.avatar =
+          "https://fastly.jsdelivr.net/npm/lz-npm-assets/images/funny-round.png"
+        newUser.openid = openid
+        newUser.nickName = "微信用户"
+        newUser.userName = openid
+        newUser.password = openid
+        await this.usersRepository.save(newUser)
+      }
+    }
+    return data
   }
 
   /** 通过用户id查询用户数据 */
