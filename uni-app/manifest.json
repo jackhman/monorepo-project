@@ -81,7 +81,7 @@
     "locale" : "auto",
     "h5" : {
         "devServer" : {
-            "port" : "",
+            "port" : 3456,
             "https" : false,
             "proxy" : {
                 "/api/" : {

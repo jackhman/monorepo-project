@@ -1,22 +1,25 @@
 <template>
-	<view>
-		
-	</view>
+  <view class="home-box">
+    <SearchCom homeSearch @inputClick="searchClick"></SearchCom>
+  </view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				
-			}
-		},
-		methods: {
-			
-		}
-	}
+export default {
+  name: "HomeCom",
+  data() {
+    return {}
+  },
+  methods: {
+    searchClick() {
+      uni.navigateTo({
+      	url:"/pages/Search/Search"
+      })
+    },
+  }
+}
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>

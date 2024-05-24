@@ -1,46 +1,62 @@
 <template>
-  <view>
-    <u-button openType="getUserInfo" type="success" text="微信登录" @click="wxLoginClick"></u-button>
-    <LoadingCom :loading="loading" text="登录中..."></LoadingCom>
-  </view>
+	<view>
+		<u-button openType="getUserInfo" type="success" text="微信登录" @click="wxLoginClick"></u-button>
+		<LoadingCom :loading="loading" text="登录中..."></LoadingCom>
+	</view>
 </template>
 
 <script>
-import { wxLoginApi } from "@/api/modules/user"
-export default {
-  data() {
-    return {
-      loading: false
-    }
-  },
-  onReady() {},
-  methods: {
-    wxLoginClick() {
-      this.loading = true
-      uni.login({
-        success: res => {
-          if (res.errMsg === "login:ok") {
-            wxLoginApi({
-              code: res.code
-            })
-              .then(result => {
-                console.log(result)
-              })
-              .catch(err => {
-                console.log(err)
-              })
-          }
-        },
-        fail: error => {
-          console.log(error)
-        },
-        complete: () => {
-          this.loading = false
-        }
-      })
-    }
-  }
-}
+	import {
+		wxLoginApi
+	} from "@/api/modules/user"
+	import { StorageConst } from "@/utils/modules/constVariable.js"
+	export default {
+		data() {
+			return {
+				loading: false
+			}
+		},
+		onReady() {},
+		methods: {
+			wxLoginClick() {
+				this.loading = true
+				uni.login({
+					success: res => {
+						if (res.errMsg === "login:ok") {
+							wxLoginApi({
+									code: res.code
+								})
+								.then(result => {
+									console.log(result, "result")
+									if (result) {
+										uni.setStorageSync(StorageConst.openid, result.openid)
+										uni.setStorageSync(StorageConst.session_key, result.session_key)
+										uni.switchTab({
+											url: "/pages/Layout/Home/index"
+										})
+									} else {
+										uni.showToast({
+											title: "登录失败。。。",
+											icon: "error"
+										})
+									}
+								})
+								.catch(err => {
+									console.log(err)
+								})
+								.finally(() => {
+									this.loading = false
+								})
+						}
+					},
+					fail: error => {
+						console.log(error)
+						this.loading = false
+					}
+				})
+			}
+		}
+	}
 </script>
 
 <style lang="scss" scoped></style>

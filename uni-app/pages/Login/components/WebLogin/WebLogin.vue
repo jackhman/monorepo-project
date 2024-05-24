@@ -60,6 +60,7 @@ import { ARGEEMENT_TYPE } from "./type"
 import AgreementPopup from "./AgreementPopup.vue"
 
 import { loginApi } from "@/api/modules/user.js"
+import { StorageConst } from "@/utils/modules/constVariable.js"
 export default {
   components: {
     AgreementPopup
@@ -112,17 +113,16 @@ export default {
             this.loading = true
             loginApi(this.formData)
               .then(res => {
-                console.log(res)
                 if (res.code === 0) {
-                  uni.setStorageSync("token", `Bearer ${res.data.token}`)
+                  uni.setStorageSync(StorageConst.token, `Bearer ${res.data.token}`)
+									uni.setStorageSync(StorageConst.userId, res.data.id)
                   uni.switchTab({
                     url: "/pages/Layout/Home/index"
                   })
                 } else {
                   this.$refs.uNotify.show({
                     type: "error",
-                    message: res.msg,
-                    duration: 1000 * 3
+                    message: res.msg
                   })
                 }
               })

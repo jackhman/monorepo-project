@@ -16,6 +16,7 @@ function handle(method, url, data) {
 				reslove(res.data)
 			},
 			fail: (error) => {
+				console.log(error)
 				reject(error)
 			}
 		})
