@@ -115,6 +115,12 @@ export class UserService {
         newUser.password = openid
         await this.usersRepository.save(newUser)
       }
+      const jwtRes = await this.authService.login({
+        userName: openid,
+        id: openid
+      })
+
+      data.token = jwtRes.token
     }
     return data
   }
