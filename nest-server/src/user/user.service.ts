@@ -96,16 +96,17 @@ export class UserService {
     )
     const response = await fetch(url.toString())
     const data = await response.json()
+
     const { openid } = data
     // 说明登录成功
     if (openid) {
-      const res = await this.usersRepository.findOne({
+      const userRes = await this.usersRepository.findOne({
         where: {
           openid
         }
       })
       // 说明是新增的微信用户
-      if (!res) {
+      if (!userRes) {
         const newUser = new WxLoginRegisterDto()
         newUser.avatar =
           "https://fastly.jsdelivr.net/npm/lz-npm-assets/images/funny-round.png"
@@ -120,8 +121,11 @@ export class UserService {
         id: openid
       })
 
+      Object.keys(userRes).map(key => {
+        data[key] = userRes[key]
+      })
+
       data.token = jwtRes.token
-      data.userId = res.id
     }
     return data
   }
