@@ -24,6 +24,13 @@
 			{
 				"navigationBarTitleText" : "搜索"
 			}
+		},
+		{
+			"path" : "pages/Create/Create",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 
 	],
