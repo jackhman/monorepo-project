@@ -2,12 +2,20 @@
   <view class="home-box">
     <view class="home-header-box"
       ><SearchCom homeSearch @inputClick="searchClick"></SearchCom>
-      <HeaderTabs :list="headerTabsList" :current.sync="tabsCurrent"></HeaderTabs
+      <HeaderTabs
+        :list="headerTabsList"
+        :current.sync="tabsCurrent"
+      ></HeaderTabs
     ></view>
     <view class="home-content-box">
-      <view v-for="(tab, i) in headerTabsList" :key="i">
-        <FollowPageVue v-show="tabsCurrent === 0"></FollowPageVue>
-        <CommonPageVue v-show="tabsCurrent !== 0"></CommonPageVue>
+      <view
+        v-for="(tab, i) in headerTabsList"
+        :key="i"
+      >
+        <CommonPageVue
+          v-show="tabsCurrent === i"
+          :currentTab="tab"
+        ></CommonPageVue>
       </view>
     </view>
   </view>
@@ -15,14 +23,12 @@
 
 <script>
 import HeaderTabs from "./components/HeaderTabs/index.vue"
-import FollowPageVue from "./components/FollowPage/FollowPage.vue"
 import CommonPageVue from "./components/CommonPage/CommonPage.vue"
 import { articleCategoryApi } from "@/api/modules/article"
 export default {
   name: "HomeCom",
   components: {
     HeaderTabs,
-    FollowPageVue,
     CommonPageVue
   },
   data() {
