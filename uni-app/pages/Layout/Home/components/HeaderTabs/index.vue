@@ -21,41 +21,15 @@
 <script>
 export default {
   name: "HeaderTabs",
-  data() {
-    return {
-      list: [
-        {
-          name: "关注"
-        },
-        {
-          name: "推荐",
-          badge: {
-            isDot: true
-          }
-        },
-        {
-          name: "电影"
-        },
-        {
-          name: "科技"
-        },
-        {
-          name: "音乐"
-        },
-        {
-          name: "美食"
-        },
-        {
-          name: "文化"
-        },
-        {
-          name: "财经"
-        },
-        {
-          name: "手工"
-        }
-      ]
+  props: {
+    list: {
+      type: Array,
+      required: true,
+      default: ()=> []
     }
+  },
+  data() {
+    return {}
   },
   created() {},
   mounted() {},

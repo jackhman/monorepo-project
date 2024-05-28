@@ -31,8 +31,32 @@ export default {
     },
     // 获取头部分类列表的数据
     async articleCategoryMethod() {
-      const data  = await articleCategoryApi({level: 2})
+      const data = await articleCategoryApi({ level: 2 })
       console.log(data)
+      if (data.code === 0) {
+        this.headerTabsList = data.data.map(item => {
+          return {
+            ...item,
+            name: item.categoryName
+          }
+        })
+        this.headerTabsList.unshift(
+          ...[
+            {
+              name: "关注",
+              badge: {
+                isDot: true
+              }
+            },
+            {
+              name: "推荐",
+              badge: {
+                isDot: true
+              }
+            }
+          ]
+        )
+      }
     },
     searchClick() {
       uni.navigateTo({
