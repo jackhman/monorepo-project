@@ -1,21 +1,34 @@
 <template>
   <view class="home-box">
-    <SearchCom homeSearch @inputClick="searchClick"></SearchCom>
-    <HeaderTabs :list="headerTabsList"></HeaderTabs>
+    <view class="home-header-box"
+      ><SearchCom homeSearch @inputClick="searchClick"></SearchCom>
+      <HeaderTabs :list="headerTabsList" :current.sync="tabsCurrent"></HeaderTabs
+    ></view>
+    <view class="home-content-box">
+      <view v-for="(tab, i) in headerTabsList" :key="i">
+        <FollowPageVue v-show="tabsCurrent === 0"></FollowPageVue>
+        <CommonPageVue v-show="tabsCurrent !== 0"></CommonPageVue>
+      </view>
+    </view>
   </view>
 </template>
 
 <script>
 import HeaderTabs from "./components/HeaderTabs/index.vue"
+import FollowPageVue from "./components/FollowPage/FollowPage.vue"
+import CommonPageVue from "./components/CommonPage/CommonPage.vue"
 import { articleCategoryApi } from "@/api/modules/article"
 export default {
   name: "HomeCom",
   components: {
-    HeaderTabs
+    HeaderTabs,
+    FollowPageVue,
+    CommonPageVue
   },
   data() {
     return {
-      headerTabsList: []
+      headerTabsList: [],
+      tabsCurrent: 0
     }
   },
   mounted() {
@@ -56,6 +69,7 @@ export default {
             }
           ]
         )
+        this.tabsCurrent = 1
       }
     },
     searchClick() {
@@ -67,4 +81,19 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.home-box {
+  .home-header-box {
+    box-shadow: 0px 1px 10px 4px #eee;
+  }
+  .home-content-box {
+    position: absolute;
+    overflow: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 90px;
+    padding: 0 6px;
+  }
+}
+</style>

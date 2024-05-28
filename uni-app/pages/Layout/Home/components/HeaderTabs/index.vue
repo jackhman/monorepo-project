@@ -14,6 +14,8 @@
         transform: 'scale(1)'
       }"
       itemStyle="padding-left: 15px; padding-right: 15px; height: 34px;"
+      :current="current"
+      @click="tabsClick"
     >
     </u-tabs>
   </view>
@@ -26,6 +28,11 @@ export default {
       type: Array,
       required: true,
       default: ()=> []
+    },
+    current: {
+      type: Number,
+      required: true,
+      default: 0
     }
   },
   data() {
@@ -33,7 +40,11 @@ export default {
   },
   created() {},
   mounted() {},
-  methods: {}
+  methods: {
+    tabsClick({index}) {
+      this.$emit("update:current", index)
+    }
+  }
 }
 </script>
 

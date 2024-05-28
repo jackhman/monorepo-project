@@ -30,7 +30,7 @@ export function handleLogout() {
 		uni.removeStorageSync(key)
 	})
 	// 跳转到登录页面
-	uni.navigateTo({
+	uni.redirectTo({
 		url: "/pages/Login/index"
 	})
 }
