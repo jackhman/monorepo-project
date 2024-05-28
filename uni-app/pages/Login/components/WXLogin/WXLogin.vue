@@ -31,6 +31,7 @@
 									if (result) {
 										uni.setStorageSync(StorageConst.openid, result.data.openid)
 										uni.setStorageSync(StorageConst.session_key, result.data.session_key)
+										uni.setStorageSync(StorageConst.userId, result.data.userId)
 										uni.setStorageSync(StorageConst.token, `Bearer ${result.data.token}`)
 										uni.switchTab({
 											url: "/pages/Layout/Home/index"

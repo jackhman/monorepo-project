@@ -121,6 +121,7 @@ export class UserService {
       })
 
       data.token = jwtRes.token
+      data.userId = res.id
     }
     return data
   }
