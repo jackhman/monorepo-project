@@ -1,5 +1,12 @@
 <template>
   <view class="login-box">
+    <u-navbar
+      title="登录"
+      leftIconSize="0"
+      bgColor="#f8f8f8"
+      :titleStyle="{ color: '#000', 'font-weight': 700 }"
+    >
+    </u-navbar>
     <view class="logo-box">
       <image
         class="logo-img"
@@ -11,16 +18,15 @@
     <WebLogin></WebLogin>
     <!-- #endif-->
 
-		<!-- #ifdef MP-WEIXIN  -->
-		<WXLogin></WXLogin>
-		<!-- #endif -->
-		
+    <!-- #ifdef MP-WEIXIN  -->
+    <WXLogin></WXLogin>
+    <!-- #endif -->
   </view>
 </template>
 
 <script>
-import WebLogin from './components/WebLogin/WebLogin.vue';
-import WXLogin from './components/WXLogin/WXLogin.vue';
+import WebLogin from "./components/WebLogin/WebLogin.vue"
+import WXLogin from "./components/WXLogin/WXLogin.vue"
 export default {
   name: "LoginPage",
   components: {
@@ -35,6 +41,16 @@ export default {
   margin: 0 40rpx;
   padding-top: 300rpx;
   text-align: center;
+  .login-box-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--status-bar-height);
+    width: 100%;
+    background-color: rgb(248, 248, 248);
+    color: rgb(0, 0, 0);
+  }
 
   .logo-box {
     margin-bottom: 60rpx;
