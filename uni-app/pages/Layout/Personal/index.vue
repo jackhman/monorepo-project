@@ -29,7 +29,7 @@ export default {
       uni.redirectTo({
         url: "/pages/Login/index",
 				success: () => {
-					handleLogout()
+					handleLogout(false)
 				}
       })
     }

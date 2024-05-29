@@ -5,3 +5,6 @@ export const loginApi = params => request.post("user/login", params)
 
 /** 微信小程序登录 */
 export const wxLoginApi = params => request.post("user/wxLogin", params)
+
+/** 获取用户的信息 */
+export const getUserInfoApi = id => request.get(`user/${id}`)

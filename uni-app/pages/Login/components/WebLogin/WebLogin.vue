@@ -119,6 +119,7 @@ export default {
                   uni.switchTab({
                     url: "/pages/Layout/Home/index"
                   })
+                  this.$store.commit("user/MTU_userInfo", res.data)
                 } else {
                   this.$refs.uNotify.show({
                     type: "error",
