@@ -13,6 +13,7 @@ export default {
   actions: {
     async ACT_userInfo({ commit }) {
       try {
+        commit("app/MUT_Loading", true)
         const data = await getUserInfoApi(
           uni.getStorageSync(StorageConst.userId)
         )
@@ -21,7 +22,8 @@ export default {
         }
       } catch (e) {
         console.log(e)
-        //TODO handle the exception
+      } finally {
+        commit("app/MUT_Loading", false)
       }
     }
   }
