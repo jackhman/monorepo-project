@@ -39,7 +39,7 @@ export default {
 <style lang="scss" scoped>
 .login-box {
   margin: 0 40rpx;
-  padding-top: 300rpx;
+  padding-top: 400rpx;
   text-align: center;
   .login-box-top {
     position: absolute;

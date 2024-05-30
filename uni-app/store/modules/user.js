@@ -12,13 +12,16 @@ export default {
   },
   actions: {
     async ACT_userInfo({ commit }) {
-      try{
-      	const data = await getUserInfoApi(uni.getStorageSync(StorageConst.userId))
-				console.log(data);
-      	commit.MTU_userInfo()
-      }catch(e){
-				console.log(e);
-      	//TODO handle the exception
+      try {
+        const data = await getUserInfoApi(
+          uni.getStorageSync(StorageConst.userId)
+        )
+        if (data.code === 0) {
+          commit("MTU_userInfo", data.data)
+        }
+      } catch (e) {
+        console.log(e)
+        //TODO handle the exception
       }
     }
   }
