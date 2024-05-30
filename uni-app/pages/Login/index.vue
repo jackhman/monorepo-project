@@ -15,11 +15,11 @@
       ></image>
     </view>
     <!-- #ifdef WEB || APP-PLUS -->
-    <WebLogin></WebLogin>
+    <WebLogin @loginSuccess="loginSuccess"></WebLogin>
     <!-- #endif-->
 
     <!-- #ifdef MP-WEIXIN  -->
-    <WXLogin></WXLogin>
+    <WXLogin @loginSuccess="loginSuccess"></WXLogin>
     <!-- #endif -->
   </view>
 </template>
@@ -32,6 +32,11 @@ export default {
   components: {
     WebLogin,
     WXLogin
+  },
+  methods: {
+    loginSuccess(res) {
+      this.$store.commit("user/MTU_userInfo", res)
+    }
   }
 }
 </script>

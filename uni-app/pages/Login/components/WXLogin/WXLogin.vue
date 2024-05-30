@@ -36,6 +36,7 @@
 										uni.switchTab({
 											url: "/pages/Layout/Home/index"
 										})
+										this.$emit("loginSuccess", result.data)
 									} else {
 										uni.showToast({
 											title: "登录失败。。。",

@@ -2,9 +2,7 @@
 import AppUtils from "@/utils/modules/appUtils"
 export default {
   onLaunch: function () {
-		// #ifdef WEB
     AppUtils.handleFetchUserInfo(this)
-		// #endif
   },
   onShow: function () {
     console.log("App Show")

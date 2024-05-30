@@ -116,10 +116,11 @@ export default {
                 if (res.code === 0) {
                   uni.setStorageSync(StorageConst.token, `Bearer ${res.data.token}`)
 									uni.setStorageSync(StorageConst.userId, res.data.id)
+									this.$emit("loginSuccess", res.data)
                   uni.switchTab({
                     url: "/pages/Layout/Home/index"
                   })
-                  this.$store.commit("user/MTU_userInfo", res.data)
+
                 } else {
                   this.$refs.uNotify.show({
                     type: "error",

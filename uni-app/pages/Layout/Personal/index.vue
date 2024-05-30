@@ -1,5 +1,6 @@
 <template>
   <view>
+    <PersonalInfoVue></PersonalInfoVue>
     <u-modal
       :show="show"
       title="确定退出？"
@@ -15,9 +16,13 @@
 </template>
 
 <script>
-import { handleLogout } from '@/utils'
+import { handleLogout } from "@/utils"
+import PersonalInfoVue from "./components/PersonalInfo.vue"
 export default {
-	name: "PersonalPage",
+  name: "PersonalPage",
+  components: {
+    PersonalInfoVue
+  },
   data() {
     return {
       show: false
@@ -28,9 +33,9 @@ export default {
     logoutClick() {
       uni.redirectTo({
         url: "/pages/Login/index",
-				success: () => {
-					handleLogout(false)
-				}
+        success: () => {
+          handleLogout(false)
+        }
       })
     }
   }
