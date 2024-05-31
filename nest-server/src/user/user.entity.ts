@@ -10,7 +10,12 @@ export class User {
   userName: string
 
   // 用户昵称
-  @Column()
+  @Column({
+    type: "varchar",
+    length: 255,
+    charset: "utf8mb4",
+    collation: "utf8mb4_unicode_ci"
+  })
   nickName: string
 
   // 密码

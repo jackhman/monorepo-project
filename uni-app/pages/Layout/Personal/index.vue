@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="personal-page">
     <PersonalInfoVue></PersonalInfoVue>
     <u-modal
       :show="show"
@@ -12,10 +12,12 @@
       @close="show = false"
     ></u-modal>
     <button @click="show = true">退出登录</button>
+    <LoadingCom :loading="loading"></LoadingCom>
   </view>
 </template>
 
 <script>
+import { mapState } from "vuex"
 import { handleLogout } from "@/utils"
 import PersonalInfoVue from "./components/PersonalInfo.vue"
 export default {
@@ -27,6 +29,11 @@ export default {
     return {
       show: false
     }
+  },
+  computed: {
+    ...mapState({
+      loading: state => state.app.loading
+    })
   },
   methods: {
     // 退出登录
@@ -42,4 +49,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.personal-page {
+  padding: $base-page-pad;
+}
+</style>

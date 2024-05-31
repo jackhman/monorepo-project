@@ -22,6 +22,7 @@ import { ArticleModule } from './article/article.module';
       database: "server-mysql",
       autoLoadEntities: true,
       synchronize: true,
+      charset: "utf8mb4",
       namingStrategy: new CustomNamingStrategy() // 启用驼峰命名
     }),
     AuthModule,

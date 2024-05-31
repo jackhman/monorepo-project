@@ -7,8 +7,8 @@ Vue.use(Vuex) //vue的插件机制
 
 const store = new Vuex.Store({
   modules: {
+    app,
     user,
-    app
   }
 })
 export default store

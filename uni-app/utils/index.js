@@ -34,3 +34,8 @@ export function handleLogout(jumpFlag = true) {
     })
   }
 }
+
+/** 在 storage 中获取用户id */
+export function getUserIdStorage() {
+  return uni.getStorageSync(StorageConst.userId)
+}
