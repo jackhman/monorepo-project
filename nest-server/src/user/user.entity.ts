@@ -26,8 +26,9 @@ export class User {
 
   // 用户头像
   @Column({
-    default: "https://fastly.jsdelivr.net/npm/lz-npm-assets/images/gkd.gif",
-    comment: "用户头像"
+    // default: "https://fastly.jsdelivr.net/npm/lz-npm-assets/images/funny-round.png",
+    comment: "用户头像",
+    type: "longtext"
   })
   avatar: string
 

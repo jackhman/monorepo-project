@@ -32,6 +32,8 @@ export class UserService {
     user.userName = registerUserDto.userName
     user.password = registerUserDto.password
     user.nickName = registerUserDto.nickName || registerUserDto.userName
+    user.avatar =
+      "https://fastly.jsdelivr.net/npm/lz-npm-assets/images/funny-round.png"
     const userNameRes = await this.usersRepository.findOne({
       where: {
         userName: registerUserDto.userName

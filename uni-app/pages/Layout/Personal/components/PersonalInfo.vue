@@ -58,8 +58,7 @@ export default {
           const params = {
             avatar: "data:image/png;base64," + data
           }
-          console.log(params)
-          // this.ACT_updateUserInfo(params)
+          this.ACT_updateUserInfo(params)
         },
         fail: error => {
           console.log("fail", error)
