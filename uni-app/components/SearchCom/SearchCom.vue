@@ -43,7 +43,7 @@ export default {
     },
     createClick() {
 			uni.navigateTo({
-				url:"/pages/Create/Create"
+				url:"/pages/CreateEdit/CreateEdit"
 			})
     }
   }

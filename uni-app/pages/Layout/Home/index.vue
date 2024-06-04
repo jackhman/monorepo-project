@@ -51,7 +51,6 @@ export default {
     // 获取头部分类列表的数据
     async articleCategoryMethod() {
       const data = await articleCategoryApi({ level: 2 })
-      console.log(data)
       if (data.code === 0) {
         this.headerTabsList = data.data.map(item => {
           return {
