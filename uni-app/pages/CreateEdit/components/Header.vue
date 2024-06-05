@@ -5,6 +5,7 @@
       bgColor="#f8f8f8"
       :titleStyle="{ color: '#000', 'font-weight': 700 }"
       @leftClick="leftClick"
+      placeholder
     >
     </u-navbar>
   </view>
@@ -26,3 +27,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.create-edit-page {
+  /deep/ .u-navbar {
+    height: 100%;
+  }
+}
+</style>

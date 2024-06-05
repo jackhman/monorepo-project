@@ -1,6 +1,9 @@
 <template>
   <view class="create-edit-page">
     <HeaderVue :title="navBarTitle"></HeaderVue>
+    <view class="html-box">
+      <mp-html :content="html" />
+    </view>
   </view>
 </template>
 
@@ -12,7 +15,9 @@ export default {
     HeaderVue
   },
   data() {
-    return {}
+    return {
+      html: "<div>Hello World!</div>"
+    }
   },
   computed: {
     navBarTitle() {
@@ -25,5 +30,8 @@ export default {
 
 <style lang="scss" scoped>
 .create-edit-page {
+  .html-box {
+    height: 100%;
+  }
 }
 </style>
