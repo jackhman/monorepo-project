@@ -43,7 +43,7 @@ struct Index {
       .height(200)
       .width(200)
       .backgroundImage($r("app.media.ikun"), ImageRepeat.XY)
-      .backgroundImageSize({width: 50, height: 50})
+      .backgroundImageSize({ width: 50, height: 50 })
 
     }.width('100%')
     .height('100%')
