@@ -33,19 +33,49 @@ struct Index {
           Text('前往注册')
           Text("|").margin({ right: 10, left: 10 }).fontColor("#ffe6e6e6")
           Text('忘记密码')
-        }
-      }.padding(12)
+        }.margin({ bottom: 20 })
+      }
 
       // 背景图片
       Column() {
-        Text("这是一段文字").fontColor(Color.Yellow)
+        Text("你也是小黑子吗").fontColor(Color.Red).fontWeight(FontWeight.Bolder)
       }
       .height(200)
       .width(200)
+      .justifyContent(FlexAlign.Center)
       .backgroundImage($r("app.media.ikun"), ImageRepeat.XY)
       .backgroundImageSize({ width: 50, height: 50 })
 
+
+      // 综合案例
+      Column() {
+        Row() {
+          Column() {
+            Text("玩一玩").fontWeight(FontWeight.Bolder).fontSize(20).margin({ bottom: 10 })
+            Row() {
+              Text("签到兑礼").fontColor(Color.Gray).border({ width: { right: 1 }, color: "#ddd" })
+                .margin({ right: 10 }).padding({ right: 10 })
+              Text("超多大奖 超好玩").fontColor(Color.Gray)
+            }
+          }
+          .justifyContent(FlexAlign.Start)
+          .alignItems(HorizontalAlign.Start)
+
+          Row() {
+            Image($r("app.media.400x400")).width(50).height(60).margin({ right: 10 })
+            Image($r("app.media.ic_arrow_right")).width(24)
+          }
+        }
+        .height(100)
+        .width('100%')
+        .justifyContent(FlexAlign.SpaceBetween)
+        .border({ width: 4, color: "#ddd", radius: 6 })
+        .padding(12)
+        .margin({ top: 20, bottom: 20 })
+      }
+
     }.width('100%')
     .height('100%')
+    .padding(6)
   }
 }
