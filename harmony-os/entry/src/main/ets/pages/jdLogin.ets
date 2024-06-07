@@ -34,7 +34,7 @@ struct JdLogin {
         .height(40)
         .borderRadius(20)
         .justifyContent(FlexAlign.SpaceBetween)
-        .padding({ left: 10, right: 10 })
+        .padding({ left: 20, right: 10 })
 
         TextInput({
           placeholder: "请输入手机号"
