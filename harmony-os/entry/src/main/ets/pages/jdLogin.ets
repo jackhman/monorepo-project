@@ -96,7 +96,6 @@ struct JdLogin {
             .fillColor('#5ca248')
           Image($r("app.media.QQ"))
             .width(25)
-            .fillColor('#509ee1')
           Image($r("app.media.weibo"))
             .width(25)
             .fillColor('#bf493e')
