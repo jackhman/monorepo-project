@@ -84,15 +84,301 @@ struct ZFBPages {
           Scroll() {
             Column() {
               // 卡片部分
+              Row() {
+                Column() {
+                  Image($r('app.media.zfb_top_scan'))
+                    .fillColor('#fff')
+                    .width(40)
+                    .margin({
+                      bottom: 2
+                    })
+                  Text('扫一扫')
+                    .fontSize(16)
+                    .fontColor('#fff')
+                }
+                .layoutWeight(1)
+
+                Column() {
+                  Image($r('app.media.zfb_top_pay'))
+                    .fillColor('#fff')
+                    .width(40)
+                    .margin({
+                      bottom: 2
+                    })
+                  Text('收付款')
+                    .fontSize(16)
+                    .fontColor('#fff')
+                }
+                .layoutWeight(1)
+
+                Column() {
+                  Image($r('app.media.zfb_top_travel'))
+                    .fillColor('#fff')
+                    .width(40)
+                    .margin({
+                      bottom: 2
+                    })
+                  Text('出行')
+                    .fontSize(16)
+                    .fontColor('#fff')
+                }
+                .layoutWeight(1)
+
+                Column() {
+                  Image($r('app.media.zfb_top_card'))
+                    .fillColor('#fff')
+                    .width(40)
+                    .margin({
+                      bottom: 2
+                    })
+                  Text('卡包')
+                    .fontSize(16)
+                    .fontColor('#fff')
+                }
+                .layoutWeight(1)
+              }
+              .backgroundColor('#5b73e1')
+              .padding({
+                top: 10,
+                bottom: 20
+              })
+
+              Column() {
+
+                // 小卡片
+                Column({ space: 10 }) {
+                  Row() {
+                    Column() {
+                      Image($r('app.media.zfb_nav1'))
+                        .width(30)
+                        .margin({
+                          bottom: 2
+                        })
+                      Text("滴滴出行")
+                        .fontColor('#333')
+                        .fontSize(12)
+                    }
+                    .layoutWeight(1)
+
+                    Column() {
+                      Image($r('app.media.zfb_nav2'))
+                        .width(30)
+                        .margin({
+                          bottom: 2
+                        })
+                      Text("生活缴费")
+                        .fontColor('#333')
+                        .fontSize(12)
+                    }
+                    .layoutWeight(1)
+
+                    Column() {
+                      Image($r('app.media.zfb_nav3'))
+                        .width(30)
+                        .margin({
+                          bottom: 2
+                        })
+                      Text("股票")
+                        .fontColor('#333')
+                        .fontSize(12)
+                    }
+                    .layoutWeight(1)
+
+                    Column() {
+                      Image($r('app.media.zfb_nav4'))
+                        .width(30)
+                        .margin({
+                          bottom: 2
+                        })
+                      Text("蚂蚁森林")
+                        .fontColor('#333')
+                        .fontSize(12)
+                    }
+                    .layoutWeight(1)
+
+                    Column() {
+                      Image($r('app.media.zfb_nav5'))
+                        .width(30)
+                        .margin({
+                          bottom: 2
+                        })
+                      Text("手机充值")
+                        .fontColor('#333')
+                        .fontSize(12)
+                    }
+                    .layoutWeight(1)
+                  }
+
+                  Row() {
+                    Column() {
+                      Image($r('app.media.zfb_nav6'))
+                        .width(30)
+                        .margin({
+                          bottom: 2
+                        })
+                      Text("余额宝")
+                        .fontColor('#333')
+                        .fontSize(12)
+                    }
+                    .layoutWeight(1)
+
+                    Column() {
+                      Image($r('app.media.zfb_nav7'))
+                        .width(30)
+                        .margin({
+                          bottom: 2
+                        })
+                      Text("花呗")
+                        .fontColor('#333')
+                        .fontSize(12)
+                    }
+                    .layoutWeight(1)
+
+                    Column() {
+                      Image($r('app.media.zfb_nav8'))
+                        .width(30)
+                        .margin({
+                          bottom: 2
+                        })
+                      Text("飞猪旅行")
+                        .fontColor('#333')
+                        .fontSize(12)
+                    }
+                    .layoutWeight(1)
+
+                    Column() {
+                      Image($r('app.media.zfb_nav9'))
+                        .width(30)
+                        .margin({
+                          bottom: 2
+                        })
+                      Text("淘票票")
+                        .fontColor('#333')
+                        .fontSize(12)
+                    }
+                    .layoutWeight(1)
+
+                    Column() {
+                      Image($r('app.media.zfb_nav10'))
+                        .width(30)
+                        .margin({
+                          bottom: 2
+                        })
+                      Text("饿了么")
+                        .fontColor('#333')
+                        .fontSize(12)
+                    }
+                    .layoutWeight(1)
+                  }
+
+                  Row() {
+                    Column() {
+                      Image($r('app.media.zfb_nav11'))
+                        .width(30)
+                        .margin({
+                          bottom: 2
+                        })
+                      Text("读书听书")
+                        .fontColor('#333')
+                        .fontSize(12)
+                    }
+                    .layoutWeight(1)
+
+                    Column() {
+                      Image($r('app.media.zfb_nav12'))
+                        .width(30)
+                        .margin({
+                          bottom: 2
+                        })
+                      Text("基金")
+                        .fontColor('#333')
+                        .fontSize(12)
+                    }
+                    .layoutWeight(1)
+
+                    Column() {
+                      Image($r('app.media.zfb_nav13'))
+                        .width(30)
+                        .margin({
+                          bottom: 2
+                        })
+                      Text("直播广场")
+                        .fontColor('#333')
+                        .fontSize(12)
+                    }
+                    .layoutWeight(1)
+
+                    Column() {
+                      Image($r('app.media.zfb_nav14'))
+                        .width(30)
+                        .margin({
+                          bottom: 2
+                        })
+                      Text("医疗健康")
+                        .fontColor('#333')
+                        .fontSize(12)
+                    }
+                    .layoutWeight(1)
+
+                    Column() {
+                      Image($r('app.media.zfb_nav15_more'))
+                        .width(30)
+                        .margin({
+                          bottom: 2
+                        })
+                      Text("更多")
+                        .fontColor('#333')
+                        .fontSize(12)
+                    }
+                    .layoutWeight(1)
+                  }
+                }
+                .padding(10)
+
+                // 资讯
+                Row({ space: 5 }) {
+                  Image($r('app.media.zfb_pro_pic1'))
+                    .layoutWeight(1)
+                  Image($r('app.media.zfb_pro_pic2'))
+                    .layoutWeight(1)
+                  Image($r('app.media.zfb_pro_pic3'))
+                    .layoutWeight(1)
+                }
+
+                // 市民中心
+                Row(){
+                  Image($r('app.media.zfb_pro_list1'))
+                    .width('100%')
+                    .margin({
+                      top: 5,
+                      bottom: 5
+                    })
+                }
+
+                // 消费圈
+                Row(){
+                  Image($r('app.media.zfb_pro_list2'))
+                    .width('100%')
+                }
+              }
+              .width('100%')
+              .borderRadius({
+                topLeft: 20,
+                topRight: 20
+              })
+              .backgroundColor('#fff')
+              .padding({
+                left: 5,
+                right: 5,
+              })
 
             }
             .width('100%')
-            .padding({
-              top: 60,
-              bottom: 60
-            })
-          }
-          .height('100%')
+
+          }.margin({
+            top: 60,
+            bottom: 60
+          })
         }
 
         // 底部
@@ -148,7 +434,7 @@ struct ZFBPages {
       }
       .width("100%")
       .height('100%')
-      .backgroundColor(Color.Pink)
+      .backgroundColor('#5b73e1')
     }
   }
 }
