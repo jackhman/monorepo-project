@@ -366,7 +366,7 @@ struct ZFBPages {
                 topLeft: 20,
                 topRight: 20
               })
-              .backgroundColor('#fff')
+              .backgroundColor('#f5f5f5')
               .padding({
                 left: 5,
                 right: 5,
