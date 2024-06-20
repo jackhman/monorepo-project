@@ -1,3 +1,4 @@
+@Observed
 export class CommentItem {
   avatar: string
   name: string
@@ -58,6 +59,11 @@ export class CommentItem {
 
 export function handleCreateList() {
   return [
-    new CommentItem("https://fastly.jsdelivr.net/npm/lz-npm-assets/images/gkd.gif", `小火车况且况且-${Math.ceil(Math.random() * 10)}`,Math.ceil(Math.random() * 6),'这是一个评论', Math.ceil(Math.random() * 100), false, +new Date('2023-01-02'))
+    new CommentItem("https://fastly.jsdelivr.net/npm/lz-npm-assets/images/gkd.gif", `小火车况且况且-${Math.ceil(Math.random() * 10)}`,Math.ceil(Math.random() * 6),'这是一个评论', Math.ceil(Math.random() * 100), false, +new Date('2023-01-02')),
+    new CommentItem("https://fastly.jsdelivr.net/npm/lz-npm-assets/images/400x400.jpg", `小火车况且况且-${Math.ceil(Math.random() * 10)}`,Math.ceil(Math.random() * 6),'这是一个评论', Math.ceil(Math.random() * 100), false, +new Date('2022-01-02')),
+    new CommentItem("https://fastly.jsdelivr.net/npm/lz-npm-assets/images/funny-round.png", `小火车况且况且-${Math.ceil(Math.random() * 10)}`,Math.ceil(Math.random() * 6),'这是一个评论', Math.ceil(Math.random() * 100), false, +new Date('2024-01-02')),
+    new CommentItem("https://fastly.jsdelivr.net/npm/lz-npm-assets/images/ikun.jpeg", `小火车况且况且-${Math.ceil(Math.random() * 10)}`,Math.ceil(Math.random() * 6),'这是一个评论', Math.ceil(Math.random() * 100), false, +new Date('2024-06-02')),
+    new CommentItem("https://fastly.jsdelivr.net/npm/lz-npm-assets/images/jiaban.jpg", `小火车况且况且-${Math.ceil(Math.random() * 10)}`,Math.ceil(Math.random() * 6),'这是一个评论', Math.ceil(Math.random() * 100), false, +new Date('2024-06-12')),
+    new CommentItem("https://fastly.jsdelivr.net/npm/lz-npm-assets/images/default-avatar.jpg", `小火车况且况且-${Math.ceil(Math.random() * 10)}`,Math.ceil(Math.random() * 6),'这是一个评论', Math.ceil(Math.random() * 100), false, +new Date('2023-04-02')),
   ]
 }

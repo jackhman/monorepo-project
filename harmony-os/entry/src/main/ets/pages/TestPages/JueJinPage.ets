@@ -3,12 +3,11 @@ import ListItemInfo from "../../components/JueJin/ListItemInfo"
 import BottomComment from "../../components/JueJin/BottomComment"
 import { handleCreateList, CommentItem } from "../../assets/model/JueJinList"
 
-const list: CommentItem[] = handleCreateList()
-console.log(JSON.stringify(list))
 @Entry
 @Component
 struct JueJinPage {
 
+  @State commitList: CommentItem[] = handleCreateList()
 
 
   build() {
@@ -17,12 +16,15 @@ struct JueJinPage {
       HeaderInfo()
       // 中间内容
       Column() {
-        List() {
-          ForEach(Array.from({ length: 20 }), () => {
+        List({space: 10}) {
+          ForEach(this.commitList, (item: CommentItem, index: number) => {
             ListItem() {
-              ListItemInfo()
+              ListItemInfo({
+                listItem: item
+              })
             }
           })
+
         }
       }
       .layoutWeight(1)

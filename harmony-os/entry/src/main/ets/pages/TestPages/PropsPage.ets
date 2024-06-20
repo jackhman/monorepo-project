@@ -1,13 +1,10 @@
 // 使用 props 进行父子组件传值
-
 @Component
 struct SonCom {
-
+  // 父子间传递过来的数据使用 @Prop 进行接受
   @Prop sonCar: string
-
   // 修改传递的参数
   changeInfo = (info: string)=> {}
-
   build() {
     Column() {
       Text(`这是子组件的盒子--- ${this.sonCar}`)
@@ -39,6 +36,7 @@ struct PropsPage {
       Button('修改父组件的数据').onClick((event: ClickEvent) => {
         this.info = '领克 08---' + Math.ceil(Math.random() * 10)
       })
+      // 这是子组件
       SonCom({
         sonCar: this.info,
         changeInfo: this.changeInfo
