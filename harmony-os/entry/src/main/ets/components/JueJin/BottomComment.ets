@@ -4,18 +4,34 @@
 
 @Component
 struct BottomComment {
+  @State inputTxt: string = '555'
+  handleSubmit = (inputTxt: string) => {
+  }
+
   build() {
     Row() {
-      Row(){
+      Row() {
         Image('/assets/images/JueJin/编辑.svg')
           .handleImg()
           .margin({
             left: 10
           })
         TextInput({
-          placeholder: '评论一些什么...'
+          placeholder: '评论一些什么...',
+          text: this.inputTxt
         })
           .backgroundColor(Color.Transparent)
+          .onChange((value: string) => {
+            this.inputTxt = value
+          })
+          .onSubmit(() => {
+            if (this.inputTxt) {
+              this.handleSubmit(this.inputTxt)
+              this.inputTxt = ""
+            }
+
+          })
+
       }
       .margin({
         left: 20
