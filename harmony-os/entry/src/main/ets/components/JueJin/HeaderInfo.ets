@@ -20,6 +20,9 @@
 struct HeaderInfo {
   @State focusOn: boolean = true
 
+  handleSort = (index: number) => {}
+
+
   build() {
     Row() {
       Text('全部评论')
@@ -30,10 +33,16 @@ struct HeaderInfo {
       Row() {
         Text('最新')
           .handleTextStyle(this.focusOn)
-          .onClick(() => this.focusOn = true)
+          .onClick(() => {
+            this.focusOn = true
+            this.handleSort(0)
+          })
         Text('最热')
           .handleTextStyle(!this.focusOn)
-          .onClick(() => this.focusOn = false)
+          .onClick(() => {
+            this.focusOn = false
+            this.handleSort(1)
+          })
       }
       .backgroundColor('#f7f8fa')
       .border({

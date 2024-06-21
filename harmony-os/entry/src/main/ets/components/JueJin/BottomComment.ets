@@ -4,7 +4,7 @@
 
 @Component
 struct BottomComment {
-  @State inputTxt: string = '555'
+  @State inputTxt: string = ''
   handleSubmit = (inputTxt: string) => {
   }
 

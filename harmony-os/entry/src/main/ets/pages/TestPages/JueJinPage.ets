@@ -9,18 +9,36 @@ struct JueJinPage {
 
   @State commitList: CommentItem[] = handleCreateList()
 
+  aboutToAppear(){
+    this.handleSort(0)
+  }
 
   // 处理提交
-  handleSubmit = (value: string) => {
+  handleSubmit(value: string){
     const newItem = new CommentItem('https://fastly.jsdelivr.net/npm/lz-npm-assets/images/ikun.jpeg', `小火车况且况且-${Math.ceil(Math.random() * 10)}`,Math.ceil(Math.random() * 6),value, Math.ceil(Math.random() * 100), false, +new Date())
     this.commitList = [newItem, ...this.commitList]
   }
 
+  // 处理排序
+  handleSort(index: number) {
+    // 根据时间排序
+    if(index === 0) {
+      this.commitList.sort((a, b) => b.timeStamp  - a.timeStamp)
+    }
+    // 根据点赞量排序
+    else if(index === 1) {
+      this.commitList.sort((a, b) => b.likeNum  - a.likeNum)
+    }
+  }
 
   build() {
     Column() {
       // 头部
-      HeaderInfo()
+      HeaderInfo({
+        handleSort: (index: number)=> {
+          this.handleSort(index)
+        }
+      })
       // 中间内容
       Column() {
         List({space: 10}) {
