@@ -1,7 +1,6 @@
 @Extend(TextInput) function textInputExtend() {
   .height(50)
   .borderRadius(50)
-
 }
 
 @Extend(Image) function loginTypeExtend() {
@@ -44,17 +43,41 @@ struct LoginPage {
           .onSubmit(()=> {
 
           })
+
+        Row(){
+          Text('短信验证码登录')
+            .fontColor(Color.Blue)
+          Text('忘记密码')
+            .fontColor(Color.Red)
+        }
+        .width('100%')
+        .margin({
+          bottom: 10,
+          top : 10
+        })
+        .justifyContent(FlexAlign.SpaceBetween)
+
+        Button("登录")
+          .width('100%')
+
+        Text('其他登录方式')
+        .margin({
+          bottom: 10,
+          top: 10
+        })
+
+        Row({ space: 60 }) {
+          Image($r('app.media.wechat'))
+            .loginTypeExtend()
+          Image($r('app.media.huawei'))
+            .loginTypeExtend()
+          Image($r('app.media.qq'))
+            .loginTypeExtend()
+        }
       }
       .padding(16)
 
-      Row({ space: 60 }) {
-        Image($r('app.media.wechat'))
-          .loginTypeExtend()
-        Image($r('app.media.huawei'))
-          .loginTypeExtend()
-        Image($r('app.media.qq'))
-          .loginTypeExtend()
-      }
+
     }
     .width('100%')
     .height('100%')
