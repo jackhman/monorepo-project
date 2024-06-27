@@ -1,17 +1,88 @@
-@Extend(TextInput) function textInputExtend() {
+import router from '@ohos.router'
+
+@Extend(TextInput)
+function textInputExtend() {
   .height(50)
   .borderRadius(50)
 }
 
-@Extend(Image) function loginTypeExtend() {
+@Extend(Image)
+function loginTypeExtend() {
   .width(30)
+}
+
+const usernameErrorText: string = '请输入用户名'
+const passwordErrorText: string = '请输入密码'
+
+enum TypeEnum {
+  password = 'password',
+  username = 'username'
 }
 
 @Entry
 @Component
 struct LoginPage {
   @State username: string = ''
+  @State usernameErrorText: string = ''
   @State password: string = ''
+  @State passwordErrorText: string = ''
+
+  // 用来处理提交
+  handleSubmit() {
+    if (this.password && this.username) {
+
+      AlertDialog.show({
+        message: `用户名和密码是 ${this.username} ${this.password}`,
+        confirm: {
+          value: '确定',
+          action: () => {
+            router.pushUrl({
+              url:"pages/HomePage/HomePage"
+            })
+          }
+        },
+      })
+    } else {
+      if (!this.username) {
+        this.usernameErrorText = usernameErrorText
+      }
+      if (!this.password) {
+        this.passwordErrorText = passwordErrorText
+      }
+      return
+    }
+  }
+
+  // 用来处理编辑器改变事件
+  handleEditChange(isEditing: boolean, thisVariable: string, errorText: string, type: TypeEnum) {
+
+    // 说明没有输入了，需要校验是否为空
+    if (isEditing === false) {
+      if (!thisVariable) {
+        if (type === TypeEnum.password) {
+          this.passwordErrorText = errorText
+        } else if (type === TypeEnum.username) {
+          this.usernameErrorText = errorText
+        }
+      }
+      // 说明现在是有数据的，需要重置错误的高亮
+      else {
+        if (type === TypeEnum.password) {
+          this.passwordErrorText = ''
+        } else if (type === TypeEnum.username) {
+          this.usernameErrorText = ''
+        }
+      }
+    } else {
+      if (thisVariable) {
+        if (type === TypeEnum.password) {
+          this.passwordErrorText = ''
+        } else if (type === TypeEnum.username) {
+          this.usernameErrorText = ''
+        }
+      }
+    }
+  }
 
   build() {
     Column() {
@@ -28,23 +99,44 @@ struct LoginPage {
       }
 
       Column({ space: 10 }) {
-        TextInput({ placeholder: '请输入用户名', text: this.username })
+        TextInput({ placeholder: usernameErrorText, text: $$this.username })
           .textInputExtend()
-          .onChange((value: string) => {
-            this.username = value
+          .border({
+            width: 1,
+            color: this.usernameErrorText ? '#99FA2A2D' : Color.Transparent
+          })
+          .type(InputType.Normal)
+          .showError(this.usernameErrorText)
+          .onChange(() => {
+            if (this.username) {
+              this.usernameErrorText = ''
+            }
+          })
+          .onEditChange((isEditing: boolean) => {
+            this.handleEditChange(isEditing, this.username, usernameErrorText, TypeEnum.username)
           })
 
-        TextInput({ placeholder: '请输入密码',text: this.password })
+        TextInput({ placeholder: passwordErrorText, text: $$this.password })
           .textInputExtend()
           .type(InputType.Password)
-          .onChange((value: string) => {
-            this.password = value
+          .showError(this.passwordErrorText)
+          .onChange(() => {
+            if (this.password) {
+              this.passwordErrorText = ''
+            }
           })
-          .onSubmit(()=> {
-
+          .onSubmit(() => {
+            if (!this.password) {
+              this.passwordErrorText = passwordErrorText
+            } else {
+              this.passwordErrorText = ''
+            }
+          })
+          .onEditChange((isEditing: boolean) => {
+            this.handleEditChange(isEditing, this.password, passwordErrorText, TypeEnum.password)
           })
 
-        Row(){
+        Row() {
           Text('短信验证码登录')
             .fontColor(Color.Blue)
           Text('忘记密码')
@@ -53,18 +145,21 @@ struct LoginPage {
         .width('100%')
         .margin({
           bottom: 10,
-          top : 10
+          top: 10
         })
         .justifyContent(FlexAlign.SpaceBetween)
 
         Button("登录")
           .width('100%')
+          .onClick(() => {
+            this.handleSubmit()
+          })
 
         Text('其他登录方式')
-        .margin({
-          bottom: 10,
-          top: 10
-        })
+          .margin({
+            bottom: 10,
+            top: 10
+          })
 
         Row({ space: 60 }) {
           Image($r('app.media.wechat'))
@@ -76,7 +171,6 @@ struct LoginPage {
         }
       }
       .padding(16)
-
 
     }
     .width('100%')
