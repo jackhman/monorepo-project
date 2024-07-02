@@ -36,7 +36,7 @@ struct LoginPage {
         confirm: {
           value: '确定',
           action: () => {
-            router.pushUrl({
+            router.replaceUrl({
               url:"pages/HomePage/HomePage"
             })
           }
