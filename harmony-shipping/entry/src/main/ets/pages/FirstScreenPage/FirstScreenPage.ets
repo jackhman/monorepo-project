@@ -9,7 +9,6 @@ struct FirstScreenPage {
 
   aboutToAppear(): void {
     this.interval = setInterval(() => {
-      console.log("88888")
       if (this.time === 0) {
         this.jump()
       }
