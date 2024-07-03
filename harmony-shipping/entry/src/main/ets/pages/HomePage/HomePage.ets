@@ -1,14 +1,16 @@
 @Entry
 @Component
-struct HomePage {
+export struct HomePage {
   @State message: string = '首页'
 
   build() {
     Row() {
       Column() {
-        Text(this.message)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
+        ForEach(Array.from({ length: 100 }), (item:number, i: number) => {
+          Text(this.message + i)
+            .fontSize(50)
+            .fontWeight(FontWeight.Bold)
+        })
       }
       .width('100%')
     }
