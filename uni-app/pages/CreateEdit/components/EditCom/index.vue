@@ -158,7 +158,6 @@
 
 <script>
 import mpHtml from "@/components/mp-html/mp-html"
-import content from "./content"
 // 上传图片方法
 function upload(src, type) {
   return new Promise((resolve, reject) => {
@@ -186,7 +185,7 @@ function remove(src) {
 export default {
   data() {
     return {
-      content,
+      content: "",
       modal: null,
       dialog: false,
       editable: true,
@@ -536,7 +535,6 @@ page {
   position: fixed;
   width: 100%;
   z-index: 999;
-  top: 0;
   background-color: #ededed;
   padding: 5px;
   box-sizing: border-box;

@@ -1,23 +1,21 @@
 <template>
   <view class="create-edit-page">
     <HeaderVue :title="navBarTitle"></HeaderVue>
-    <view class="html-box">
-      <mp-html :content="html" />
-    </view>
+    <EditCom></EditCom>
   </view>
 </template>
 
 <script>
 import HeaderVue from "./components/Header.vue"
+import EditCom from "./components/EditCom/index.vue"
 export default {
   name: "CreateEditPage",
   components: {
-    HeaderVue
+    HeaderVue,
+    EditCom
   },
   data() {
-    return {
-      html: "<div>Hello World!</div>"
-    }
+    return {}
   },
   computed: {
     navBarTitle() {

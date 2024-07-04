@@ -5,12 +5,14 @@ export struct HomePage {
 
   build() {
     Row() {
-      Column() {
-        ForEach(Array.from({ length: 100 }), (item:number, i: number) => {
-          Text(this.message + i)
-            .fontSize(50)
-            .fontWeight(FontWeight.Bold)
-        })
+      Scroll() {
+        Column(){
+          ForEach(Array.from({ length: 100 }), (item:number, i: number) => {
+            Text(this.message + i)
+              .fontSize(50)
+              .fontWeight(FontWeight.Bold)
+          })
+        }
       }
       .width('100%')
     }
