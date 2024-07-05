@@ -42,7 +42,7 @@
     <view style="padding-top: 90px">
       <mp-html
         ref="article"
-        container-style="padding:20px;min-height:calc(100vh - 130px)"
+        container-style="padding:20px;min-height:calc(100vh - 190px)"
         :content="content"
         domain="https://mp-html.oss-cn-hangzhou.aliyuncs.com"
         :tag-style="tagStyle"
@@ -153,6 +153,22 @@
         </view>
       </view>
     </view>
+
+    <!-- 点击保存的时候，需要预览当前的内容 -->
+    <u-modal
+      :show="previewShow"
+      title="预览"
+      :asyncClose="true"
+			showCancelButton
+      @confirm="previewConfirm"
+			@cancel="previewShow = false"
+    >
+      <view class="slot-content" style="width: 100%;height: 600px;overflow: auto;">
+        <mp-html
+          :content="previewContent"
+        />
+      </view>
+    </u-modal>
   </view>
 </template>
 
@@ -210,7 +226,10 @@ export default {
         '<section style="text-align: center; margin: 0px auto;"><section style="border-radius: 4px; border: 1px solid #757576; display: inline-block; padding: 5px 20px;"><span style="font-size: 18px; color: #595959;">标题</span></section></section>',
         '<div style="width: 100%; box-sizing: border-box; border-radius: 5px; background-color: #f6f6f6; padding: 10px; margin: 10px 0"><div>卡片</div><div style="font-size: 12px; color: gray">正文</div></div>',
         '<div style="border: 1px solid gray; box-shadow: 3px 3px 0px #cfcfce; padding: 10px; margin: 10px 0">段落</div>'
-      ]
+      ],
+      // 用于预览
+      previewContent: "",
+      previewShow: false
     }
   },
   components: {
@@ -501,26 +520,17 @@ export default {
       setTimeout(() => {
         if (this.editable) {
           var content = this.$refs.article.getContent()
-          uni.showModal({
-            title: "保存",
-            content,
-            confirmText: "完成",
-            success: res => {
-              if (res.confirm) {
-                // 复制到剪贴板
-                uni.setClipboardData({
-                  data: content
-                })
-                this.content = content
-                // 结束编辑
-                this.editable = false
-              }
-            }
-          })
+          this.previewShow = true
+          this.previewContent = content
         } else {
           this.editable = this._editmode
         }
       }, 50)
+    },
+    // 预览确定按钮
+    previewConfirm() {
+      console.log(1231231)
+      this.previewShow = false
     }
   }
 }
