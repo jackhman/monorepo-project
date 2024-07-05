@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useReducer } from "react"
 import { useParams } from "react-router-dom"
 import { Input, Button, message } from "antd"
-import E from "wangeditor"
-import hljs from "highlight.js"
-import "highlight.js/styles/monokai-sublime.css"
+import { Editor, Toolbar } from "@wangeditor/editor-for-react"
+import { IDomEditor, IEditorConfig, IToolbarConfig } from "@wangeditor/editor"
+import "@wangeditor/editor/dist/css/style.css" // 引入 css
 
 import "./index.scss"
 import PreviewModalCom from "./components/PreviewModal"
@@ -22,6 +22,7 @@ import {
   ArticleCategoryLevelEnum,
   ArticleSaveTypeEnum
 } from "@shared/enum/article-enum"
+import { getUserIdStorage } from "@/utils/modules/commonSave"
 
 const ACTIONS_TYPE = {
   /** 编辑器 */
@@ -77,6 +78,10 @@ const ArticleCreate = () => {
   // 初始化 用来获取 url 地址栏的数据
   const { id: getId } = useParams()
   const [state, dispatch] = useReducer(reducers, new InitialState())
+
+  const [editor, setEditor] = useState<IDomEditor | null>(null)
+  // 编辑器内容
+  const [html, setHtml] = useState("<p>hello</p>")
   // 获取 文章分类的数据
   const [articleCate, setArticleCate] = useState<ArticleCategoryDto[]>([])
 
@@ -84,7 +89,14 @@ const ArticleCreate = () => {
   const [articleParams, setArticleParams] = useState<ArticleSaveOrEditDto>(
     () => new ArticleSaveOrEditDto()
   )
-  // 初始化 编辑器 、 获取文章分类数据
+
+  // 工具栏配置
+  const toolbarConfig: Partial<IToolbarConfig> = {} // TS 语法
+  // 编辑器配置
+  const editorConfig: Partial<IEditorConfig> = {
+    placeholder: "请输入内容..."
+  }
+  // 初始化 编辑器、获取文章分类数据
   useEffect(() => {
     (async function () {
       const data = await getArticleCategoryApi({
@@ -94,24 +106,6 @@ const ArticleCreate = () => {
         setArticleCate(data.data)
       } else setArticleCate([])
     })()
-
-    // setEditor(new E('#content'))
-    dispatch({ type: ACTIONS_TYPE.EDITOR, data: new E("#content") })
-  }, [])
-
-  // 初始化编辑器的配置
-  useEffect(() => {
-    const { editor } = state
-    if (editor === null) return
-    // 配置 zindex
-    editor.config.zIndex = 500
-    // 图片上传的格式为 base64
-    editor.config.uploadImgShowBase64 = true
-    // 设置编辑区域高度为 500px
-    editor.config.height = 800
-    // 配置代码高亮
-    editor.highlight = hljs
-    editor.create()
 
     // 说明 是编辑
     if (getId) {
@@ -130,29 +124,32 @@ const ArticleCreate = () => {
               })
             }
           }
-          editor?.txt.html(data.data.content)
+          setHtml(data.data.content)
         }
       })()
     }
-
     return () => {
-      editor && editor.destroy()
+      if (editor == null) return
+      editor.destroy()
+      setEditor(null)
     }
-  }, [state.editor])
+  }, [])
 
   /** 预览按钮 */
   const previewBtn = useCallback(() => {
-    if (!state.editor.txt.text()) {
+    if(!editor) return
+    if (!editor.getText()) {
       return message.warning("请输入正确的内容", 1)
     }
     setArticleParams(prev => {
       return {
         ...prev,
-        content: state.editor.txt.html()
+        userId: getUserIdStorage(),
+        content: editor.getHtml()
       }
     })
     dispatch({ type: ACTIONS_TYPE.PREVIEWMODEL, data: true })
-  }, [state.editor])
+  }, [editor])
 
   // 预览按钮 是否可以点击
   useEffect(() => {
@@ -233,7 +230,22 @@ const ArticleCreate = () => {
         </div>
       </div>
       {/* 内容区域 */}
-      <div id="content"></div>
+      <div>
+        <Toolbar
+          editor={editor}
+          defaultConfig={toolbarConfig}
+          mode="default"
+          style={{ borderBottom: "1px solid #ccc" }}
+        />
+        <Editor
+          defaultConfig={editorConfig}
+          value={html}
+          onCreated={setEditor}
+          onChange={editor => setHtml(editor.getHtml())}
+          mode="default"
+          style={{ height: "500px", overflowY: "hidden" }}
+        />
+      </div>
       {/* 预览 */}
       <PreviewModalCom
         isModalVisible={state.isPreviewModal}
