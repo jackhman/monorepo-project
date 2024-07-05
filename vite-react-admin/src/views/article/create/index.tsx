@@ -25,8 +25,6 @@ import {
 import { getUserIdStorage } from "@/utils/modules/commonSave"
 
 const ACTIONS_TYPE = {
-  /** 编辑器 */
-  EDITOR: "editor",
   /** 用来设置 modal 的显示隐藏 */
   PREVIEWMODEL: "previewModal",
   /** 监听预览按钮的状态 */
@@ -51,11 +49,6 @@ function reducers(
   action: { type: string; data: any }
 ): any {
   switch (action.type) {
-    case ACTIONS_TYPE.EDITOR:
-      return {
-        ...state,
-        editor: action.data
-      }
     case ACTIONS_TYPE.PREVIEWMODEL:
       return {
         ...state,
@@ -81,7 +74,7 @@ const ArticleCreate = () => {
 
   const [editor, setEditor] = useState<IDomEditor | null>(null)
   // 编辑器内容
-  const [html, setHtml] = useState("<p>hello</p>")
+  const [html, setHtml] = useState("")
   // 获取 文章分类的数据
   const [articleCate, setArticleCate] = useState<ArticleCategoryDto[]>([])
 
