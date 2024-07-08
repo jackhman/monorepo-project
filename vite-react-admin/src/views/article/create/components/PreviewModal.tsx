@@ -7,7 +7,9 @@ import {
   Col,
   RadioChangeEvent,
   Spin,
-  Upload
+  Upload,
+  Input,
+  Image
 } from "antd"
 import { PlusOutlined } from "@ant-design/icons"
 import { getUserIdStorage } from "@/utils/modules/commonSave"
@@ -40,10 +42,25 @@ interface IPreviewModal {
   setArticleCateValue: (type: string) => void
 }
 
+// 单图片上传的选择枚举
+enum SignPicEnum {
+  // 本地
+  local = "local",
+  // 网络
+  network = "network"
+}
+
 /** 编辑文章的预览 */
 const PreviewModalCom = (props: IPreviewModal) => {
   // 提交按钮的禁用状态
   const [articleConfirmDisabled, setArticleConfirmDisabled] = useState(true)
+
+  // 单图片上传的单选框
+  const [singPicUpload, setSingPicUpload] = useState<SignPicEnum>(
+    SignPicEnum.network
+  )
+  // 单图片上传的 网络地址
+  const [signPicNetworkSrc, setSignPicNetworkSrc] = useState("")
   const {
     isModalVisible,
     articleCateList,
@@ -95,6 +112,17 @@ const PreviewModalCom = (props: IPreviewModal) => {
     }
   }
 
+  /** 单个图片的网络上传 */
+  const signPicNetworkChange = e => {
+    setSignPicNetworkSrc(e.target.value)
+    const coverImagesList: ArticleCoverDto = {
+      size: 1,
+      images: []
+    }
+    coverImagesList.images[1] = e.target.value
+    setArticleCoverImage(coverImagesList)
+  }
+
   /** 文章分类改变事件 */
   const changeArticleCate = useCallback(
     (e: RadioChangeEvent): void => {
@@ -102,6 +130,11 @@ const PreviewModalCom = (props: IPreviewModal) => {
     },
     [articleParams.categoryId]
   )
+
+  /** 单图片上传的 radio 修改事件 */
+  const signPicRadioOnChange = (e: RadioChangeEvent) => {
+    setSingPicUpload(e.target.value)
+  }
 
   // 用来处理编辑的时候,弹出框按钮的状态
   useMemo(() => {
@@ -158,26 +191,67 @@ const PreviewModalCom = (props: IPreviewModal) => {
                 >
                   {/* 说明是单图片上传 */}
                   {articleParams.coverImages.size === 1 && (
-                    <Upload
-                      action=""
-                      listType="picture-card"
-                      showUploadList={false}
-                      customRequest={file => coverImagesRequest(file, 0)}
-                      onChange={coverImagesUploadChange}
-                    >
-                      <div className="picture-card-div-img">
-                        {articleParams.coverImages.images[0] ? (
-                          <img
-                            src={articleParams.coverImages.images[0]}
-                            alt="avatar"
-                          />
-                        ) : (
-                          <div>
-                            <PlusOutlined />
+                    <div className="sign-pic-box">
+                      <Radio.Group
+                        onChange={signPicRadioOnChange}
+                        value={singPicUpload}
+                        style={{
+                          marginBottom: "10px"
+                        }}
+                      >
+                        <Radio value={SignPicEnum.local}>本地上传</Radio>
+                        <Radio value={SignPicEnum.network}>网络地址</Radio>
+                      </Radio.Group>
+                      {singPicUpload === SignPicEnum.local && (
+                        <Upload
+                          action=""
+                          listType="picture-card"
+                          showUploadList={false}
+                          customRequest={file => coverImagesRequest(file, 0)}
+                          onChange={coverImagesUploadChange}
+                        >
+                          <div className="picture-card-div-img">
+                            {articleParams.coverImages.images[0] ? (
+                              <img
+                                src={articleParams.coverImages.images[0]}
+                                alt="avatar"
+                              />
+                            ) : (
+                              <div>
+                                <PlusOutlined />
+                              </div>
+                            )}
                           </div>
-                        )}
-                      </div>
-                    </Upload>
+                        </Upload>
+                      )}
+                      {singPicUpload === SignPicEnum.network && (
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            flexDirection: "column"
+                          }}
+                        >
+                          <Input
+                            className="img-input"
+                            placeholder="请输入图片地址"
+                            allowClear
+                            value={signPicNetworkSrc}
+                            onChange={signPicNetworkChange}
+                          />
+                          <Image
+                            preview={false}
+                            style={{
+                              marginTop: "10px",
+                              width: "150px",
+                              height: "150px",
+                              borderRadius: "10px"
+                            }}
+                            src={signPicNetworkSrc}
+                          />
+                        </div>
+                      )}
+                    </div>
                   )}
                   {/* 说明是 三图片上传 */}
                   {articleParams.coverImages.size === 3 &&
