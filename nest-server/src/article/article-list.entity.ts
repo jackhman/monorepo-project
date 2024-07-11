@@ -1,4 +1,10 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
+} from "typeorm"
 import { ArticleStatusEnum } from "@shared/enum/article-enum"
 import { DataBaseDeletedEnum } from "@shared/enum"
 import { ArticleCoverDto } from "@shared/dto/article.dto"
@@ -58,7 +64,11 @@ export class ArticleList {
   /** 文章封面 */
   @Column({
     nullable: true,
-    type: "varchar"
+    type: "varchar",
+    transformer: {
+      to: (value: ArticleCoverDto) => JSON.stringify(value),
+      from: (value: string) => JSON.parse(value) as ArticleCoverDto
+    }
   })
   coverImages: ArticleCoverDto
 

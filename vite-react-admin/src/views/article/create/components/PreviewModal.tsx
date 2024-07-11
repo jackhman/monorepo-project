@@ -113,13 +113,13 @@ const PreviewModalCom = (props: IPreviewModal) => {
   }
 
   /** 单个图片的网络上传 */
-  const signPicNetworkChange = e => {
-    setSignPicNetworkSrc(e.target.value)
+  const signPicNetworkConfirm = () => {
     const coverImagesList: ArticleCoverDto = {
       size: 1,
       images: []
     }
-    coverImagesList.images[1] = e.target.value
+    coverImagesList.images[0] = signPicNetworkSrc
+    console.log(coverImagesList)
     setArticleCoverImage(coverImagesList)
   }
 
@@ -232,13 +232,18 @@ const PreviewModalCom = (props: IPreviewModal) => {
                             flexDirection: "column"
                           }}
                         >
-                          <Input
-                            className="img-input"
-                            placeholder="请输入图片地址"
-                            allowClear
-                            value={signPicNetworkSrc}
-                            onChange={signPicNetworkChange}
-                          />
+                          <div>
+                            <Input
+                              className="img-input"
+                              placeholder="请输入图片地址"
+                              allowClear
+                              value={signPicNetworkSrc}
+                              onChange={(e) => setSignPicNetworkSrc(e.target.value)}
+                            />
+                            <Button style={{
+                              marginLeft: 10
+                            }} type="primary" onClick={signPicNetworkConfirm}>确定</Button>
+                          </div>
                           <Image
                             preview={false}
                             style={{

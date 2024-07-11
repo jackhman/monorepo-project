@@ -18,6 +18,8 @@ export class ArticleCategoryLevelDto {
 
 /** 文章列表 */
 export class ArticleDto {
+
+  private _coverImages: string
   id: string
   /** 文章标题 */
   @IsNotEmpty()
