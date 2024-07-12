@@ -65,7 +65,7 @@ const ArticleList = () => {
     {
       title: "序号",
       dataIndex: "index",
-      render: index => {
+      render: (_text, _record, index) => {
         return (pageParams.current - 1) * pageParams.pageSize + index + 1
       }
     },
